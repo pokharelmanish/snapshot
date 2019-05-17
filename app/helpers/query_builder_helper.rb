@@ -8,7 +8,7 @@ module QueryBuilderHelper
   MEDIUM_BOOST = '4'
   HIGH_BOOST = '14'
   SUPER_BOOST = '20'
-  SIZE = '250'
+  SIZE = '25'
   TRACK_SCORES = 'true'
   REQUIRE_FIELD_MATCH = 'false'
   MIN_SCORE = '2.5'
