@@ -4,8 +4,24 @@ import PersonSearchResults from 'common/search/PersonSearchResults'
 import {SHOW_MODE} from 'actions/screeningPageActions'
 
 describe('PersonSearchResults', () => {
-  const renderPersonSearchResults = (props) => (
-    shallow(<PersonSearchResults {...props}/>, {disableLifecycleMethods: true})
+  const renderPersonSearchResults = (
+    {
+      total = 0,
+      resultsSubset = [],
+      setCurrentPageNumber = () => {},
+      setCurrentRowNumber = () => {},
+      onLoadMoreResults = () => {},
+      personSearchFields = {},
+    } = {}) => (
+    shallow(
+      <PersonSearchResults
+        total={total}
+        resultsSubset={resultsSubset}
+        setCurrentPageNumber={setCurrentPageNumber}
+        setCurrentRowNumber={setCurrentRowNumber}
+        onLoadMoreResults={onLoadMoreResults}
+        personSearchFields={personSearchFields}
+      />, {disableLifecycleMethods: true})
   )
 
   it('renders Card View', () => {

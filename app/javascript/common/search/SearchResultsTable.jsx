@@ -7,6 +7,14 @@ import {capitalizedStr} from 'utils/textFormatter'
 import {Link} from 'react-router'
 
 class SearchResultsTable extends Component {
+  constructor() {
+    super()
+    this.state = {
+      previousPage: -1,
+    }
+    this.fetchData = this.fetchData.bind(this)
+  }
+
   columns = [
     {
       Header: '',
@@ -61,21 +69,49 @@ class SearchResultsTable extends Component {
     },
   ]
 
+  fetchData(pageIndex) {
+    const previousPage = this.state.previousPage
+    const currentPage = pageIndex + 1
+    this.props.setCurrentPageNumber(currentPage)
+    if (currentPage > previousPage) {
+      this.props.onLoadMoreResults(this.props.personSearchFields)
+    }
+    this.setState({previousPage: pageIndex})
+  }
+
+  setRowAndFetchData(pageSize, pageIndex) {
+    const currentPage = pageIndex + 1
+    this.props.setCurrentRowNumber(pageSize)
+    this.props.setCurrentPageNumber(currentPage)
+    this.props.onLoadMoreResults(this.props.personSearchFields)
+  }
+
   render() {
-    const {results} = this.props
+    const {resultsSubset, total, currentRow} = this.props
     return (
       <ReactTable
-        data={results}
         columns={this.columns}
-        defaultPageSize={25}
+        manual
+        data={resultsSubset}
         minRows={0}
+        pages={Math.ceil(total / currentRow)}
+        onPageChange={(pageIndex) => this.fetchData(pageIndex)}
+        defaultPageSize={currentRow}
+        onPageSizeChange={(pageSize, pageIndex) => this.setRowAndFetchData(pageSize, pageIndex)}
       />
     )
   }
 }
 
 SearchResultsTable.propTypes = {
+  currentRow: PropTypes.number,
+  onLoadMoreResults: PropTypes.func,
+  personSearchFields: PropTypes.object,
   results: PropTypes.array,
+  resultsSubset: PropTypes.array,
+  setCurrentPageNumber: PropTypes.func,
+  setCurrentRowNumber: PropTypes.func,
+  total: PropTypes.number,
 }
 
 export default SearchResultsTable
