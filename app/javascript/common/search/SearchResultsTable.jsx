@@ -22,7 +22,7 @@ class SearchResultsTable extends Component {
       maxWidth: 50,
       filterable: false,
       Cell: (row) => {
-        return `${row.index + 1}.`
+        return `${(row.page * row.pageSize) + row.index + 1}.`
       },
     },
     {

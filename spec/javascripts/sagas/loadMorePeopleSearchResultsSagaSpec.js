@@ -6,7 +6,7 @@ import {
 } from 'sagas/loadMorePeopleSearchResultsSaga'
 import {
   selectLastResultsSortValue,
-  selectSearchResultsCurrentRow
+  selectSearchResultsCurrentRow,
 } from 'selectors/peopleSearchSelectors'
 import {
   LOAD_MORE_RESULTS,
