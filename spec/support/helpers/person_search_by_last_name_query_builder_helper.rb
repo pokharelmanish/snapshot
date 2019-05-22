@@ -83,7 +83,7 @@ module PersonSearchByLastNameQueryBuilderHelper
                     "value": 'last name',
                     "fuzziness": 'AUTO',
                     "prefix_length": '1',
-                    "max_expansions": '50',
+                    "max_expansions": '150',
                     "_name": '5_fuzzy'
                   }
                 }
