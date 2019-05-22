@@ -43,292 +43,7 @@ module PersonSearchByNameQueryBuilderHelper
   end
 
   def full_name_without_suffix_functions
-    [
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'last name',
-                    "_name": '1_m_lst'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name": {
-                    "query": 'first name',
-                    "_name": '1_m_fst'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 16_384
-      },
-      {
-        "filter": {
-          "multi_match": {
-            "query": 'last name first name',
-            "operator": 'and',
-            "fields": [
-              'akas.first_name',
-              'akas.last_name'
-            ],
-            "type": 'cross_fields',
-            "_name": '3_mlt_aka'
-          }
-        },
-        "weight": 4096
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'last name',
-                    "_name": '4_dim_lst'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name.diminutive": {
-                    "query": 'first name',
-                    "_name": '4_dim_fst'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 2048
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'last name',
-                    "_name": '5_pho_lst'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name.phonetic": {
-                    "query": 'first name',
-                    "_name": '5_pho_fst'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 1024
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'last name',
-                    "_name": '6_fz_lst'
-                  }
-                }
-              },
-              {
-                "fuzzy": {
-                  "first_name": {
-                    "value": 'first name',
-                    "fuzziness": '5',
-                    "prefix_length": '1',
-                    "max_expansions": '25',
-                    "_name": '6_fz_fst'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 512
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'last name',
-                    "_name": '7_prt_lst'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name_ngram": {
-                    "query": 'first name',
-                    "minimum_should_match": '25%',
-                    "_name": '7_prt_fst'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 256
-      },
-      {
-        "filter": {
-          "multi_match": {
-            "query": 'last name first name',
-            "operator": 'and',
-            "fields": %w[
-              first_name
-              last_name
-            ],
-            "fuzziness": '2',
-            "_name": '7_mlt_fz'
-          }
-        },
-        "weight": 200
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'first name',
-                    "_name": '9a_rev_lst'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name": {
-                    "query": 'last name',
-                    "_name": '9a_rev_fst'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 128
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'first name',
-                    "_name": '9b_rev_prt_lst'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name_ngram": {
-                    "query": 'last name',
-                    "minimum_should_match": '25%',
-                    "_name": '9b_rev_prt_fst'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 64
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'last name',
-                    "_name": '10_dup_lst'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name": {
-                    "query": 'last name',
-                    "_name": '10_dup_fst'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 32
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name_ngram": {
-                    "query": 'first name',
-                    "minimum_should_match": '25%',
-                    "_name": '11_rev_prt_lst'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name_ngram": {
-                    "query": 'last name',
-                    "minimum_should_match": '25%',
-                    "_name": '11_rev_prt_fst'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 16
-      },
-      {
-        "filter": {
-          "match": {
-            "last_name": {
-              "query": 'last name',
-              "_name": '8_m_lst'
-            }
-          }
-        },
-        "weight": 12
-      },
-      {
-        "filter": {
-          "match": {
-            "first_name": {
-              "query": 'first name',
-              "_name": 'xb_m_fst'
-            }
-          }
-        },
-        "weight": 8
-      }
-    ]
+    full_name_without_suffix_functions_part_one.concat(full_name_functions_part_two)
   end
 
   def fs_no_name_query
@@ -361,8 +76,8 @@ module PersonSearchByNameQueryBuilderHelper
             }
           },
           "functions": [],
-          "score_mode": 'sum',
-          "boost_mode": 'sum'
+          "score_mode": 'max',
+          "boost_mode": 'max'
         }
       },
       "_source": source,
@@ -510,8 +225,8 @@ module PersonSearchByNameQueryBuilderHelper
             }
           },
           "functions": full_name_functions,
-          "score_mode": 'sum',
-          "boost_mode": 'sum'
+          "score_mode": 'max',
+          "boost_mode": 'max'
         }
       },
       "_source": source,
@@ -549,8 +264,8 @@ module PersonSearchByNameQueryBuilderHelper
             }
           },
           "functions": full_name_without_suffix_functions,
-          "score_mode": 'sum',
-          "boost_mode": 'sum'
+          "score_mode": 'max',
+          "boost_mode": 'max'
         }
       },
       "_source": source,
@@ -595,8 +310,8 @@ module PersonSearchByNameQueryBuilderHelper
             }
           },
           "functions": full_name_functions,
-          "score_mode": 'sum',
-          "boost_mode": 'sum'
+          "score_mode": 'max',
+          "boost_mode": 'max'
         }
       },
       "_source": source,
@@ -650,8 +365,8 @@ module PersonSearchByNameQueryBuilderHelper
             }
           },
           "functions": full_name_functions,
-          "score_mode": 'sum',
-          "boost_mode": 'sum'
+          "score_mode": 'max',
+          "boost_mode": 'max'
         }
       },
       "_source": source,
@@ -705,8 +420,8 @@ module PersonSearchByNameQueryBuilderHelper
             }
           },
           "functions": full_name_functions,
-          "score_mode": 'sum',
-          "boost_mode": 'sum'
+          "score_mode": 'max',
+          "boost_mode": 'max'
         }
       },
       "_source": source,
@@ -760,8 +475,8 @@ module PersonSearchByNameQueryBuilderHelper
             }
           },
           "functions": full_name_without_suffix_functions,
-          "score_mode": 'sum',
-          "boost_mode": 'sum'
+          "score_mode": 'max',
+          "boost_mode": 'max'
         }
       },
       "_source": source,
