@@ -4,6 +4,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import {dateFormatter} from 'utils/dateFormatter'
 import {capitalizedStr} from 'utils/textFormatter'
+import {Link} from 'react-router'
 
 class SearchResultsTable extends Component {
   columns = [
@@ -21,8 +22,9 @@ class SearchResultsTable extends Component {
       Header: 'Name',
       accessor: 'fullName',
       Cell: (row) => {
-        const personName = row.original.fullName
-        return <button className='search-result-button'>{personName}</button> || ''
+        const person = row.original
+        const id = person.legacyDescriptor && person.legacyDescriptor.legacy_id
+        return <Link to={`/snapshot/detail/${id}`}>{person.fullName}</Link>
       },
     },
     {

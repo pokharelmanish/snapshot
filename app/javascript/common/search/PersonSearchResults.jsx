@@ -8,7 +8,7 @@ const PersonSearchResults = ({results, total}) => {
   const title = `Search Results (${total || '0'} records found)`
   return (
     <CardView
-      id="person-search-results"
+      id="person-search-results-card"
       title={title}
       mode={SHOW_MODE}
       show={<SearchResultsTable results={results}/>}

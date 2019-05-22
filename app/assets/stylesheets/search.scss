@@ -147,17 +147,3 @@
     width: 10rem;
   }
 }
-
-.search-result-button {
-  background-color: transparent;
-  border: none;
-  color: $medium-blue;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.search-result-button:hover,
-.search-result-button:focus {
-  text-decoration: underline;
-}
-

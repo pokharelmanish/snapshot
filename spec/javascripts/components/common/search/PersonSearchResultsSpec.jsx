@@ -10,7 +10,7 @@ describe('PersonSearchResults', () => {
 
   it('renders Card View', () => {
     const component = renderPersonSearchResults({total: 25})
-    expect(component.find('CardView').props().id).toEqual('person-search-results')
+    expect(component.find('CardView').props().id).toEqual('person-search-results-card')
     expect(component.find('CardView').props().title).toEqual('Search Results (25 records found)')
     expect(component.find('CardView').props().mode).toEqual(SHOW_MODE)
   })
