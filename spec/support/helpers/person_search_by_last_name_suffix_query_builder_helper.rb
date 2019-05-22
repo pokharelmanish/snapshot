@@ -174,7 +174,7 @@ module PersonSearchByLastNameSuffixQueryBuilderHelper
                 "fuzzy": {
                   "last_name": {
                     "value": 'last name',
-                    "fuzziness": '3',
+                    "fuzziness": 'AUTO',
                     "prefix_length": '1',
                     "max_expansions": '50',
                     "_name": '7_fuzzy_last'
