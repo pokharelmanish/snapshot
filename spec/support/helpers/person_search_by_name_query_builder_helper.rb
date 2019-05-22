@@ -8,21 +8,33 @@ module PersonSearchByNameQueryBuilderHelper
         "bool": {
           "must": [
             {
-              "multi_match": {
-                "query": 'last name suffix',
-                "operator": 'and',
-                "fields": %w[
-                  last_name
-                  suffix
-                ],
-                "type": 'cross_fields',
-                "_name": '2_mlt_last_suffix'
+              "match": {
+                "last_name": {
+                  "query": 'last name',
+                  "_name": '2_exact_last'
+                }
+              }
+            },
+            {
+              "match": {
+                "first_name": {
+                  "query": 'first name',
+                  "_name": '2_exact_first'
+                }
+              }
+            },
+            {
+              "match": {
+                "name_suffix": {
+                  "query": 'suffix',
+                  "_name": '2_exact_suffix'
+                }
               }
             }
           ]
         }
       },
-      "weight": 8192
+      "weight": 16_384
     }
   end
 
