@@ -28,7 +28,7 @@ module PersonSearchByApproximateAgeQueryBuilderHelper
         ]
       }
     }
-    
+
     build_query(query).as_json
   end
 
@@ -48,7 +48,7 @@ module PersonSearchByApproximateAgeQueryBuilderHelper
         ]
       }
     }
-    
+
     build_query(query).as_json
   end
 
@@ -68,7 +68,7 @@ module PersonSearchByApproximateAgeQueryBuilderHelper
         ]
       }
     }
-    
+
     build_query(query).as_json
   end
 
@@ -88,7 +88,7 @@ module PersonSearchByApproximateAgeQueryBuilderHelper
         ]
       }
     }
-    
+
     build_query(query).as_json
   end
 
@@ -108,7 +108,7 @@ module PersonSearchByApproximateAgeQueryBuilderHelper
         ]
       }
     }
-    
+
     build_query(query).as_json
   end
 
@@ -128,7 +128,7 @@ module PersonSearchByApproximateAgeQueryBuilderHelper
         ]
       }
     }
-    
+
     build_query(query).as_json
   end
 
