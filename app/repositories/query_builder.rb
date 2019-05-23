@@ -17,7 +17,7 @@ class QueryBuilder < BaseQueryBuilder
   def self.build_advanced_search(builder)
     advanced_search_by_name_query(builder)
     advanced_search_by_age_query(builder)
-    builder.extend(PersonSearchBySexAtBirth).build_query(builder)
+    builder.extend(PersonSearchBySexAtBirthQueryBuilder).build_query(builder)
   end
 
   def self.advanced_search_by_name_query(builder)
