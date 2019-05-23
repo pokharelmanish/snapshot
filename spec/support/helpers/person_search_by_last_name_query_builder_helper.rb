@@ -103,8 +103,8 @@ module PersonSearchByLastNameQueryBuilderHelper
       "sort": [
         {
           "_score": 'desc',
-          "last_name": 'asc',
-          "first_name": 'asc',
+          "last_name.keyword": 'asc',
+          "first_name.keyword": 'asc',
           "_uid": 'desc'
         }
       ],
@@ -142,8 +142,8 @@ module PersonSearchByLastNameQueryBuilderHelper
       "sort": [
         {
           "_score": 'desc',
-          "last_name": 'asc',
-          "first_name": 'asc',
+          "last_name.keyword": 'asc',
+          "first_name.keyword": 'asc',
           "_uid": 'desc'
         }
       ],
