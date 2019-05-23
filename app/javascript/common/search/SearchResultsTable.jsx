@@ -5,6 +5,7 @@ import 'react-table/react-table.css'
 import {dateFormatter} from 'utils/dateFormatter'
 import {capitalizedStr} from 'utils/textFormatter'
 import {Link} from 'react-router'
+import ReactTooltip from 'react-tooltip'
 
 class SearchResultsTable extends Component {
   constructor() {
@@ -21,6 +22,7 @@ class SearchResultsTable extends Component {
       id: 'row',
       maxWidth: 50,
       filterable: false,
+      className: 'search-results',
       Cell: (row) => {
         return `${(row.page * row.pageSize) + row.index + 1}.`
       },
@@ -32,7 +34,15 @@ class SearchResultsTable extends Component {
       Cell: (row) => {
         const person = row.original
         const id = person.legacyDescriptor && person.legacyDescriptor.legacy_id
-        return <Link to={`/snapshot/detail/${id}`}>{person.fullName}</Link>
+        const className = person.isSealed ? 'disabled-cursor' : ''
+        return (
+          <div>
+            <Link className={className} to={`/snapshot/detail/${id}`}>{person.fullName}</Link>
+            {person.isSensitive && <span data-tip="Sensitive">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
+            {person.isSealed && <span data-tip="Sealed">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
+            <ReactTooltip className="custom-tool-tip" />
+          </div>
+        )
       },
     },
     {

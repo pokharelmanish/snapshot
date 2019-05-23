@@ -17,6 +17,7 @@ describe('SearchResultsTable', () => {
   const defaultMockedResults = [
     {
       'gender': 'female',
+      'isSealed': true,
       'address': {
         'city': 'Lake Elsinore',
         'state': 'CA',
@@ -33,6 +34,7 @@ describe('SearchResultsTable', () => {
     },
     {
       'gender': 'female',
+      'isSensitive': true,
       'clientCounties': [
         'Los Angeles',
       ],
@@ -119,7 +121,7 @@ describe('SearchResultsTable', () => {
       const row = component.find('div.rt-tr-group').at(0)
       const cell = row.find('div.rt-td')
       expect(cell.at(0).text()).toEqual('1.')
-      expect(cell.at(1).text()).toEqual('Sarah Timson')
+      expect(cell.at(1).find('a').text()).toEqual('Sarah Timson')
       expect(cell.at(2).text()).toEqual('01/03/2005')
       expect(cell.at(3).text()).toEqual('Female')
       expect(cell.at(4).text()).toEqual('')
@@ -181,6 +183,30 @@ describe('SearchResultsTable', () => {
       const searchResultsTable = component.find('ReactTable')
       searchResultsTable.props().onPageSizeChange(5, 1)
       expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'})
+    })
+  })
+
+  describe('Sealed', () => {
+    it('disable Name Link', () => {
+      const row = component.find('div.rt-tr-group').at(0)
+      const cell = row.find('div.rt-td')
+      expect(cell.find('Link').props().className).toEqual('disabled-cursor')
+    })
+
+    it('render client with tooltip', () => {
+      const row = component.find('div.rt-tr-group').at(0)
+      const cell = row.find('div.rt-td')
+      expect(cell.find('span').html()).toContain('Sealed')
+      expect(cell.find('span i').exists()).toBe(true)
+    })
+  })
+
+  describe('Sensitive', () => {
+    it('render client with tooltip', () => {
+      const row = component.find('div.rt-tr-group').at(1)
+      const cell = row.find('div.rt-td')
+      expect(cell.find('span').html()).toContain('Sensitive')
+      expect(cell.find('span i').exists()).toBe(true)
     })
   })
 })
