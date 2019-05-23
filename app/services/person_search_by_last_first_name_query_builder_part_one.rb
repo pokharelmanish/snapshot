@@ -2,7 +2,7 @@
 
 # PersonSearchByNameQueryBuilder is a service class responsible for creation
 # of an elastic search person search query
-module PersonSearchByNameQueryBuilderPartOne
+module PersonSearchByLastFirstNameQueryBuilderPartOne
   attr_reader :is_client_only, :last_name, :first_name, :middle_name, :suffix
 
   include QueryBuilderHelper

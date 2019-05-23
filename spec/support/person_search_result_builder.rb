@@ -7,8 +7,8 @@ require 'support/helpers/person_search_ssn_query_builder_helper'
 require 'support/helpers/person_search_by_name_query_builder_helper'
 require 'support/helpers/person_search_by_last_name_query_builder_helper'
 require 'support/helpers/person_search_by_last_name_suffix_query_builder_helper'
-require 'support/helpers/person_search_by_name_query_builder_part_one_helper'
-require 'support/helpers/person_search_by_name_query_builder_part_two_helper'
+require 'support/helpers/person_search_by_last_first_name_query_builder_part_one_helper'
+require 'support/helpers/person_search_by_last_first_name_query_builder_part_two_helper'
 require 'support/helpers/person_search_by_date_of_birth_query_builder_helper'
 require 'support/helpers/person_search_by_approximate_age_query_builder_helper'
 require 'support/helpers/person_search_gender_query_builder_helper'
@@ -20,8 +20,8 @@ class PersonSearchResultBuilder
   include PersonSearchByNameQueryBuilderHelper
   include PersonSearchByLastNameQueryBuilderHelper
   include PersonSearchByLastNameSuffixQueryBuilderHelper
-  include PersonSearchByNameQueryBuilderPartOneHelper
-  include PersonSearchByNameQueryBuilderPartTwoHelper
+  include PersonSearchByLastFirstNameQueryBuilderPartOneHelper
+  include PersonSearchByLastFirstNameQueryBuilderPartTwoHelper
   include PersonSearchByDateOfBirthQueryBuilderHelper
   include PersonSearchByApproximateAgeQueryBuilderHelper
   include PersonSearchGenderQueryBuilderHelper

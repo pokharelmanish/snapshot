@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/ModuleLength
-module PersonSearchByNameQueryBuilderPartTwoHelper
+module PersonSearchByLastFirstNameQueryBuilderPartTwoHelper
   def full_name_functions_part_two
     [
       {

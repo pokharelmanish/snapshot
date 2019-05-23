@@ -26,8 +26,8 @@ class QueryBuilder < BaseQueryBuilder
     elsif builder.last_name_and_suffix_only?
       builder.extend(PersonSearchByLastNameSuffixQueryBuilder).build_query(builder)
     else
-      builder.extend(PersonSearchByNameQueryBuilderPartOne).build_query(builder)
-      builder.extend(PersonSearchByNameQueryBuilderPartTwo).build_query(builder)
+      builder.extend(PersonSearchByLastFirstNameQueryBuilderPartOne).build_query(builder)
+      builder.extend(PersonSearchByLastFirstNameQueryBuilderPartTwo).build_query(builder)
     end
   end
 
