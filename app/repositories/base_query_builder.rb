@@ -77,7 +77,7 @@ class BaseQueryBuilder
   end
 
   def sort
-    [{ _score: 'desc', last_name: 'asc', first_name: 'asc', _uid: 'desc' }]
+    [{ _score: 'desc', 'last_name.keyword': 'asc', 'first_name.keyword': 'asc', _uid: 'desc' }]
   end
 
   def auto_bar_highlight
