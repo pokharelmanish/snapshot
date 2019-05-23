@@ -138,52 +138,26 @@ module PersonSearchByLastFirstNameQueryBuilderPartTwoHelper
   end
 
   def fs_no_name_query_part_two
-    {
-      "size": '10',
-      "track_scores": 'true',
-      "sort": [
-        {
-          "_score": 'desc',
-          "last_name.keyword": 'asc',
-          "first_name.keyword": 'asc',
-          "_uid": 'desc'
-        }
-      ],
-      "min_score": '2.5',
-      "query": {
-        "function_score": {
-          "functions": [],
-          "score_mode": 'max',
-          "boost_mode": 'max'
-        }
-      },
-      "_source": source,
-      "highlight": highlight
-    }.as_json
+    query = {
+      "function_score": {
+        "functions": [],
+        "score_mode": 'max',
+        "boost_mode": 'max'
+      }
+    }
+
+    build_query(query).as_json
   end
 
   def fs_full_name_query_part_two
-    {
-      "size": '10',
-      "track_scores": 'true',
-      "sort": [
-        {
-          "_score": 'desc',
-          "last_name.keyword": 'asc',
-          "first_name.keyword": 'asc',
-          "_uid": 'desc'
-        }
-      ],
-      "min_score": '2.5',
-      "query": {
-        "function_score": {
-          "functions": full_name_functions_part_two,
-          "score_mode": 'max',
-          "boost_mode": 'max'
-        }
-      },
-      "_source": source,
-      "highlight": highlight
-    }.as_json
+    query = {
+      "function_score": {
+        "functions": full_name_functions_part_two,
+        "score_mode": 'max',
+        "boost_mode": 'max'
+      }
+    }
+
+    build_query(query).as_json
   end
 end

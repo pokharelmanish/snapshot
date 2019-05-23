@@ -1,6 +1,22 @@
 # frozen_string_literal: true
 
 module QueryBuilderHelper
+  def size
+    '250'
+  end
+
+  def track_scores
+    'true'
+  end
+
+  def sort
+    [{ "_score": 'desc', "last_name.keyword": 'asc', "first_name.keyword": 'asc', "_uid": 'desc' }]
+  end
+
+  def min_score
+    '2.5'
+  end
+
   def highlight
     {
       "order": 'score',
@@ -61,5 +77,17 @@ module QueryBuilderHelper
       'race_ethnicity',
       'open_case_responsible_agency_code'
     ]
+  end
+
+  def build_query(query)
+    {
+      size: size,
+      track_scores: track_scores,
+      sort: sort,
+      min_score: min_score,
+      _source: source,
+      highlight: highlight,
+      query: query
+    }
   end
 end
