@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
-import {clearSnapshot} from 'actions/snapshotActions'
+import {clearSnapshot, viewSnapshotSearch} from 'actions/snapshotActions'
 import {clearPeople, createSnapshotPerson} from 'actions/personCardActions'
 import {clearHistoryOfInvolvement} from 'actions/historyOfInvolvementActions'
 import {clearRelationships} from 'actions/relationshipsActions'
@@ -27,6 +27,20 @@ export class SnapshotDetailPage extends React.Component {
 
   componentWillUnmount() {
     this.props.unmount()
+  }
+
+  backToResultsButton() {
+    const {goBackToResults} = this.props
+    return (
+      <button
+        type="button"
+        className="btn primary-btn pull-right"
+        disabled={false}
+        onClick={goBackToResults}
+      >
+        Back to Results
+      </button>
+    )
   }
 
   renderBody(participants) {
@@ -60,7 +74,7 @@ export class SnapshotDetailPage extends React.Component {
     return (
       <Fragment>
         <div>
-          <PageHeader pageTitle="Snapshot" button={null} />
+          <PageHeader pageTitle="Snapshot" button={this.backToResultsButton()} />
           {this.renderBreadCrumbs()}
         </div>
         <div className={`container snapshot-container ${genericErrorClass}`}>
@@ -76,6 +90,7 @@ export class SnapshotDetailPage extends React.Component {
 SnapshotDetailPage.propTypes = {
   clearSnapshot: PropTypes.func,
   createSnapshotPerson: PropTypes.func,
+  goBackToResults: PropTypes.func,
   hasGenericErrors: PropTypes.bool,
   location: PropTypes.shape({
     pathname: PropTypes.string,
@@ -96,6 +111,7 @@ const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   clearSnapshot: () => dispatch(clearSnapshot()),
   createSnapshotPerson: id => dispatch(createSnapshotPerson(id)),
+  goBackToResults: () => dispatch(viewSnapshotSearch()),
   unmount: () => {
     dispatch(clearPeople())
     dispatch(clearHistoryOfInvolvement())
