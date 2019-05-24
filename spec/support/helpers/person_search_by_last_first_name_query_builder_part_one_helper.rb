@@ -2,11 +2,11 @@
 
 # rubocop:disable Metrics/ModuleLength
 module PersonSearchByLastFirstNameQueryBuilderPartOneHelper
-  def full_name_functions_part_one
-    full_name_without_suffix_functions_part_one.insert(1, suffix_sub_query)
+  def last_first_name_with_suffix_functions_part_one
+    last_first_name_functions_part_one.insert(1, suffix_sub_query)
   end
 
-  def full_name_without_suffix_functions_part_one
+  def last_first_name_functions_part_one
     [
       {
         "filter": {
@@ -181,7 +181,7 @@ module PersonSearchByLastFirstNameQueryBuilderPartOneHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_query_part_one
+  def fs_last_first_name_with_suffix_query_part_one
     query = {
       "function_score": {
         "query": {
@@ -198,7 +198,7 @@ module PersonSearchByLastFirstNameQueryBuilderPartOneHelper
             ]
           }
         },
-        "functions": full_name_functions_part_one,
+        "functions": last_first_name_with_suffix_functions_part_one,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
@@ -207,7 +207,7 @@ module PersonSearchByLastFirstNameQueryBuilderPartOneHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_without_suffix_query_part_one
+  def fs_last_first_name_query_part_one
     query = {
       "function_score": {
         "query": {
@@ -224,7 +224,7 @@ module PersonSearchByLastFirstNameQueryBuilderPartOneHelper
             ]
           }
         },
-        "functions": full_name_without_suffix_functions_part_one,
+        "functions": last_first_name_functions_part_one,
         "score_mode": 'max',
         "boost_mode": 'max'
       }

@@ -2,7 +2,7 @@
 
 # rubocop:disable Metrics/ModuleLength
 module PersonSearchByLastFirstNameQueryBuilderPartTwoHelper
-  def full_name_functions_part_two
+  def last_first_name_functions_part_two
     [
       {
         "filter": {
@@ -137,7 +137,7 @@ module PersonSearchByLastFirstNameQueryBuilderPartTwoHelper
     ]
   end
 
-  def fs_no_name_query_part_two
+  def fs_no_last_first_name_query_part_two
     query = {
       "function_score": {
         "functions": [],
@@ -149,10 +149,10 @@ module PersonSearchByLastFirstNameQueryBuilderPartTwoHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_query_part_two
+  def fs_last_first_name_query_part_two
     query = {
       "function_score": {
-        "functions": full_name_functions_part_two,
+        "functions": last_first_name_functions_part_two,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
