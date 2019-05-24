@@ -227,6 +227,15 @@ describe QueryBuilder do
         expect(query[:search_after]).to eq search_after
       end
     end
+
+    context 'when the size parameter is not the default size of 25' do
+      let(:size) { '10' }
+
+      it 'builds a person search query that returns a max of 10 results' do
+        query = described_class.new(size: size).build_query
+        expect(query[:size]).to eq size
+      end
+    end
   end
 
   describe '#build' do
@@ -329,7 +338,8 @@ describe QueryBuilder do
         result = described_class.build(
           is_advanced_search_on: 'true',
           person_search_fields:
-            person_search_fields_with_last_first_name_suffix_approx_age_months_gender
+            person_search_fields_with_last_first_name_suffix_approx_age_months_gender,
+          size: '25'
         ).payload.as_json
         expect(
           result['_source']
@@ -420,7 +430,8 @@ describe QueryBuilder do
         result = described_class.build(
           is_advanced_search_on: 'true',
           person_search_fields:
-            person_search_fields_with_last_middle_first_name_approx_age_months_gender
+            person_search_fields_with_last_middle_first_name_approx_age_months_gender,
+          size: '25'
         ).payload.as_json
         expect(
           result['_source']

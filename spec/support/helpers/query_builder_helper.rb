@@ -2,7 +2,7 @@
 
 module QueryBuilderHelper
   def size
-    '250'
+    '25'
   end
 
   def track_scores
