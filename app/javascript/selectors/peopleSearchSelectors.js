@@ -127,6 +127,7 @@ export const selectPeopleResults = (state) => selectPeopleSearch(state)
       fullName: formatFullName(result, highlight),
       legacyDescriptor: result.get('legacy_descriptor'),
       gender: result.get('gender'),
+      caseStatus: result.get('case_status'),
       languages: mapLanguages(state, result),
       races: mapRaces(state, result),
       ethnicity: mapEthnicities(state, result),
@@ -142,6 +143,18 @@ export const selectPeopleResults = (state) => selectPeopleSearch(state)
       isProbationYouth: mapIsProbationYouth(result),
     })
   })
+
+export const selectSearchResultsCurrentRow = (state) => selectPeopleSearch(state).get('searchTableCurrentRow')
+
+export const selectSearchResultsSubset = (state) => {
+  const results = selectPeopleResults(state)
+  const currentPageNumber = selectPeopleSearch(state).get('searchTableCurrentPage')
+  const currentRowNumber = selectPeopleSearch(state).get('searchTableCurrentRow')
+  const startResultIndex = (currentPageNumber - 1) * currentRowNumber
+  const endResultsIndex = currentPageNumber * currentRowNumber
+  const resultsSubset = results.toJS().slice(startResultIndex, endResultsIndex)
+  return resultsSubset
+}
 
 export const selectStartTime = state =>
   selectPeopleSearch(state).get('startTime')

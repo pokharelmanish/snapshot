@@ -44,6 +44,7 @@ class PersonSearchResultBuilder
         legacy_source_table: '',
         first_name: '',
         gender: '',
+        case_status: '',
         akas: [],
         last_name: '',
         middle_name: '',

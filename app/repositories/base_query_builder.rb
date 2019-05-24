@@ -4,7 +4,7 @@
 class BaseQueryBuilder
   include QueryBuilderHelper
 
-  attr_reader :search_term, :search_after, :is_client_only, :payload,
+  attr_reader :search_term, :search_after, :is_client_only, :size, :payload,
     :params, :city, :county, :street, :client_id, :date_of_birth, :gender,
     :approximate_age, :approximate_age_units, :search_by_age_method
 
@@ -27,6 +27,7 @@ class BaseQueryBuilder
     @search_term              = params.dig(:person_search_fields, :search_term)
     @search_after             = params[:search_after]
     @is_client_only           = params.fetch(:is_client_only, 'true') == 'true'
+    @size                     = params[:size]
   end
 
   def initialize_name_ssn_client_id
@@ -75,7 +76,7 @@ class BaseQueryBuilder
 
   def build_query
     {
-      size: SIZE, track_scores: TRACK_SCORES, sort: sort, min_score: MIN_SCORE,
+      size:  @size, track_scores: TRACK_SCORES, sort: sort, min_score: MIN_SCORE,
       _source: fields, highlight: highlight
     }.tap { |query| query[:search_after] = @search_after if @search_after }
   end
@@ -91,7 +92,7 @@ class BaseQueryBuilder
 
   def fields
     %w[id legacy_source_table first_name middle_name last_name name_suffix gender akas
-       date_of_birth date_of_death ssn languages races ethnicity client_counties
+       date_of_birth date_of_death ssn languages races ethnicity client_counties case_status
        addresses.id addresses.effective_start_date addresses.street_name addresses.street_number
        addresses.city addresses.county addresses.state_code addresses.zip addresses.type
        addresses.legacy_descriptor addresses.phone_numbers.number addresses.phone_numbers.type

@@ -52,6 +52,7 @@ module QueryBuilderHelper
       'races',
       'ethnicity',
       'client_counties',
+      'case_status',
       'addresses.id',
       'addresses.effective_start_date',
       'addresses.street_name',
