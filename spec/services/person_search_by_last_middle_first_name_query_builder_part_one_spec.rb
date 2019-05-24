@@ -45,7 +45,7 @@ describe PersonSearchByLastMiddleFirstNameQueryBuilderPartOne do
     end
 
     context 'returns hash' do
-      it 'with full name query' do
+      it 'with last, middle, and first name with suffix' do
         query_builder = QueryBuilder.new(person_search_fields: last_middle_first_name_with_suffix_params)
         query = query_builder.extend(described_class).query
         expect(query.as_json).to eq last_middle_first_name_with_suffix['query']
