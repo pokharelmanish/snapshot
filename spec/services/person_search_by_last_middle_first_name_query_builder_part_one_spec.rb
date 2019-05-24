@@ -10,13 +10,16 @@ describe PersonSearchByLastMiddleFirstNameQueryBuilderPartOne do
     let(:suffix) { 'suffix' }
 
     let(:no_name_query) { PersonSearchResultBuilder.new.fs_no_last_middle_first_query_part_one }
-    let(:full_name_query) { PersonSearchResultBuilder.new.fs_full_name_with_middle_query_part_one }
-    let(:full_name_without_suffix_query) do
-      PersonSearchResultBuilder.new.fs_full_name_with_middle_without_suffix_query_part_one
+    let(:last_middle_first_name_with_suffix) do
+      PersonSearchResultBuilder.new.fs_last_middle_first_name_with_suffix_query_part_one
+    end
+    let(:last_middle_first_name_query) do
+      PersonSearchResultBuilder.new.fs_last_middle_first_name_query_part_one
     end
 
     let(:no_name_params) {}
-    let(:full_name_params) do
+
+    let(:last_middle_first_name_with_suffix_params) do
       {
         last_name: last_name,
         first_name: first_name,
@@ -24,7 +27,8 @@ describe PersonSearchByLastMiddleFirstNameQueryBuilderPartOne do
         suffix: suffix
       }
     end
-    let(:full_name_without_suffix_params) do
+
+    let(:last_middle_first_name_params) do
       {
         last_name: last_name,
         first_name: first_name,
@@ -42,17 +46,17 @@ describe PersonSearchByLastMiddleFirstNameQueryBuilderPartOne do
 
     context 'returns hash' do
       it 'with full name query' do
-        query_builder = QueryBuilder.new(person_search_fields: full_name_params)
+        query_builder = QueryBuilder.new(person_search_fields: last_middle_first_name_with_suffix_params)
         query = query_builder.extend(described_class).query
-        expect(query.as_json).to eq full_name_query['query']
+        expect(query.as_json).to eq last_middle_first_name_with_suffix['query']
       end
     end
 
     context 'returns hash' do
-      it 'with full name without suffix query' do
-        query_builder = QueryBuilder.new(person_search_fields: full_name_without_suffix_params)
+      it 'with last, middle, and first name query' do
+        query_builder = QueryBuilder.new(person_search_fields: last_middle_first_name_params)
         query = query_builder.extend(described_class).query
-        expect(query.as_json).to eq full_name_without_suffix_query['query']
+        expect(query.as_json).to eq last_middle_first_name_query['query']
       end
     end
   end

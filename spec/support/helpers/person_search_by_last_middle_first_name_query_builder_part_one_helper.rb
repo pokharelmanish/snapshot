@@ -2,12 +2,12 @@
 
 # rubocop:disable Metrics/ModuleLength
 module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
-  def full_name_functions_part_one
-    full_name_without_suffix_functions_part_one.insert(1,
+  def last_middle_first_name_with_suffix_functions_part_one
+    last_middle_first_name_functions_part_one.insert(1,
       last_middle_first_name_with_suffix_sub_query)
   end
 
-  def full_name_without_suffix_functions_part_one
+  def last_middle_first_name_functions_part_one
     [
       {
         "filter": {
@@ -271,7 +271,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_with_middle_query_part_one
+  def fs_last_middle_first_name_with_suffix_query_part_one
     query = {
       "function_score": {
         "query": {
@@ -288,7 +288,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
             ]
           }
         },
-        "functions": full_name_functions_part_one,
+        "functions": last_middle_first_name_with_suffix_functions_part_one,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
@@ -297,7 +297,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_with_middle_without_suffix_query_part_one
+  def fs_last_middle_first_name_query_part_one
     query = {
       "function_score": {
         "query": {
@@ -314,7 +314,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
             ]
           }
         },
-        "functions": full_name_without_suffix_functions_part_one,
+        "functions": last_middle_first_name_functions_part_one,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
