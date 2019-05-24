@@ -7,8 +7,12 @@ describe PersonSearchByLastFirstNameQueryBuilderPartTwo do
     let(:last_name) { 'last name' }
     let(:first_name) { 'first name' }
 
-    let(:no_last_first_name_query) { PersonSearchResultBuilder.new.fs_no_last_first_name_query_part_two }
-    let(:last_first_name_query) { PersonSearchResultBuilder.new.fs_last_first_name_query_part_two }
+    let(:no_last_first_name_query) do
+      PersonSearchResultBuilder.new.fs_no_last_first_name_query_part_two
+    end
+    let(:last_first_name_query) do
+      PersonSearchResultBuilder.new.fs_last_first_name_query_part_two
+    end
 
     let(:no_name_params) {}
     let(:last_first_name_params) do

@@ -9,7 +9,9 @@ describe PersonSearchByLastFirstNameQueryBuilderPartOne do
     let(:suffix) { 'suffix' }
 
     let(:no_name_query) { PersonSearchResultBuilder.new.fs_no_name_query_part_one }
-    let(:last_first_name_with_suffix_query) { PersonSearchResultBuilder.new.fs_last_first_name_with_suffix_query_part_one }
+    let(:last_first_name_with_suffix_query) do
+      PersonSearchResultBuilder.new.fs_last_first_name_with_suffix_query_part_one
+    end
     let(:last_first_name_query) do
       PersonSearchResultBuilder.new.fs_last_first_name_query_part_one
     end
