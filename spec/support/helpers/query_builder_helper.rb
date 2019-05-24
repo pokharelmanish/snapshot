@@ -1,20 +1,12 @@
 # frozen_string_literal: true
 
 module QueryBuilderHelper
-  def size
-    '25'
-  end
-
-  def track_scores
-    'true'
-  end
+  SIZE = '25'
+  TRACK_SCORES = 'true'
+  MIN_SCORE = '2.5'
 
   def sort
     [{ "_score": 'desc', "last_name.keyword": 'asc', "first_name.keyword": 'asc', "_uid": 'desc' }]
-  end
-
-  def min_score
-    '2.5'
   end
 
   def highlight
@@ -82,10 +74,10 @@ module QueryBuilderHelper
 
   def build_query(query)
     {
-      size: size,
-      track_scores: track_scores,
+      size: SIZE,
+      track_scores: TRACK_SCORES,
       sort: sort,
-      min_score: min_score,
+      min_score: MIN_SCORE,
       _source: source,
       highlight: highlight,
       query: query
