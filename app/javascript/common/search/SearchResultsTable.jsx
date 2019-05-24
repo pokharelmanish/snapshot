@@ -75,7 +75,7 @@ class SearchResultsTable extends Component {
     },
     {
       Header: 'Case Status',
-      accessor: null,
+      accessor: 'caseStatus',
     },
   ]
 

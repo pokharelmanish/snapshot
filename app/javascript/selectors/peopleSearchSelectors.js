@@ -127,6 +127,7 @@ export const selectPeopleResults = (state) => selectPeopleSearch(state)
       fullName: formatFullName(result, highlight),
       legacyDescriptor: result.get('legacy_descriptor'),
       gender: result.get('gender'),
+      caseStatus: result.get('case_status'),
       languages: mapLanguages(state, result),
       races: mapRaces(state, result),
       ethnicity: mapEthnicities(state, result),
