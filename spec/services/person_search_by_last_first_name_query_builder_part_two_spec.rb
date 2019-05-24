@@ -6,7 +6,6 @@ describe PersonSearchByLastFirstNameQueryBuilderPartTwo do
   describe '.build_query' do
     let(:last_name) { 'last name' }
     let(:first_name) { 'first name' }
-    let(:middle_name) { 'middle name' }
 
     let(:no_name_query) { PersonSearchResultBuilder.new.fs_no_name_query_part_two }
     let(:full_name_query) { PersonSearchResultBuilder.new.fs_full_name_query_part_two }
@@ -16,7 +15,6 @@ describe PersonSearchByLastFirstNameQueryBuilderPartTwo do
       {
         last_name: last_name,
         first_name: first_name,
-        middle_name: middle_name
       }
     end
 
