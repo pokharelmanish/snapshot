@@ -2,16 +2,17 @@
 
 require 'rails_helper'
 
-describe PersonSearchByLastFirstNameQueryBuilderPartOne do
+describe PersonSearchByLastMiddleFirstNameQueryBuilder do
   describe '.build_query' do
     let(:last_name) { 'last name' }
     let(:first_name) { 'first name' }
+    let(:middle_name) { 'middle name' }
     let(:suffix) { 'suffix' }
 
-    let(:no_name_query) { PersonSearchResultBuilder.new.fs_no_name_query_part_one }
-    let(:full_name_query) { PersonSearchResultBuilder.new.fs_full_name_query_part_one }
+    let(:no_name_query) { PersonSearchResultBuilder.new.fs_no_last_middle_first_query_part_one }
+    let(:full_name_query) { PersonSearchResultBuilder.new.fs_full_name_with_middle_query_part_one }
     let(:full_name_without_suffix_query) do
-      PersonSearchResultBuilder.new.fs_full_name_without_suffix_query_part_one
+      PersonSearchResultBuilder.new.fs_full_name_with_middle_without_suffix_query_part_one
     end
 
     let(:no_name_params) {}
@@ -19,13 +20,15 @@ describe PersonSearchByLastFirstNameQueryBuilderPartOne do
       {
         last_name: last_name,
         first_name: first_name,
+        middle_name: middle_name,
         suffix: suffix
       }
     end
     let(:full_name_without_suffix_params) do
       {
         last_name: last_name,
-        first_name: first_name
+        first_name: first_name,
+        middle_name: middle_name
       }
     end
 

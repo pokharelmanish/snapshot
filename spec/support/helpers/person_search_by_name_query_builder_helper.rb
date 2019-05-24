@@ -38,6 +38,50 @@ module PersonSearchByNameQueryBuilderHelper
     }
   end
 
+  def last_middle_first_name_with_suffix_sub_query
+    {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "last_name": {
+                  "query": 'last name',
+                  "_name": '2_exact_last'
+                }
+              }
+            },
+            {
+              "match": {
+                "middle_name": {
+                  "query": 'middle name',
+                  "_name": '2_exact_middle'
+                }
+              }
+            },
+            {
+              "match": {
+                "first_name": {
+                  "query": 'first name',
+                  "_name": '2_exact_first'
+                }
+              }
+            },
+            {
+              "match": {
+                "name_suffix": {
+                  "query": 'suffix',
+                  "_name": '2_exact_suffix'
+                }
+              }
+            }
+          ]
+        }
+      },
+      "weight": 1_048_576
+    }
+  end
+
   def full_name_functions
     full_name_without_suffix_functions.insert(1, suffix_sub_query)
   end

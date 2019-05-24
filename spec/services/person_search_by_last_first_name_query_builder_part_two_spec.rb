@@ -14,7 +14,7 @@ describe PersonSearchByLastFirstNameQueryBuilderPartTwo do
     let(:full_name_params) do
       {
         last_name: last_name,
-        first_name: first_name,
+        first_name: first_name
       }
     end
 
