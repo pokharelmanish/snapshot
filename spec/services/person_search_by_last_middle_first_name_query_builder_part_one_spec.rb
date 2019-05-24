@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe PersonSearchByLastMiddleFirstNameQueryBuilder do
+describe PersonSearchByLastMiddleFirstNameQueryBuilderPartOne do
   describe '.build_query' do
     let(:last_name) { 'last name' }
     let(:first_name) { 'first name' }

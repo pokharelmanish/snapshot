@@ -2,7 +2,7 @@
 
 # PersonSearchByLastMiddleFirstNameQueryBuilder is a service class responsible for creation
 # of an elastic search person search query
-module PersonSearchByLastMiddleFirstNameQueryBuilder
+module PersonSearchByLastMiddleFirstNameQueryBuilderPartOne
   attr_reader :is_client_only, :last_name, :first_name, :middle_name, :suffix
 
   include QueryBuilderHelper
@@ -105,36 +105,6 @@ module PersonSearchByLastMiddleFirstNameQueryBuilder
     match_query_list(param_list)
   end
 
-  def match_last_name_middle_name_duplicate
-    last_name_params = generate_match_params('last_name', last_name, '9_exact_last', nil)
-    first_name_dup_params = generate_match_params('first_name', middle_name, '9_dupe_first', nil)
-    middle_name_dup_params = generate_match_params('middle_name', middle_name, '9_dupe_middle',
-      nil)
-    param_list = [last_name_params, first_name_dup_params, middle_name_dup_params]
-    match_query_list(param_list)
-  end
-
-  def multi_match_first_middle_name_phon
-    params = {
-      query: formatted_query("#{first_name} #{middle_name}"),
-      operator: 'or',
-      fields: %w[first_name.phonetic middle_name.phonetic],
-      type: 'cross_fields',
-      name: '10_phonetic_first_or_middle'
-    }
-    multi_match(params)
-  end
-
-  def match_last_name
-    last_name_params = generate_match_params('last_name', last_name, '10_exact_last', nil)
-    param_list = [last_name_params]
-    match_query_list(param_list)
-  end
-
-  def match_last_name_multi_match_first_middle_phon
-    match_last_name.push(multi_match_first_middle_name_phon).compact
-  end
-
   def fs_query_params
     [
       { q: match_last_middle_first_name, w: 524_288, bq: true },
@@ -144,9 +114,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilder
       { q: match_last_first_name, not_q: match_middle_name, w: 65_536, bq: true },
       { q: match_last_name_first_name_duplicate, w: 32_768, bq: true },
       { q: match_last_middle_first_name_dim, w: 16_384, bq: true },
-      { q: match_last_middle_dim_first_dim, w: 8192, bq: true },
-      { q: match_last_name_middle_name_duplicate, w: 4096, bq: true },
-      { q: match_last_name_multi_match_first_middle_phon, w: 2048, bq: true }
+      { q: match_last_middle_dim_first_dim, w: 8192, bq: true }
     ].compact
   end
 end

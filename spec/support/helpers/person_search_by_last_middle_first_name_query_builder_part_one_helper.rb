@@ -241,65 +241,6 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
           }
         },
         "weight": 8192
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'last name',
-                    "_name": '9_exact_last'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name": {
-                    "query": 'middle name',
-                    "_name": '9_dupe_first'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "middle_name": {
-                    "query": 'middle name',
-                    "_name": '9_dupe_middle'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 4096
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'last name',
-                    "_name": '10_exact_last'
-                  }
-                }
-              },
-              {
-                "multi_match": {
-                  "query": 'first name middle name',
-                  "type": 'cross_fields',
-                  "operator": 'or',
-                  "_name": '10_phonetic_first_or_middle',
-                  "fields": ['first_name.phonetic', 'middle_name.phonetic']
-                }
-              }
-            ]
-          }
-        },
-        "weight": 2048
       }
     ]
   end
