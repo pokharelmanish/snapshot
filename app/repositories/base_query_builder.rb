@@ -70,6 +70,10 @@ class BaseQueryBuilder
     @last_name.present? && @middle_name.blank? && @first_name.blank? && @suffix.present?
   end
 
+  def last_first_name_only?
+    @last_name.present? && @middle_name.blank? && @first_name.present?
+  end
+
   def build_query
     {
       size:  @size, track_scores: TRACK_SCORES, sort: sort, min_score: MIN_SCORE,
