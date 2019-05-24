@@ -17,6 +17,7 @@ describe('SearchResultsTable', () => {
   const defaultMockedResults = [
     {
       'gender': 'female',
+      'caseStatus': 'Closed',
       'isSealed': true,
       'address': {
         'city': 'Lake Elsinore',
@@ -127,7 +128,7 @@ describe('SearchResultsTable', () => {
       expect(cell.at(4).text()).toEqual('')
       expect(cell.at(5).text()).toEqual('')
       expect(cell.at(6).text()).toEqual('4451 Anniversary Parkway, Lake Elsinore, CA 92530')
-      expect(cell.at(7).text()).toEqual('')
+      expect(cell.at(7).text()).toEqual('Closed')
     })
   })
 

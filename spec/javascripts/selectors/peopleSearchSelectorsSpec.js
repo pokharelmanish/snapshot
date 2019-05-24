@@ -94,6 +94,7 @@ describe('peopleSearchSelectors', () => {
               middle_name: 'Jacqueline',
               name_suffix: 'md',
               gender: 'female',
+              case_status: 'N/A',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -160,6 +161,7 @@ describe('peopleSearchSelectors', () => {
             legacy_id: '1',
             fullName: 'Bart Jacqueline Simpson, MD',
             gender: 'female',
+            caseStatus: 'N/A',
             akaFullName: null,
             legacyDescriptor: {
               legacy_ui_id: '123-456-789',
@@ -1032,6 +1034,7 @@ describe('peopleSearchSelectors', () => {
               middle_name: 'Jacqueline',
               name_suffix: 'md',
               gender: 'female',
+              case_status: 'N/A',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1069,6 +1072,7 @@ describe('peopleSearchSelectors', () => {
               middle_name: 'Jacqueline',
               name_suffix: 'md',
               gender: 'female',
+              case_status: 'Open',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1106,6 +1110,7 @@ describe('peopleSearchSelectors', () => {
               middle_name: 'Jacqueline',
               name_suffix: 'md',
               gender: 'female',
+              case_status: 'Closed',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1143,6 +1148,7 @@ describe('peopleSearchSelectors', () => {
               middle_name: 'Jacqueline',
               name_suffix: 'md',
               gender: 'female',
+              case_status: 'Closed',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1180,6 +1186,7 @@ describe('peopleSearchSelectors', () => {
               middle_name: 'Jacqueline',
               name_suffix: 'md',
               gender: 'female',
+              case_status: 'Closed',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1217,6 +1224,7 @@ describe('peopleSearchSelectors', () => {
               middle_name: 'Jacqueline',
               name_suffix: 'md',
               gender: 'female',
+              case_status: 'Closed',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1257,6 +1265,7 @@ describe('peopleSearchSelectors', () => {
           legacy_id: '1',
           fullName: 'Bart Jacqueline Simpson, MD',
           gender: 'female',
+          caseStatus: 'N/A',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',
@@ -1283,6 +1292,7 @@ describe('peopleSearchSelectors', () => {
           legacy_id: '2',
           fullName: 'Bart Jacqueline Simpson, MD',
           gender: 'female',
+          caseStatus: 'Open',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',
@@ -1309,6 +1319,7 @@ describe('peopleSearchSelectors', () => {
           legacy_id: '3',
           fullName: 'Bart Jacqueline Simpson, MD',
           gender: 'female',
+          caseStatus: 'Closed',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',
@@ -1335,6 +1346,7 @@ describe('peopleSearchSelectors', () => {
           legacy_id: '4',
           fullName: 'Bart Jacqueline Simpson, MD',
           gender: 'female',
+          caseStatus: 'Closed',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',
@@ -1361,6 +1373,7 @@ describe('peopleSearchSelectors', () => {
           legacy_id: '5',
           fullName: 'Bart Jacqueline Simpson, MD',
           gender: 'female',
+          caseStatus: 'Closed',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',
