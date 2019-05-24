@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwoHelper
-  def full_name_functions_part_two
+  def last_middle_first_name_functions_part_two
     [
       {
         "filter": {
@@ -77,10 +77,10 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwoHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_with_middle_query_part_two
+  def fs_last_middle_first_name_query_part_two
     query = {
       "function_score": {
-        "functions": full_name_functions_part_two,
+        "functions": last_middle_first_name_functions_part_two,
         "score_mode": 'max',
         "boost_mode": 'max'
       }

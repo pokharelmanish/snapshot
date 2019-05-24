@@ -9,10 +9,10 @@ describe PersonSearchByLastMiddleFirstNameQueryBuilderPartTwo do
     let(:first_name) { 'first name' }
 
     let(:no_name_query) { PersonSearchResultBuilder.new.fs_no_last_middle_first_query_part_two }
-    let(:full_name_query) { PersonSearchResultBuilder.new.fs_full_name_with_middle_query_part_two }
+    let(:last_middle_first_name_query) { PersonSearchResultBuilder.new.fs_last_middle_first_name_query_part_two }
 
     let(:no_name_params) {}
-    let(:full_name_params) do
+    let(:last_middle_first_name_params) do
       {
         last_name: last_name,
         middle_name: middle_name,
@@ -29,10 +29,10 @@ describe PersonSearchByLastMiddleFirstNameQueryBuilderPartTwo do
     end
 
     context 'returns hash' do
-      it 'with full name query' do
-        query_builder = QueryBuilder.new(person_search_fields: full_name_params)
+      it 'with last, middle, and first name query' do
+        query_builder = QueryBuilder.new(person_search_fields: last_middle_first_name_params)
         query = query_builder.extend(described_class).query
-        expect(query.as_json).to eq full_name_query['query']
+        expect(query.as_json).to eq last_middle_first_name_query['query']
       end
     end
   end
