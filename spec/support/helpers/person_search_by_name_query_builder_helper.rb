@@ -82,12 +82,12 @@ module PersonSearchByNameQueryBuilderHelper
     }
   end
 
-  def full_name_functions
-    full_name_without_suffix_functions.insert(1, suffix_sub_query)
+  def last_first_name_with_suffix_functions
+    last_first_name_functions.insert(1, suffix_sub_query)
   end
 
-  def full_name_without_suffix_functions
-    full_name_without_suffix_functions_part_one.concat(full_name_functions_part_two)
+  def last_first_name_functions
+    last_first_name_functions_part_one.concat(last_first_name_functions_part_two)
   end
 
   def fs_no_name_query
@@ -200,7 +200,7 @@ module PersonSearchByNameQueryBuilderHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_query
+  def fs_last_and_first_name_with_suffix_query
     query = {
       "function_score": {
         "query": {
@@ -217,7 +217,7 @@ module PersonSearchByNameQueryBuilderHelper
             ]
           }
         },
-        "functions": full_name_functions,
+        "functions": last_first_name_with_suffix_functions,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
@@ -226,7 +226,7 @@ module PersonSearchByNameQueryBuilderHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_without_suffix_query
+  def fs_last_and_first_name_query
     query = {
       "function_score": {
         "query": {
@@ -243,7 +243,7 @@ module PersonSearchByNameQueryBuilderHelper
             ]
           }
         },
-        "functions": full_name_without_suffix_functions,
+        "functions": last_first_name_functions,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
@@ -252,7 +252,7 @@ module PersonSearchByNameQueryBuilderHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_dob_query
+  def fs_last_first_name_with_suffix_dob_query
     query = {
       "function_score": {
         "query": {
@@ -276,7 +276,7 @@ module PersonSearchByNameQueryBuilderHelper
             ]
           }
         },
-        "functions": full_name_functions,
+        "functions": last_first_name_with_suffix_functions,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
@@ -285,7 +285,7 @@ module PersonSearchByNameQueryBuilderHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_approx_age_months_gender_query
+  def fs_last_first_name_with_suffix_approx_age_months_gender_query
     query = {
       "function_score": {
         "query": {
@@ -318,7 +318,7 @@ module PersonSearchByNameQueryBuilderHelper
             ]
           }
         },
-        "functions": full_name_functions,
+        "functions": last_first_name_with_suffix_functions,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
@@ -327,7 +327,7 @@ module PersonSearchByNameQueryBuilderHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_approx_age_years_gender_query
+  def fs_last_first_name_with_suffix_approx_age_years_gender_query
     query = {
       "function_score": {
         "query": {
@@ -360,7 +360,7 @@ module PersonSearchByNameQueryBuilderHelper
             ]
           }
         },
-        "functions": full_name_functions,
+        "functions": last_first_name_with_suffix_functions,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
@@ -369,7 +369,7 @@ module PersonSearchByNameQueryBuilderHelper
     build_query(query).as_json
   end
 
-  def fs_full_name_without_suffix_approx_age_months_gender_query
+  def fs_last_first_name_approx_age_months_gender_query
     query = {
       "function_score": {
         "query": {
@@ -402,7 +402,7 @@ module PersonSearchByNameQueryBuilderHelper
             ]
           }
         },
-        "functions": full_name_without_suffix_functions,
+        "functions": last_first_name_functions,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
