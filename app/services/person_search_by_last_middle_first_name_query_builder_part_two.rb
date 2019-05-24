@@ -17,12 +17,15 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwo
     { function_score: { functions: f, score_mode: 'max', boost_mode: 'max' } }
   end
 
+  def last_name_params(name)
+    generate_match_params('last_name', last_name, name, nil)
+  end
+
   def match_last_name_middle_name_duplicate
-    last_name_params = generate_match_params('last_name', last_name, '9_exact_last', nil)
     first_name_dup_params = generate_match_params('first_name', middle_name, '9_dupe_first', nil)
     middle_name_dup_params = generate_match_params('middle_name', middle_name, '9_dupe_middle',
       nil)
-    param_list = [last_name_params, first_name_dup_params, middle_name_dup_params]
+    param_list = [last_name_params('9_exact_last'), first_name_dup_params, middle_name_dup_params]
     match_query_list(param_list)
   end
 

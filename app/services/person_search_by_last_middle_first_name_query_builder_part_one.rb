@@ -27,21 +27,29 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOne
     match_query(field: 'legacy_descriptor.legacy_table_name', query: 'CLIENT_T', name: 'q_cli')
   end
 
+  def last_name_params(name)
+    generate_match_params('last_name', last_name, name, nil)
+  end
+
+  def middle_name_params(name)
+    generate_match_params('middle_name', middle_name, name, nil)
+  end
+
+  def first_name_params(name)
+    generate_match_params('first_name', first_name, name, nil)
+  end
+
   def match_last_middle_first_name
-    last_name_params = generate_match_params('last_name', last_name, '1_exact_last', nil)
-    middle_name_params = generate_match_params('middle_name', middle_name, '1_exact_middle', nil)
-    first_name_params = generate_match_params('first_name', first_name, '1_exact_first', nil)
-    param_list = [last_name_params, middle_name_params, first_name_params]
+    param_list = [last_name_params('1_exact_last'), middle_name_params('1_exact_middle'),
+                  first_name_params('1_exact_first')]
     match_query_list(param_list)
   end
 
   def match_last_middle_first_name_with_suffix
     return if suffix.blank?
-    last_name_params = generate_match_params('last_name', last_name, '2_exact_last', nil)
-    middle_name_params = generate_match_params('middle_name', middle_name, '2_exact_middle', nil)
-    first_name_params = generate_match_params('first_name', first_name, '2_exact_first', nil)
     suffix_params = generate_match_params('name_suffix', suffix, '2_exact_suffix', nil)
-    param_list = [last_name_params, middle_name_params, first_name_params, suffix_params]
+    param_list = [last_name_params('2_exact_last'), middle_name_params('2_exact_middle'),
+                  first_name_params('2_exact_first'), suffix_params]
     match_query_list(param_list)
   end
 
@@ -55,18 +63,15 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOne
   end
 
   def match_last_first_middle_dim
-    last_name_params = generate_match_params('last_name', last_name, '4_exact_last', nil)
-    first_name_params = generate_match_params('first_name', first_name, '4_exact_first', nil)
     middle_name_dim_params = generate_match_params('middle_name.diminutive', middle_name,
       '4_diminutive_middle', nil)
-    param_list = [last_name_params, first_name_params, middle_name_dim_params]
+    param_list = [last_name_params('4_exact_last'), first_name_params('4_exact_first'),
+                  middle_name_dim_params]
     match_query_list(param_list)
   end
 
   def match_last_first_name
-    last_name_params = generate_match_params('last_name', last_name, '5_exact_last', nil)
-    first_name_params = generate_match_params('first_name', first_name, '5_exact_first', nil)
-    param_list = [last_name_params, first_name_params]
+    param_list = [last_name_params('5_exact_last'), first_name_params('5_exact_first')]
     match_query_list(param_list)
   end
 
@@ -78,30 +83,27 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOne
   end
 
   def match_last_name_first_name_duplicate
-    last_name_params = generate_match_params('last_name', last_name, '6_exact_last', nil)
     first_name_dup_params = generate_match_params('first_name', first_name, '6_dupe_first', nil)
     middle_name_dup_params = generate_match_params('middle_name', first_name, '6_dupe_middle',
       nil)
-    param_list = [last_name_params, first_name_dup_params, middle_name_dup_params]
+    param_list = [last_name_params('6_exact_last'), first_name_dup_params, middle_name_dup_params]
     match_query_list(param_list)
   end
 
   def match_last_middle_first_name_dim
-    last_name_params = generate_match_params('last_name', last_name, '7_exact_last', nil)
-    middle_name_params = generate_match_params('middle_name', middle_name, '7_exact_middle', nil)
     first_name_dim_params = generate_match_params('first_name.diminutive', first_name,
       '7_diminutive_first', nil)
-    param_list = [last_name_params, middle_name_params, first_name_dim_params]
+    param_list = [last_name_params('7_exact_last'), middle_name_params('7_exact_middle'),
+                  first_name_dim_params]
     match_query_list(param_list)
   end
 
   def match_last_middle_dim_first_dim
-    last_name_params = generate_match_params('last_name', last_name, '8_exact_last', nil)
     middle_name_dim_params = generate_match_params('middle_name.diminutive',
       middle_name, '8_diminutive_middle', nil)
     first_name_dim_params = generate_match_params('first_name.diminutive', first_name,
       '8_diminutive_first', nil)
-    param_list = [last_name_params, middle_name_dim_params, first_name_dim_params]
+    param_list = [last_name_params('8_exact_last'), middle_name_dim_params, first_name_dim_params]
     match_query_list(param_list)
   end
 
