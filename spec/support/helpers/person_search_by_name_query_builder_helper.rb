@@ -90,6 +90,14 @@ module PersonSearchByNameQueryBuilderHelper
     last_first_name_functions_part_one.concat(last_first_name_functions_part_two)
   end
 
+  def last_middle_first_name_with_suffix_functions
+    last_middle_first_name_functions.insert(1, last_middle_first_name_with_suffix_sub_query)
+  end
+
+  def last_middle_first_name_functions
+    last_middle_first_name_functions_part_one.concat(last_middle_first_name_functions_part_two)
+  end
+
   def fs_no_name_query
     query = {
       "function_score": {
@@ -403,6 +411,90 @@ module PersonSearchByNameQueryBuilderHelper
           }
         },
         "functions": last_first_name_functions,
+        "score_mode": 'max',
+        "boost_mode": 'max'
+      }
+    }
+
+    build_query(query).as_json
+  end
+
+  def fs_last_middle_first_name_with_suffix_approx_age_years_gender_query
+    query = {
+      "function_score": {
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "legacy_descriptor.legacy_table_name": {
+                    "query": 'CLIENT_T',
+                    "_name": 'q_cli'
+                  }
+                }
+              },
+              {
+                "range": {
+                  "date_of_birth": {
+                    "gte": (Date.current - 100.years - 5.years).iso8601,
+                    "lte": (Date.current - 100.years + 5.years).iso8601,
+                    "format": 'yyyy-MM-dd'
+                  }
+                }
+              },
+              {
+                "query_string": {
+                  "default_field": 'gender',
+                  "query": 'male',
+                  "boost": '1'
+                }
+              }
+            ]
+          }
+        },
+        "functions": last_middle_first_name_with_suffix_functions,
+        "score_mode": 'max',
+        "boost_mode": 'max'
+      }
+    }
+
+    build_query(query).as_json
+  end
+
+  def fs_last_middle_first_name_approx_age_months_gender_query
+    query = {
+      "function_score": {
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "legacy_descriptor.legacy_table_name": {
+                    "query": 'CLIENT_T',
+                    "_name": 'q_cli'
+                  }
+                }
+              },
+              {
+                "range": {
+                  "date_of_birth": {
+                    "gte": (Date.current - 12.months - 6.months).iso8601,
+                    "lte": (Date.current - 12.months + 6.months).iso8601,
+                    "format": 'yyyy-MM-dd'
+                  }
+                }
+              },
+              {
+                "query_string": {
+                  "default_field": 'gender',
+                  "query": 'female',
+                  "boost": '1'
+                }
+              }
+            ]
+          }
+        },
+        "functions": last_middle_first_name_functions,
         "score_mode": 'max',
         "boost_mode": 'max'
       }
