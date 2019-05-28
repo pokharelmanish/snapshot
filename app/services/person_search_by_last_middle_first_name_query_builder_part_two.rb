@@ -40,20 +40,78 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwo
     multi_match(params)
   end
 
-  def match_last_name
-    last_name_params = generate_match_params('last_name', last_name, '10_exact_last', nil)
+  def match_last_name(name)
+    last_name_params = last_name_params(name)
     param_list = [last_name_params]
     match_query_list(param_list)
   end
 
   def match_last_name_multi_match_first_middle_phon
-    match_last_name.push(multi_match_first_middle_name_phon).compact
+    match_last_name('10_exact_last').push(multi_match_first_middle_name_phon).compact
+  end
+
+  def match_name_fuzzy(field, value, name)
+    params = { field: field, value: value, fuzziness: 'AUTO', prefix_length: '1',
+               max_expansions: '50', name: name }
+    fuzzy_query(params)
+  end
+
+  def match_first_middle_name_fuzzy
+    fn_fuzzy_query = match_name_fuzzy('first_name', first_name, '11_fuzzy_first')
+    mn_fuzzy_query = match_name_fuzzy('middle_name', middle_name, '11_fuzzy_middle')
+    [fn_fuzzy_query, mn_fuzzy_query].compact
+  end
+
+  def match_last_middle_name
+    last_name_params = last_name_params('12_exact_last')
+    middle_name_params = generate_match_params('middle_name', middle_name, '12_exact_middle', nil)
+    param_list = [last_name_params, middle_name_params]
+    match_query_list(param_list)
+  end
+
+  def match_first_name
+    first_name_params = generate_match_params('first_name', first_name, '12_no_exact_first', nil)
+    param_list = [first_name_params]
+    match_query_list(param_list)
+  end
+
+  def match_middle_first_name
+    middle_name_params = generate_match_params('middle_name', middle_name, '14_no_exact_middle',
+      nil)
+    first_name_params = generate_match_params('first_name', first_name, '14_no_exact_first', nil)
+    param_list = [middle_name_params, first_name_params]
+    match_query_list(param_list)
+  end
+
+  def match_last_middle_first_name_to_last
+    last_name_params = last_name_params('16_duplicate_last')
+    middle_name_params = generate_match_params('middle_name', last_name, '16_duplicate_middle',
+      nil)
+    first_name_params = generate_match_params('first_name', last_name, '16_duplicate_first', nil)
+    param_list = [last_name_params, middle_name_params, first_name_params]
+    match_query_list(param_list)
+  end
+
+  def match_last_middle_first_to_partials
+    first_name_params = generate_match_params('first_name_ngram', first_name, '17_partial_first',
+      '15%')
+    middle_name_params = generate_match_params('middle_name_ngram', middle_name,
+      '17_partial_middle', '15%')
+    last_name_params = generate_match_params('last_name_ngram', last_name, '17_partial_last', '15%')
+    param_list = [first_name_params, middle_name_params, last_name_params]
+    match_query_list(param_list)
   end
 
   def fs_query_params
     [
       { q: match_last_name_middle_name_duplicate, w: 4096, bq: true },
-      { q: match_last_name_multi_match_first_middle_phon, w: 2048, bq: true }
+      { q: match_last_name_multi_match_first_middle_phon, w: 2048, bq: true },
+      { q: match_last_name('11_exact_last'), should_q: match_first_middle_name_fuzzy,
+        w: 1024, bq: true, min_s_m: '1' },
+      { q: match_last_middle_name, not_q: match_first_name, w: 512, bq: true },
+      { q: match_last_name('14_exact_last'), not_q: match_middle_first_name, w: 256, bq: true },
+      { q: match_last_middle_first_name_to_last, w: 128, bq: true },
+      { q: match_last_middle_first_to_partials, w: 64, bq: true }
     ].compact
   end
 end
