@@ -18,6 +18,8 @@ describe('SearchResultsTable', () => {
     {
       'gender': 'female',
       'caseStatus': 'Closed',
+      'spCounty': 'pokhara',
+      'spPhone': '111-111-1111',
       'isSealed': true,
       'address': {
         'city': 'Lake Elsinore',
@@ -35,6 +37,8 @@ describe('SearchResultsTable', () => {
     },
     {
       'gender': 'female',
+      'spCounty': 'pokhara',
+      'spPhone': '111-111-1111',
       'isSensitive': true,
       'clientCounties': [
         'Los Angeles',
@@ -46,6 +50,8 @@ describe('SearchResultsTable', () => {
     },
     {
       'gender': 'unknown',
+      'spCounty': 'pokhara',
+      'spPhone': '111-111-1111',
       'address': {
         'city': 'King City',
         'state': 'CA',
@@ -62,6 +68,8 @@ describe('SearchResultsTable', () => {
     },
     {
       'gender': 'male',
+      'spCounty': 'pokhara',
+      'spPhone': '111-111-1111',
       'address': null,
       'phoneNumber': null,
       'dateOfBirth': '1994-05-14',
@@ -69,6 +77,8 @@ describe('SearchResultsTable', () => {
     },
     {
       'gender': 'male',
+      'spCounty': 'pokhara',
+      'spPhone': '111-111-1111',
       'address': {
         'city': 'town',
         'state': 'CA',
@@ -82,6 +92,8 @@ describe('SearchResultsTable', () => {
     },
     {
       'gender': 'male',
+      'spCounty': 'pokhara',
+      'spPhone': '111-111-1111',
       'address': {
         'city': 'town',
         'state': 'CA',
@@ -125,8 +137,8 @@ describe('SearchResultsTable', () => {
       expect(cell.at(1).find('a').text()).toEqual('Sarah Timson')
       expect(cell.at(2).text()).toEqual('01/03/2005')
       expect(cell.at(3).text()).toEqual('Female')
-      expect(cell.at(4).text()).toEqual('')
-      expect(cell.at(5).text()).toEqual('')
+      expect(cell.at(4).text()).toEqual('pokhara')
+      expect(cell.at(5).text()).toEqual('111-111-1111')
       expect(cell.at(6).text()).toEqual('4451 Anniversary Parkway, Lake Elsinore, CA 92530')
       expect(cell.at(7).text()).toEqual('Closed')
     })
@@ -203,6 +215,20 @@ describe('SearchResultsTable', () => {
   })
 
   describe('Sensitive', () => {
+    it('renders Name Link', () => {
+      const row = component.find('div.rt-tr-group').at(1)
+      const cell = row.find('div.rt-td')
+      expect(cell.find('Link').props().className).toEqual('sensitive-person')
+    })
+
+    it('render alert when clicked on Name link', () => {
+      spyOn(window, 'alert')
+      const row = component.find('div.rt-tr-group').at(1)
+      const cell = row.find('div.rt-td')
+      cell.find('Link').props().onClick()
+      expect(window.alert).toHaveBeenCalledWith('You are not authorized to add this person.')
+    })
+
     it('render client with tooltip', () => {
       const row = component.find('div.rt-tr-group').at(1)
       const cell = row.find('div.rt-td')

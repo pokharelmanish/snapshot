@@ -61,6 +61,8 @@ module QueryBuilderHelper
       'csec.end_date',
       'csec.csec_code_id',
       'csec.description',
+      'sp_county',
+      'sp_phone',
       'legacy_descriptor',
       'highlight',
       'phone_numbers.id',
