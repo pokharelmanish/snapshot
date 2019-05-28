@@ -23,6 +23,18 @@ module QueryBuilderHelper
     { field: field, query: query, name: name, min_s_m: min_s_m }.delete_if { |_k, v| v.blank? }
   end
 
+  def last_name_params(name)
+    generate_match_params('last_name', last_name, name, nil)
+  end
+
+  def middle_name_params(name)
+    generate_match_params('middle_name', middle_name, name, nil)
+  end
+
+  def first_name_params(name)
+    generate_match_params('first_name', first_name, name, nil)
+  end
+
   def generate_query_params(params)
     {
       query: params[:query], value: params[:value], operator: params[:operator],
