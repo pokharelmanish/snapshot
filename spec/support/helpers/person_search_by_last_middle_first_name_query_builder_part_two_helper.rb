@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwoHelper
   def last_middle_first_name_functions_part_two
     [
@@ -61,6 +62,187 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwoHelper
           }
         },
         "weight": 2048
+      },
+      {
+        "filter": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "last_name": {
+                    "query": 'last name',
+                    "_name": '11_exact_last'
+                  }
+                }
+              }
+            ],
+            "should": [
+              {
+                "fuzzy": {
+                  "first_name": {
+                    "value": 'first name',
+                    "fuzziness": 'AUTO',
+                    "prefix_length": '1',
+                    "max_expansions": '50',
+                    "_name": '11_fuzzy_first'
+                  }
+                }
+              },
+              {
+                "fuzzy": {
+                  "middle_name": {
+                    "value": 'middle name',
+                    "fuzziness": 'AUTO',
+                    "prefix_length": '1',
+                    "max_expansions": '50',
+                    "_name": '11_fuzzy_middle'
+                  }
+                }
+              }
+            ],
+            "minimum_should_match": '1'
+          }
+        },
+        "weight": 1024
+      },
+      {
+        "filter": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "last_name": {
+                    "query": 'last name',
+                    "_name": '12_exact_last'
+                  }
+                }
+              },
+              {
+                "match": {
+                  "middle_name": {
+                    "query": 'middle name',
+                    "_name": '12_exact_middle'
+                  }
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "match": {
+                  "first_name": {
+                    "query": 'first name',
+                    "_name": '12_no_exact_first'
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "weight": 512
+      },
+      {
+        "filter": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "last_name": {
+                    "query": 'last name',
+                    "_name": '14_exact_last'
+                  }
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "match": {
+                  "middle_name": {
+                    "query": 'middle name',
+                    "_name": '14_no_exact_middle'
+                  }
+                }
+              },
+              {
+                "match": {
+                  "first_name": {
+                    "query": 'first name',
+                    "_name": '14_no_exact_first'
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "weight": 256
+      },
+      {
+        "filter": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "last_name": {
+                    "query": 'last name',
+                    "_name": '16_duplicate_last'
+                  }
+                }
+              },
+              {
+                "match": {
+                  "middle_name": {
+                    "query": 'last name',
+                    "_name": '16_duplicate_middle'
+                  }
+                }
+              },
+              {
+                "match": {
+                  "first_name": {
+                    "query": 'last name',
+                    "_name": '16_duplicate_first'
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "weight": 128
+      },
+      {
+        "filter": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "first_name_ngram": {
+                    "query": 'first name',
+                    "minimum_should_match": '15%',
+                    "_name": '17_partial_first'
+                  }
+                }
+              },
+              {
+                "match": {
+                  "middle_name_ngram": {
+                    "query": 'middle name',
+                    "minimum_should_match": '15%',
+                    "_name": '17_partial_middle'
+                  }
+                }
+              },
+              {
+                "match": {
+                  "last_name_ngram": {
+                    "query": 'last name',
+                    "minimum_should_match": '15%',
+                    "_name": '17_partial_last'
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "weight": 64
       }
     ]
   end
