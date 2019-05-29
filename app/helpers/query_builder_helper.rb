@@ -35,6 +35,12 @@ module QueryBuilderHelper
     generate_match_params('first_name', first_name, name, nil)
   end
 
+  def match_last_name(name)
+    last_name_params = last_name_params(name)
+    param_list = [last_name_params]
+    match_query_list(param_list)
+  end
+
   def generate_query_params(params)
     {
       query: params[:query], value: params[:value], operator: params[:operator],
