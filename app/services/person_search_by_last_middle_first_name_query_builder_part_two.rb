@@ -35,12 +35,6 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwo
     multi_match(params)
   end
 
-  def match_last_name(name)
-    last_name_params = last_name_params(name)
-    param_list = [last_name_params]
-    match_query_list(param_list)
-  end
-
   def match_last_name_multi_match_first_middle_phon
     match_last_name('10_exact_last').push(multi_match_first_middle_name_phon).compact
   end
@@ -70,29 +64,19 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwo
     match_query_list(param_list)
   end
 
+  def match_middle_first_to_partials
+    first_name_params = generate_match_params('first_name_ngram', first_name, '13_partial_first',
+      '15%')
+    middle_name_params = generate_match_params('middle_name_ngram', middle_name,
+      '13_partial_middle', '15%')
+    param_list = [first_name_params, middle_name_params]
+    match_query_list(param_list)
+  end
+
   def match_middle_first_name
     middle_name_params = middle_name_params('14_no_exact_middle')
     first_name_params = first_name_params('14_no_exact_first')
     param_list = [middle_name_params, first_name_params]
-    match_query_list(param_list)
-  end
-
-  def match_last_middle_first_name_to_last
-    last_name_params = last_name_params('16_duplicate_last')
-    middle_name_params = generate_match_params('middle_name', last_name, '16_duplicate_middle',
-      nil)
-    first_name_params = generate_match_params('first_name', last_name, '16_duplicate_first', nil)
-    param_list = [last_name_params, middle_name_params, first_name_params]
-    match_query_list(param_list)
-  end
-
-  def match_last_middle_first_to_partials
-    first_name_params = generate_match_params('first_name_ngram', first_name, '17_partial_first',
-      '15%')
-    middle_name_params = generate_match_params('middle_name_ngram', middle_name,
-      '17_partial_middle', '15%')
-    last_name_params = generate_match_params('last_name_ngram', last_name, '17_partial_last', '15%')
-    param_list = [first_name_params, middle_name_params, last_name_params]
     match_query_list(param_list)
   end
 
@@ -103,9 +87,9 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwo
       { q: match_last_name('11_exact_last'), should_q: match_first_middle_name_fuzzy,
         w: 1024, bq: true, min_s_m: '1' },
       { q: match_last_middle_name, not_q: match_first_name, w: 512, bq: true },
-      { q: match_last_name('14_exact_last'), not_q: match_middle_first_name, w: 256, bq: true },
-      { q: match_last_middle_first_name_to_last, w: 128, bq: true },
-      { q: match_last_middle_first_to_partials, w: 64, bq: true }
+      { q: match_last_name('13_exact_last'), should_q: match_middle_first_to_partials, w: 256,
+        bq: true },
+      { q: match_last_name('14_exact_last'), not_q: match_middle_first_name, w: 128, bq: true }
     ].compact
   end
 end

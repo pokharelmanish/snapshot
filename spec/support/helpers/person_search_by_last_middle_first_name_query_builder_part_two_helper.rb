@@ -148,6 +148,43 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwoHelper
                 "match": {
                   "last_name": {
                     "query": 'last name',
+                    "_name": '13_exact_last'
+                  }
+                }
+              }
+            ],
+            "should": [
+              {
+                "match": {
+                  "first_name_ngram": {
+                    "query": 'first name',
+                    "minimum_should_match": '15%',
+                    "_name": '13_partial_first'
+                  }
+                }
+              },
+              {
+                "match": {
+                  "middle_name_ngram": {
+                    "query": 'middle name',
+                    "minimum_should_match": '15%',
+                    "_name": '13_partial_middle'
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "weight": 256
+      },
+      {
+        "filter": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "last_name": {
+                    "query": 'last name',
                     "_name": '14_exact_last'
                   }
                 }
@@ -173,76 +210,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwoHelper
             ]
           }
         },
-        "weight": 256
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "last_name": {
-                    "query": 'last name',
-                    "_name": '16_duplicate_last'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "middle_name": {
-                    "query": 'last name',
-                    "_name": '16_duplicate_middle'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "first_name": {
-                    "query": 'last name',
-                    "_name": '16_duplicate_first'
-                  }
-                }
-              }
-            ]
-          }
-        },
         "weight": 128
-      },
-      {
-        "filter": {
-          "bool": {
-            "must": [
-              {
-                "match": {
-                  "first_name_ngram": {
-                    "query": 'first name',
-                    "minimum_should_match": '15%',
-                    "_name": '17_partial_first'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "middle_name_ngram": {
-                    "query": 'middle name',
-                    "minimum_should_match": '15%',
-                    "_name": '17_partial_middle'
-                  }
-                }
-              },
-              {
-                "match": {
-                  "last_name_ngram": {
-                    "query": 'last name',
-                    "minimum_should_match": '15%',
-                    "_name": '17_partial_last'
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "weight": 64
       }
     ]
   end
