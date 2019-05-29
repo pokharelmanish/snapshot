@@ -138,7 +138,7 @@ describe('SearchResultsTable', () => {
       expect(cell.at(2).text()).toEqual('01/03/2005')
       expect(cell.at(3).text()).toEqual('Female')
       expect(cell.at(4).text()).toEqual('pokhara')
-      expect(cell.at(5).text()).toEqual('111-111-1111')
+      expect(cell.at(5).text()).toEqual('(111) 111-1111')
       expect(cell.at(6).text()).toEqual('4451 Anniversary Parkway, Lake Elsinore, CA 92530')
       expect(cell.at(7).text()).toEqual('Closed')
     })

@@ -6,6 +6,7 @@ import {dateFormatter} from 'utils/dateFormatter'
 import {capitalizedStr} from 'utils/textFormatter'
 import {Link} from 'react-router'
 import ReactTooltip from 'react-tooltip'
+import {phoneNumberFormatter} from 'utils/phoneNumberFormatter'
 
 const sensitiveAlert = () => alert('You are not authorized to add this person.') // eslint-disable-line no-alert
 class SearchResultsTable extends Component {
@@ -63,6 +64,7 @@ class SearchResultsTable extends Component {
     {
       Header: 'Service Provider Phone',
       accessor: 'spPhone',
+      Cell: (row) => phoneNumberFormatter(row.original.spPhone),
     },
     {
       id: 'address',
