@@ -6,7 +6,9 @@ import {dateFormatter} from 'utils/dateFormatter'
 import {capitalizedStr} from 'utils/textFormatter'
 import {Link} from 'react-router'
 import ReactTooltip from 'react-tooltip'
+import {phoneNumberFormatter} from 'utils/phoneNumberFormatter'
 
+const sensitiveAlert = () => alert('You are not authorized to add this person.') // eslint-disable-line no-alert
 class SearchResultsTable extends Component {
   constructor() {
     super()
@@ -37,7 +39,7 @@ class SearchResultsTable extends Component {
         const className = person.isSealed ? 'disabled-cursor' : ''
         return (
           <div>
-            <Link className={className} to={`/snapshot/detail/${id}`}>{person.fullName}</Link>
+            {person.isSensitive ? <Link className='sensitive-person' onClick={sensitiveAlert}>{person.fullName}</Link> : <Link className={className} to={`/snapshot/detail/${id}`}>{person.fullName}</Link>}
             {person.isSensitive && <span data-tip="Sensitive">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             {person.isSealed && <span data-tip="Sealed">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             <ReactTooltip className="custom-tool-tip" />
@@ -57,11 +59,12 @@ class SearchResultsTable extends Component {
     },
     {
       Header: 'Service Provider County',
-      accessor: null,
+      accessor: 'spCounty',
     },
     {
       Header: 'Service Provider Phone',
-      accessor: null,
+      accessor: 'spPhone',
+      Cell: (row) => phoneNumberFormatter(row.original.spPhone),
     },
     {
       id: 'address',

@@ -59,6 +59,8 @@ class PersonSearchResultBuilder
         }],
         addresses: [],
         csec: [],
+        sp_county: '',
+        sp_phone: '',
         date_of_birth: '',
         legacy_descriptor: {},
         sensitivity_indicator: ''

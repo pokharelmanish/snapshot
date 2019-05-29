@@ -96,7 +96,7 @@ class BaseQueryBuilder
        addresses.id addresses.effective_start_date addresses.street_name addresses.street_number
        addresses.city addresses.county addresses.state_code addresses.zip addresses.type
        addresses.legacy_descriptor addresses.phone_numbers.number addresses.phone_numbers.type
-       csec.start_date csec.end_date csec.csec_code_id csec.description
+       csec.start_date csec.end_date csec.csec_code_id csec.description sp_county sp_phone
        legacy_descriptor highlight phone_numbers.id phone_numbers.number
        phone_numbers.type sensitivity_indicator race_ethnicity open_case_responsible_agency_code]
   end
