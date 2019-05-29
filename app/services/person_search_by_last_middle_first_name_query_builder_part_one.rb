@@ -27,18 +27,6 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOne
     match_query(field: 'legacy_descriptor.legacy_table_name', query: 'CLIENT_T', name: 'q_cli')
   end
 
-  def last_name_params(name)
-    generate_match_params('last_name', last_name, name, nil)
-  end
-
-  def middle_name_params(name)
-    generate_match_params('middle_name', middle_name, name, nil)
-  end
-
-  def first_name_params(name)
-    generate_match_params('first_name', first_name, name, nil)
-  end
-
   def match_last_middle_first_name
     param_list = [last_name_params('1_exact_last'), middle_name_params('1_exact_middle'),
                   first_name_params('1_exact_first')]

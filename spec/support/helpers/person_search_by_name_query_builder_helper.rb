@@ -95,7 +95,9 @@ module PersonSearchByNameQueryBuilderHelper
   end
 
   def last_middle_first_name_functions
-    last_middle_first_name_functions_part_one.concat(last_middle_first_name_functions_part_two)
+    last_middle_first_name_functions_part_one
+      .concat(last_middle_first_name_functions_part_two)
+      .concat(last_middle_first_name_functions_part_three)
   end
 
   def fs_no_name_query

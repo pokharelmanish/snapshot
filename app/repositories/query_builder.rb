@@ -48,6 +48,7 @@ class QueryBuilder < BaseQueryBuilder
   def self.search_by_last_middle_and_first_name(builder)
     builder.extend(PersonSearchByLastMiddleFirstNameQueryBuilderPartOne).build_query(builder)
     builder.extend(PersonSearchByLastMiddleFirstNameQueryBuilderPartTwo).build_query(builder)
+    builder.extend(PersonSearchByLastMiddleFirstNameQueryBuilderPartThree).build_query(builder)
   end
 
   def self.search_by_age_query(builder)
