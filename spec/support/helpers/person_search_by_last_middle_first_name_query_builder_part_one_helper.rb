@@ -158,7 +158,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
               {
                 "match": {
                   "first_name": {
-                    "query": 'first name',
+                    "query": 'middle name',
                     "_name": '6_dupe_first'
                   }
                 }
@@ -166,7 +166,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
               {
                 "match": {
                   "middle_name": {
-                    "query": 'first name',
+                    "query": 'middle name',
                     "_name": '6_dupe_middle'
                   }
                 }

@@ -71,10 +71,10 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOne
   end
 
   def match_last_name_first_name_duplicate
-    first_name_dup_params = generate_match_params('first_name', first_name, '6_dupe_first', nil)
-    middle_name_dup_params = generate_match_params('middle_name', first_name, '6_dupe_middle',
-      nil)
-    param_list = [last_name_params('6_exact_last'), first_name_dup_params, middle_name_dup_params]
+    last_name_params = last_name_params('6_exact_last')
+    first_name_dup_params = generate_match_params('first_name', middle_name, '6_dupe_first', nil)
+    middle_name_dup_params = middle_name_params('6_dupe_middle')
+    param_list = [last_name_params, first_name_dup_params, middle_name_dup_params]
     match_query_list(param_list)
   end
 
