@@ -88,7 +88,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwo
         w: 1024, bq: true, min_s_m: '1' },
       { q: match_last_middle_name, not_q: match_first_name, w: 512, bq: true },
       { q: match_last_name('13_exact_last'), should_q: match_middle_first_to_partials, w: 256,
-        bq: true },
+        bq: true, min_s_m: '1' },
       { q: match_last_name('14_exact_last'), not_q: match_middle_first_name, w: 128, bq: true }
     ].compact
   end

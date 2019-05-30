@@ -172,7 +172,8 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartTwoHelper
                   }
                 }
               }
-            ]
+            ],
+            "minimum_should_match": '1'
           }
         },
         "weight": 256
