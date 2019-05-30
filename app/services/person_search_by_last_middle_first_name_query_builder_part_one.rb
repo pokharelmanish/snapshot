@@ -70,7 +70,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOne
     match_query_list(param_list)
   end
 
-  def match_last_name_first_name_duplicate
+  def match_last_name_first_middle_name_by_middle
     last_name_params = last_name_params('6_exact_last')
     first_name_dup_params = generate_match_params('first_name', middle_name, '6_dupe_first', nil)
     middle_name_dup_params = middle_name_params('6_dupe_middle')
@@ -102,7 +102,7 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOne
       { q: match_last_middle_first_name_akas, w: 262_144, bq: true },
       { q: match_last_first_middle_dim, w: 131_072, bq: true },
       { q: match_last_first_name, not_q: match_middle_name, w: 65_536, bq: true },
-      { q: match_last_name_first_name_duplicate, w: 32_768, bq: true },
+      { q: match_last_name_first_middle_name_by_middle, w: 32_768, bq: true },
       { q: match_last_middle_first_name_dim, w: 16_384, bq: true },
       { q: match_last_middle_dim_first_dim, w: 8192, bq: true }
     ].compact
