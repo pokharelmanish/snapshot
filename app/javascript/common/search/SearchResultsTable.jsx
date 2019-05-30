@@ -18,6 +18,10 @@ class SearchResultsTable extends Component {
     this.fetchData = this.fetchData.bind(this)
   }
 
+  componentDidUpdate() {
+    ReactTooltip.rebuild()
+  }
+
   columns = [
     {
       Header: '',

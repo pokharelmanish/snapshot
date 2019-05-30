@@ -1,8 +1,17 @@
 import React from 'react'
 import SearchResultsTable from 'common/search/SearchResultsTable'
 import {mount} from 'enzyme'
+import ReactTooltip from 'react-tooltip'
 
-const render = ({resultsSubset = [], setCurrentPageNumber = () => {}, setCurrentRowNumber = () => {}, onLoadMoreResults = () => {}, personSearchFields = {}} = {}) => {
+const render = (
+  {
+    resultsSubset = [],
+    setCurrentPageNumber = () => {},
+    setCurrentRowNumber = () => {},
+    onLoadMoreResults = () => {},
+    personSearchFields = {},
+    currentRow = 25,
+  } = {}) => {
   return mount(
     <SearchResultsTable
       resultsSubset={resultsSubset}
@@ -10,6 +19,7 @@ const render = ({resultsSubset = [], setCurrentPageNumber = () => {}, setCurrent
       setCurrentRowNumber={setCurrentRowNumber}
       onLoadMoreResults={onLoadMoreResults}
       personSearchFields={personSearchFields}
+      currentRow={currentRow}
     />, {disableLifecycleMethods: true})
 }
 
@@ -234,6 +244,15 @@ describe('SearchResultsTable', () => {
       const cell = row.find('div.rt-td')
       expect(cell.find('span').html()).toContain('Sensitive')
       expect(cell.find('span i').exists()).toBe(true)
+    })
+  })
+
+  describe('ComponentDidUpdate', () => {
+    it('rebuild reacttooltip', () => {
+      const rebuild = spyOn(ReactTooltip, 'rebuild')
+      const currentRow = 10
+      component.setProps({currentRow: currentRow})
+      expect(rebuild).toHaveBeenCalled()
     })
   })
 })
