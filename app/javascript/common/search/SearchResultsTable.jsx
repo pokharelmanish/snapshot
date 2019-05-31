@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
@@ -7,9 +7,10 @@ import {capitalizedStr} from 'utils/textFormatter'
 import {Link} from 'react-router'
 import ReactTooltip from 'react-tooltip'
 import {phoneNumberFormatter} from 'utils/phoneNumberFormatter'
+import AlertMessageResultsLimit from 'common/search/AlertMessageResultsLimit'
 
 const sensitiveAlert = () => alert('You are not authorized to add this person.') // eslint-disable-line no-alert
-class SearchResultsTable extends Component {
+class SearchResultsTable extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -106,16 +107,19 @@ class SearchResultsTable extends Component {
   render() {
     const {resultsSubset, total, currentRow} = this.props
     return (
-      <ReactTable
-        columns={this.columns}
-        manual
-        data={resultsSubset}
-        minRows={0}
-        pages={Math.ceil(total / currentRow)}
-        onPageChange={(pageIndex) => this.fetchData(pageIndex)}
-        defaultPageSize={currentRow}
-        onPageSizeChange={(pageSize, pageIndex) => this.setRowAndFetchData(pageSize, pageIndex)}
-      />
+      <Fragment>
+        <AlertMessageResultsLimit total={total} />
+        <ReactTable
+          columns={this.columns}
+          manual
+          data={resultsSubset}
+          minRows={0}
+          pages={Math.ceil(total / currentRow)}
+          onPageChange={(pageIndex) => this.fetchData(pageIndex)}
+          defaultPageSize={currentRow}
+          onPageSizeChange={(pageSize, pageIndex) => this.setRowAndFetchData(pageSize, pageIndex)}
+        />
+      </Fragment>
     )
   }
 }
