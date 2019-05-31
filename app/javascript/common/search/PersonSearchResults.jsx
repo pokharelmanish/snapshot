@@ -14,7 +14,9 @@ const PersonSearchResults = (
     resultsSubset,
     currentRow,
   }) => {
-  const title = `Search Results (${total || '0'} records found)`
+  const resultsLimit = 250
+  const totalResults = total > resultsLimit ? '250+' : total
+  const title = `Search Results (${totalResults} records found)`
   return (
     <CardView
       id="person-search-results-card"
