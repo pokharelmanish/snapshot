@@ -128,7 +128,6 @@ SearchResultsTable.propTypes = {
   currentRow: PropTypes.number,
   onLoadMoreResults: PropTypes.func,
   personSearchFields: PropTypes.object,
-  results: PropTypes.array,
   resultsSubset: PropTypes.array,
   setCurrentPageNumber: PropTypes.func,
   setCurrentRowNumber: PropTypes.func,
