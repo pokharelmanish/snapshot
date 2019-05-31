@@ -8,7 +8,6 @@ import {Link} from 'react-router'
 import ReactTooltip from 'react-tooltip'
 import {phoneNumberFormatter} from 'utils/phoneNumberFormatter'
 
-const sensitiveAlert = () => alert('You are not authorized to add this person.') // eslint-disable-line no-alert
 class SearchResultsTable extends Component {
   constructor() {
     super()
@@ -40,10 +39,10 @@ class SearchResultsTable extends Component {
       Cell: (row) => {
         const person = row.original
         const id = person.legacyDescriptor && person.legacyDescriptor.legacy_id
-        const className = person.isSealed ? 'disabled-cursor' : ''
+        const isSealed = person.isSealed ? 'disabled-cursor' : ''
         return (
           <div>
-            {person.isSensitive ? <Link className='sensitive-person' onClick={sensitiveAlert}>{person.fullName}</Link> : <Link className={className} to={`/snapshot/detail/${id}`}>{person.fullName}</Link>}
+            {<Link className={isSealed} to={`/snapshot/detail/${id}`}>{person.fullName}</Link>}
             {person.isSensitive && <span data-tip="Sensitive">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             {person.isSealed && <span data-tip="Sealed">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             <ReactTooltip className="custom-tool-tip" />
