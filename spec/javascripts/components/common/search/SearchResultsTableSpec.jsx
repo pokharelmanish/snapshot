@@ -11,6 +11,7 @@ const render = (
     onLoadMoreResults = () => {},
     personSearchFields = {},
     currentRow = 25,
+    total = 0,
   } = {}) => {
   return mount(
     <SearchResultsTable
@@ -20,6 +21,7 @@ const render = (
       onLoadMoreResults={onLoadMoreResults}
       personSearchFields={personSearchFields}
       currentRow={currentRow}
+      total={total}
     />, {disableLifecycleMethods: true})
 }
 
@@ -123,6 +125,19 @@ describe('SearchResultsTable', () => {
   })
 
   describe('layout', () => {
+    it('renders a AlertMessageResultsLimit component and sets total', () => {
+      const totalResults = 251
+      const component = render({total: totalResults})
+      const alertMessage = component.find('AlertMessageResultsLimit')
+      expect(alertMessage.exists()).toBe(true)
+      expect(alertMessage.props().total).toBe(totalResults)
+    })
+
+    it('renders a ReactTable', () => {
+      const searchResultsTable = component.find('ReactTable')
+      expect(searchResultsTable.exists()).toBe(true)
+    })
+
     it('renders the table headers', () => {
       const header = component.find('div.rt-resizable-header-content')
       expect(header.at(0).text()).toEqual('')
