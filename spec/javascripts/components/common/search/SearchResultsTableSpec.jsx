@@ -240,20 +240,6 @@ describe('SearchResultsTable', () => {
   })
 
   describe('Sensitive', () => {
-    it('renders Name Link', () => {
-      const row = component.find('div.rt-tr-group').at(1)
-      const cell = row.find('div.rt-td')
-      expect(cell.find('Link').props().className).toEqual('sensitive-person')
-    })
-
-    it('render alert when clicked on Name link', () => {
-      spyOn(window, 'alert')
-      const row = component.find('div.rt-tr-group').at(1)
-      const cell = row.find('div.rt-td')
-      cell.find('Link').props().onClick()
-      expect(window.alert).toHaveBeenCalledWith('You are not authorized to add this person.')
-    })
-
     it('render client with tooltip', () => {
       const row = component.find('div.rt-tr-group').at(1)
       const cell = row.find('div.rt-td')
