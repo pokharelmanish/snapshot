@@ -6,7 +6,6 @@ import SearchResultsTable from 'common/search/SearchResultsTable'
 
 const PersonSearchResults = (
   {
-    results,
     total,
     personSearchFields,
     onLoadMoreResults,
@@ -40,7 +39,6 @@ PersonSearchResults.propTypes = {
   currentRow: PropTypes.number,
   onLoadMoreResults: PropTypes.func,
   personSearchFields: PropTypes.object,
-  results: PropTypes.array,
   resultsSubset: PropTypes.array,
   setCurrentPageNumber: PropTypes.func,
   setCurrentRowNumber: PropTypes.func,
