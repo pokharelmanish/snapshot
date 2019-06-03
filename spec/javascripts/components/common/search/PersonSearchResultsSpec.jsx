@@ -82,7 +82,7 @@ describe('PersonSearchResults', () => {
       })
 
       describe('when the total results is 251 or greater', () => {
-        it('sets the title with 251+ instead of the number of results', () => {
+        it('sets the title with 250+ instead of the number of results', () => {
           const component = render({total: 251})
           const cardView = component.find('CardView')
           const title = cardView.props().title
