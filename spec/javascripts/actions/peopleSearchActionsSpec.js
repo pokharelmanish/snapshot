@@ -31,12 +31,16 @@ describe('peopleSearchActions', () => {
   })
 
   it('search is FSA compliant', () => {
-    const personSearchFields = {
-      firstName: 'Cesar',
-      lastName: 'Chavez',
-    }
-    const totalResultsReceived = 250
-    const action = search('test', true, personSearchFields, totalResultsReceived)
+    const action = search('test')
+    expect(isFSA(action)).toEqual(true)
+  })
+
+  it('search with address is FSA compliant', () => {
+    const action = search('test', true, {
+      county: 'Sacramento',
+      city: 'Sacramento',
+      address: '123 Main St',
+    })
     expect(isFSA(action)).toEqual(true)
   })
 
