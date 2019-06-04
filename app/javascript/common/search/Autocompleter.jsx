@@ -68,8 +68,9 @@ export default class Autocompleter extends Component {
   }
 
   loadMoreResults() {
-    const {onLoadMoreResults, isAdvancedSearchOn, personSearchFields} = this.props
-    onLoadMoreResults(isAdvancedSearchOn, personSearchFields)
+    const {onLoadMoreResults, isAdvancedSearchOn, personSearchFields, results} = this.props
+    const totalResultsReceived = results.length
+    onLoadMoreResults(isAdvancedSearchOn, personSearchFields, totalResultsReceived)
     this.element_ref.setIgnoreBlur(true)
     if (this.inputRef) { this.inputRef.focus() }
   }

@@ -313,7 +313,7 @@ describe('<Autocompleter />', () => {
             .find('Autocomplete')
             .props()
             .onSelect('_value', {showMoreResults: true})
-          expect(onLoadMoreResults).toHaveBeenCalledWith(true, defaultPersonSearchFields)
+          expect(onLoadMoreResults).toHaveBeenCalledWith(true, defaultPersonSearchFields, 3)
         })
 
         it('calls onLoadMoreResults with an address', () => {
@@ -345,7 +345,7 @@ describe('<Autocompleter />', () => {
             city: 'Central City',
             address: 'Star Labs',
             approximateAgeUnits: '',
-          })
+          }, 3)
         })
       })
     })
