@@ -39,7 +39,7 @@ class SearchResultsTable extends Component {
       Cell: (row) => {
         const person = row.original
         const id = person.legacyDescriptor && person.legacyDescriptor.legacy_id
-        const isSealed = person.isSealed ? 'disabled-cursor' : ''
+        const isSealed = person.isSealed ? 'is-sealed' : ''
         return (
           <div>
             {<Link className={isSealed} to={`/snapshot/detail/${id}`}>{person.fullName}</Link>}
