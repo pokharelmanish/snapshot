@@ -123,9 +123,6 @@ def releasePipeline() {
   } catch(Exception exception) {
     currentBuild.result = "FAILURE"
     throw exception
-  } finally {
-    echo 'Cleaning workspace'
-    cleanWs()
   }
 }
 
@@ -377,6 +374,7 @@ def deployWithSmoke(environment) {
       buildDocker()
       smokeTest(environment)
     }
+    cleanWs()
   }
 }
 
