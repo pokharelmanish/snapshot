@@ -87,20 +87,30 @@ class SearchResultsTable extends React.Component {
   ]
 
   fetchData(pageIndex) {
+    const {setCurrentPageNumber, onLoadMoreResults, personSearchFields, results} = this.props
     const previousPage = this.state.previousPage
     const currentPage = pageIndex + 1
-    this.props.setCurrentPageNumber(currentPage)
+    const totalResultsReceived = results.length
+    setCurrentPageNumber(currentPage)
     if (currentPage > previousPage) {
-      this.props.onLoadMoreResults(this.props.personSearchFields)
+      onLoadMoreResults(personSearchFields, totalResultsReceived)
     }
     this.setState({previousPage: pageIndex})
   }
 
   setRowAndFetchData(pageSize, pageIndex) {
+    const {
+      setCurrentRowNumber,
+      setCurrentPageNumber,
+      onLoadMoreResults,
+      personSearchFields,
+      results,
+    } = this.props
     const currentPage = pageIndex + 1
-    this.props.setCurrentRowNumber(pageSize)
-    this.props.setCurrentPageNumber(currentPage)
-    this.props.onLoadMoreResults(this.props.personSearchFields)
+    const totalResultsReceived = results.length
+    setCurrentRowNumber(pageSize)
+    setCurrentPageNumber(currentPage)
+    onLoadMoreResults(personSearchFields, totalResultsReceived)
   }
 
   render() {
@@ -127,6 +137,7 @@ SearchResultsTable.propTypes = {
   currentRow: PropTypes.number,
   onLoadMoreResults: PropTypes.func,
   personSearchFields: PropTypes.object,
+  results: PropTypes.array,
   resultsSubset: PropTypes.array,
   setCurrentPageNumber: PropTypes.func,
   setCurrentRowNumber: PropTypes.func,
