@@ -153,16 +153,6 @@
   font-size: 1rem;
 }
 
-.disabled-cursor {
-  color: $dark-grey;
-  pointer-events: none;
-  text-decoration: none;
-}
-
-.disabled-cursor:visited {
-  color: $dark-grey;
-}
-
 // scss-lint:disable ImportantRule
 .custom-tool-tip {
   background-color: $medium-blue !important;

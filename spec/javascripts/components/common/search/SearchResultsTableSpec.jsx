@@ -246,10 +246,10 @@ describe('SearchResultsTable', () => {
   })
 
   describe('Sealed', () => {
-    it('disable Name Link', () => {
+    it('renders Link', () => {
       const row = component.find('div.rt-tr-group').at(0)
       const cell = row.find('div.rt-td')
-      expect(cell.find('Link').props().className).toEqual('disabled-cursor')
+      expect(cell.find('Link').exists()).toBe(true)
     })
 
     it('render client with tooltip', () => {

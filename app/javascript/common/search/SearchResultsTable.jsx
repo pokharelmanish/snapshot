@@ -40,10 +40,9 @@ class SearchResultsTable extends React.Component {
       Cell: (row) => {
         const person = row.original
         const id = person.legacyDescriptor && person.legacyDescriptor.legacy_id
-        const isSealed = person.isSealed ? 'disabled-cursor' : ''
         return (
           <div>
-            {<Link className={isSealed} to={`/snapshot/detail/${id}`}>{person.fullName}</Link>}
+            {<Link to={`/snapshot/detail/${id}`}>{person.fullName}</Link>}
             {person.isSensitive && <span data-tip="Sensitive">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             {person.isSealed && <span data-tip="Sealed">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             <ReactTooltip className="custom-tool-tip" />
