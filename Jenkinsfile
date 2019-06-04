@@ -123,6 +123,9 @@ def releasePipeline() {
   } catch(Exception exception) {
     currentBuild.result = "FAILURE"
     throw exception
+  } finally {
+    echo 'Cleaning workspace'
+    cleanWs()
   }
 }
 
@@ -321,7 +324,7 @@ def deployToStage(environment, version) {
   stage("Deploy to $environment") {
     ws {
       git branch: "master", credentialsId: GITHUB_CREDENTIALS_ID, url: 'git@github.com:ca-cwds/de-ansible.git'
-      sh "ansible-playbook -e NEW_RELIC_AGENT=true -e INTAKE_APP_VERSION=$version -i inventories/$environment/hosts.yml deploy-intake.yml --vault-password-file ~/.ssh/vault.txt -vv"
+      sh ansibleCommand(environment, version)
     }
   }
 }
@@ -368,12 +371,17 @@ def smokeTest(environment) {
 def deployWithSmoke(environment) {
   node(environment) {
     checkOutStage()
-    deployToStage(environment, env.APP_VERSION)
-    updateManifestStage(environment, env.APP_VERSION)
-    buildDocker()
-    smokeTest(environment)
-    cleanWs()
+    rollbackDeployOnFailure('intake', environment, GITHUB_CREDENTIALS_ID, ansibleCommand(environment, env.APP_VERSION)) {
+      deployToStage(environment, env.APP_VERSION)
+      updateManifestStage(environment, env.APP_VERSION)
+      buildDocker()
+      smokeTest(environment)
+    }
   }
+}
+
+def ansibleCommand(environment, version){
+  "ansible-playbook -e NEW_RELIC_AGENT=true -e INTAKE_APP_VERSION=$version -i inventories/$environment/hosts.yml deploy-intake.yml --vault-password-file ~/.ssh/vault.txt -vv"
 }
 
 def githubConfig() {
