@@ -6,6 +6,7 @@ import SearchResultsTable from 'common/search/SearchResultsTable'
 
 const render = ({
   total = 0,
+  results = [],
   resultsSubset = [],
   setCurrentPageNumber = () => {},
   setCurrentRowNumber = () => {},
@@ -16,6 +17,7 @@ const render = ({
   shallow(
     <PersonSearchResults
       total={total}
+      results={results}
       resultsSubset={resultsSubset}
       setCurrentPageNumber={setCurrentPageNumber}
       setCurrentRowNumber={setCurrentRowNumber}

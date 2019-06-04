@@ -11,6 +11,7 @@ const PersonSearchResults = (
     onLoadMoreResults,
     setCurrentPageNumber,
     setCurrentRowNumber,
+    results,
     resultsSubset,
     currentRow,
   }) => {
@@ -24,6 +25,7 @@ const PersonSearchResults = (
       mode={SHOW_MODE}
       show={
         <SearchResultsTable
+          results={results}
           resultsSubset={resultsSubset}
           total={total}
           personSearchFields={personSearchFields}
@@ -41,6 +43,7 @@ PersonSearchResults.propTypes = {
   currentRow: PropTypes.number,
   onLoadMoreResults: PropTypes.func,
   personSearchFields: PropTypes.object,
+  results: PropTypes.array,
   resultsSubset: PropTypes.array,
   setCurrentPageNumber: PropTypes.func,
   setCurrentRowNumber: PropTypes.func,
