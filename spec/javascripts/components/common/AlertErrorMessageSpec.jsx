@@ -28,19 +28,41 @@ describe('AlertErrorMessage', () => {
       const iconContainer = component.find('div.alert-cross')
       const icon = iconContainer.find('i.fa-times')
       expect(iconContainer.exists()).toBe(true)
+      expect(iconContainer.props().role).toBe('button')
+      expect(iconContainer.props().tabIndex).toBe('0')
       expect(icon.exists()).toBe(true)
     })
   })
 
   describe('event handlers', () => {
-    describe('onClick', () => {
-      describe('alert cross', () => {
+    describe('alert cross', () => {
+      describe('onClick', () => {
         it('calls closeAlert callback', () => {
           const closeAlert = jasmine.createSpy('closeAlert')
           const component = render({closeAlert})
           const alertCross = component.find('div.alert-cross')
           alertCross.simulate('click')
           expect(closeAlert).toHaveBeenCalled()
+        })
+      })
+
+      describe('onKeyDown', () => {
+        it('calls closeAlert callback when Enter key is pressed', () => {
+          const event = {keyCode: 13}
+          const closeAlert = jasmine.createSpy('closeAlert')
+          const component = render({closeAlert})
+          const alertCross = component.find('div.alert-cross')
+          alertCross.props().onKeyDown(event)
+          expect(closeAlert).toHaveBeenCalled()
+        })
+
+        it('does not call closeAlert callback when a key other than Enter is pressed', () => {
+          const event = {keyCode: 1}
+          const closeAlert = jasmine.createSpy('closeAlert')
+          const component = render({closeAlert})
+          const alertCross = component.find('div.alert-cross')
+          alertCross.props().onKeyDown(event)
+          expect(closeAlert).not.toHaveBeenCalled()
         })
       })
     })
