@@ -22,8 +22,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const onLoadMoreResults = (personSearchFields) => {
-    dispatch(loadMoreResults(true, true, personSearchFields))
+  const onLoadMoreResults = (personSearchFields, totalResultsReceived) => {
+    dispatch(loadMoreResults(true, true, personSearchFields, totalResultsReceived))
   }
   const setCurrentPageNumber = (pageNumber) => {
     dispatch(setSearchCurrentPage(pageNumber))
