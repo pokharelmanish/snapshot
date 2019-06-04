@@ -34,11 +34,12 @@ export default class Autocompleter extends Component {
   }
 
   searchAndFocus() {
-    const {onChange, onSearch, isAdvancedSearchOn, personSearchFields} = this.props
+    const {onChange, onSearch, isAdvancedSearchOn, personSearchFields, results} = this.props
     const {lastName, firstName, middleName, clientId, suffix, ssn,
       dateOfBirth, approximateAge, approximateAgeUnits, searchByAgeMethod} = personSearchFields
     const suffixWithComma = suffix ? `, ${suffix}` : ''
     const lastNameWithSuffix = `${lastName}${suffixWithComma}`
+    const totalResultsReceived = results.length
     let searchTermList = [firstName, middleName, lastNameWithSuffix, clientId, ssn]
     if (searchByAgeMethod === 'dob') {
       searchTermList.push(dateOfBirth)
@@ -46,7 +47,7 @@ export default class Autocompleter extends Component {
       searchTermList = searchTermList.concat([approximateAge, approximateAgeUnits])
     }
     const searchTerm = searchTermList.filter(Boolean).join(' ').trim()
-    onSearch(isAdvancedSearchOn, personSearchFields)
+    onSearch(isAdvancedSearchOn, personSearchFields, totalResultsReceived)
     onChange('searchTerm', searchTerm)
     this.setState({menuVisible: true})
     if (this.inputRef) { this.inputRef.focus() }
