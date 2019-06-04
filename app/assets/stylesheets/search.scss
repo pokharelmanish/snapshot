@@ -178,19 +178,19 @@
 
 .alert-container.search-results-limit {
   .row {
-    width: 90%;
     margin-left: 05%;
+    width: 90%;
   }
-  
+
   .alert-message {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
   }
 
   .alert-icon {
-    width: .1rem;
+    background-color: $orange;
     padding-left: 1rem;
     padding-right: 1rem;
-    background-color: $orange;
+    width: .1rem;
   }
 }
