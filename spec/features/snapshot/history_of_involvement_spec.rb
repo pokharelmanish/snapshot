@@ -295,7 +295,7 @@ feature 'Snapshot History of Involvement' do
       end
 
       within '#person-search-results-card' do
-        click_link 'Simpson'
+        page.find('a', text: 'Simpson').click
       end
     end
 
@@ -364,7 +364,7 @@ feature 'Snapshot History of Involvement' do
       end
 
       within '#person-search-results-card' do
-        click_link 'Simpson'
+        page.find('a', text: 'Simpson').click
       end
     end
 

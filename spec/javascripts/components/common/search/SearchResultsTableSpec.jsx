@@ -11,6 +11,7 @@ const render = (
     onLoadMoreResults = () => {},
     personSearchFields = {},
     currentRow = 25,
+    onAuthorize = () => {},
   } = {}) => {
   return mount(
     <SearchResultsTable
@@ -20,6 +21,7 @@ const render = (
       onLoadMoreResults={onLoadMoreResults}
       personSearchFields={personSearchFields}
       currentRow={currentRow}
+      onAuthorize={onAuthorize}
     />, {disableLifecycleMethods: true})
 }
 
@@ -31,6 +33,9 @@ describe('SearchResultsTable', () => {
       'spCounty': 'pokhara',
       'spPhone': '111-111-1111',
       'isSealed': true,
+      'legacyDescriptor': {
+        'legacy_id': '6j6DKYI0Ki',
+      },
       'address': {
         'city': 'Lake Elsinore',
         'state': 'CA',
@@ -239,6 +244,17 @@ describe('SearchResultsTable', () => {
       const currentRow = 10
       component.setProps({currentRow: currentRow})
       expect(rebuild).toHaveBeenCalled()
+    })
+  })
+
+  describe('onClick', () => {
+    it('calls onAuthorize with id', () => {
+      const onAuthorize = jasmine.createSpy('onClick')
+      const wrapper = render({resultsSubset: defaultMockedResults, onAuthorize})
+      const row = wrapper.find('div.rt-tr-group').at(0)
+      const cell = row.find('div.rt-td').at(1)
+      cell.find('Link').props().onClick()
+      expect(onAuthorize).toHaveBeenCalledWith('6j6DKYI0Ki')
     })
   })
 })
