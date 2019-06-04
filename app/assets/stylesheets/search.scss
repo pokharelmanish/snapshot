@@ -153,15 +153,6 @@
   font-size: 1rem;
 }
 
-.is-sealed {
-  color: $dark-grey;
-  text-decoration: none;
-}
-
-.is-sealed:visited {
-  color: $dark-grey;
-}
-
 // scss-lint:disable ImportantRule
 .custom-tool-tip {
   background-color: $medium-blue !important;
