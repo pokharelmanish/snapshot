@@ -49,6 +49,7 @@ describe('PersonSearchResults', () => {
       const cardView = component.find('CardView')
       const props = cardView.props()
       const tableProps = {
+        results: [],
         resultsSubset: [],
         total: 200,
         personSearchFields: {},
