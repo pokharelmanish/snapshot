@@ -7,11 +7,11 @@ import {
   loadMoreResultsFailure,
 } from 'actions/peopleSearchActions'
 
-export function* loadMorePeopleSearch({payload: {isClientOnly, isAdvancedSearchOn, personSearchFields}}) {
+export function* loadMorePeopleSearch({payload: {isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived}}) {
   try {
     const size = yield select(selectSearchResultsCurrentRow)
     const sort = yield select(selectLastResultsSortValue)
-    const response = yield getPeopleEffect({isClientOnly, isAdvancedSearchOn, personSearchFields, size, sort})
+    const response = yield getPeopleEffect({isClientOnly, isAdvancedSearchOn, personSearchFields, size, totalResultsReceived, sort})
     yield put(loadMoreResultsSuccess(response))
   } catch (error) {
     yield put(loadMoreResultsFailure(error))

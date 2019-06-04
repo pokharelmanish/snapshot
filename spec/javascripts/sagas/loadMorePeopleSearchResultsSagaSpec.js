@@ -28,7 +28,8 @@ describe('loadMorePeopleSearch', () => {
   const isClientOnly = true
   const isAdvancedSearchOn = true
   const personSearchFields = {lastName: 'Doe'}
-  const action = loadMoreResults(isClientOnly, isAdvancedSearchOn, personSearchFields)
+  const totalResultsReceived = 250
+  const action = loadMoreResults(isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived)
   const lastResultSort = ['last_result_sort']
 
   it('finds some error during the process', () => {
@@ -38,11 +39,12 @@ describe('loadMorePeopleSearch', () => {
     const searchParams = {
       is_client_only: true,
       is_advanced_search_on: true,
+      total_results_received: totalResultsReceived,
       person_search_fields: {last_name: 'doe'},
       size: size,
       search_after: lastResultSort,
     }
-    expect(peopleSeachGenerator.next(size).value).toEqual(
+    expect(peopleSeachGenerator.next().value).toEqual(
       select(selectSearchResultsCurrentRow)
     )
     expect(peopleSeachGenerator.next(size).value).toEqual(select(selectLastResultsSortValue))
@@ -58,13 +60,14 @@ describe('loadMorePeopleSearch', () => {
     }
     const size = 25
     const peopleSeachGenerator = loadMorePeopleSearch(action)
-    expect(peopleSeachGenerator.next(size).value).toEqual(
+    expect(peopleSeachGenerator.next().value).toEqual(
       select(selectSearchResultsCurrentRow)
     )
     expect(peopleSeachGenerator.next(size).value).toEqual(select(selectLastResultsSortValue))
     expect(peopleSeachGenerator.next(lastResultSort).value).toEqual(call(get, '/api/v1/people', {
       is_client_only: true,
       is_advanced_search_on: true,
+      total_results_received: totalResultsReceived,
       person_search_fields: {last_name: 'doe'},
       size: size,
       search_after: lastResultSort,
