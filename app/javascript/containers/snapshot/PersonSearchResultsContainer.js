@@ -1,7 +1,6 @@
 import {connect} from 'react-redux'
 import PersonSearchResults from 'common/search/PersonSearchResults'
 import {
-  selectPeopleResults,
   selectResultsTotalValue,
   selectPersonSearchFields,
   selectSearchResultsSubset,
@@ -15,7 +14,6 @@ import {
 
 const mapStateToProps = state => {
   return {
-    results: selectPeopleResults(state).toJS(),
     total: selectResultsTotalValue(state),
     personSearchFields: selectPersonSearchFields(state),
     resultsSubset: selectSearchResultsSubset(state),
