@@ -41,16 +41,10 @@ describe('peopleSearchActions', () => {
   })
 
   it('loadMoreResults is FSA compliant', () => {
-    const action = loadMoreResults()
-    expect(isFSA(action)).toEqual(true)
-  })
-
-  it('loadMoreResults with address is FSA compliant', () => {
     const action = loadMoreResults(true, {
-      county: 'Sacramento',
-      city: 'Sacramento',
-      address: '123 Main St',
-    })
+      firstName: 'Nikola',
+      lastName: 'Tesla',
+    }, 250)
     expect(isFSA(action)).toEqual(true)
   })
 
