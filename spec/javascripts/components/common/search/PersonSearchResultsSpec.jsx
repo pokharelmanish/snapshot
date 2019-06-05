@@ -12,6 +12,7 @@ describe('PersonSearchResults', () => {
       setCurrentRowNumber = () => {},
       onLoadMoreResults = () => {},
       personSearchFields = {},
+      onAuthorize = () => {},
     } = {}) => (
     shallow(
       <PersonSearchResults
@@ -21,6 +22,7 @@ describe('PersonSearchResults', () => {
         setCurrentRowNumber={setCurrentRowNumber}
         onLoadMoreResults={onLoadMoreResults}
         personSearchFields={personSearchFields}
+        onAuthorize={onAuthorize}
       />, {disableLifecycleMethods: true})
   )
 

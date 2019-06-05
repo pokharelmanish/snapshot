@@ -14,6 +14,7 @@ const PersonSearchResults = (
     setCurrentRowNumber,
     resultsSubset,
     currentRow,
+    onAuthorize,
   }) => {
   const title = `Search Results (${total || '0'} records found)`
   return (
@@ -30,6 +31,7 @@ const PersonSearchResults = (
           setCurrentPageNumber={setCurrentPageNumber}
           setCurrentRowNumber={setCurrentRowNumber}
           currentRow={currentRow}
+          onAuthorize={onAuthorize}
         />
       }
     />
@@ -38,6 +40,7 @@ const PersonSearchResults = (
 
 PersonSearchResults.propTypes = {
   currentRow: PropTypes.number,
+  onAuthorize: PropTypes.func,
   onLoadMoreResults: PropTypes.func,
   personSearchFields: PropTypes.object,
   results: PropTypes.array,
