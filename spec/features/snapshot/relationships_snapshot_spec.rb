@@ -160,7 +160,7 @@ feature 'Snapshot relationship card' do
       end
 
       within '#person-search-results-card' do
-        page.find('a', text: 'Simpson').click
+        click_button 'Simpson'
       end
     end
 
@@ -224,7 +224,7 @@ feature 'Snapshot relationship card' do
       end
 
       within '#person-search-results-card' do
-        page.find('a', text: 'Simpson').click
+        click_button 'Simpson'
       end
     end
 

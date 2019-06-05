@@ -4,7 +4,6 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import {dateFormatter} from 'utils/dateFormatter'
 import {capitalizedStr} from 'utils/textFormatter'
-import {Link} from 'react-router'
 import ReactTooltip from 'react-tooltip'
 import {phoneNumberFormatter} from 'utils/phoneNumberFormatter'
 
@@ -41,7 +40,7 @@ class SearchResultsTable extends Component {
         const id = person.legacyDescriptor && person.legacyDescriptor.legacy_id
         return (
           <div>
-            {<Link className='person-search-detail-link' onClick={() => onAuthorize(id)}>{person.fullName}</Link>}
+            {<button className='person-search-detail-link' onClick={() => onAuthorize(id)}>{person.fullName}</button>}
             {person.isSensitive && <span data-tip="Sensitive">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             {person.isSealed && <span data-tip="Sealed">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             <ReactTooltip className="custom-tool-tip" />
