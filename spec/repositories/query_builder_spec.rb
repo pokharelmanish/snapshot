@@ -228,12 +228,45 @@ describe QueryBuilder do
       end
     end
 
-    context 'when the size parameter is not the default size of 25' do
-      let(:size) { '10' }
+    context 'when the total results received is 250' do
+      let(:size) { '25' }
+      let(:expected_size) { '0' }
+      let(:total_results_received) { '250' }
 
-      it 'builds a person search query that returns a max of 10 results' do
-        query = described_class.new(size: size).build_query
-        expect(query[:size]).to eq size
+      it 'builds a person search query that returns 0 results' do
+        query = described_class.new(
+          size: size,
+          total_results_received: total_results_received
+        ).build_query
+        expect(query[:size]).to eq expected_size
+      end
+    end
+
+    context 'when the sum of the size and total results received is 250 or less' do
+      let(:size) { '100' }
+      let(:expected_size) { '100' }
+      let(:total_results_received) { '100' }
+
+      it 'builds a person search query that returns 100 results' do
+        query = described_class.new(
+          size: size,
+          total_results_received: total_results_received
+        ).build_query
+        expect(query[:size]).to eq expected_size
+      end
+    end
+
+    context 'when the sum of the size and total results received is over 250' do
+      let(:size) { '100' }
+      let(:expected_size) { '50' }
+      let(:total_results_received) { '200' }
+
+      it 'builds a person search query that returns 50 results' do
+        query = described_class.new(
+          size: size,
+          total_results_received: total_results_received
+        ).build_query
+        expect(query[:size]).to eq expected_size
       end
     end
   end

@@ -11,6 +11,7 @@ module QueryBuilderHelper
   TRACK_SCORES = 'true'
   REQUIRE_FIELD_MATCH = 'false'
   MIN_SCORE = '2.5'
+  MAX_RESULTS = 250
 
   def formatted_query(string)
     string.to_s.downcase

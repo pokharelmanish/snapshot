@@ -6,7 +6,7 @@ class BaseQueryBuilder
 
   attr_reader :search_term, :search_after, :is_client_only, :size, :payload,
     :params, :city, :county, :street, :client_id, :date_of_birth, :gender,
-    :approximate_age, :approximate_age_units, :search_by_age_method
+    :approximate_age, :approximate_age_units, :search_by_age_method, :total_results_received
 
   def self.build(params = {})
     builder = new(params)
@@ -27,7 +27,8 @@ class BaseQueryBuilder
     @search_term              = params.dig(:person_search_fields, :search_term)
     @search_after             = params[:search_after]
     @is_client_only           = params.fetch(:is_client_only, 'true') == 'true'
-    @size                     = params[:size]
+    @size                     = params[:size].to_i
+    @total_results_received   = params[:total_results_received].to_i
   end
 
   def initialize_name_ssn_client_id
@@ -74,9 +75,19 @@ class BaseQueryBuilder
     @last_name.present? && @middle_name.blank? && @first_name.present?
   end
 
+  def calc_size
+    if @total_results_received == MAX_RESULTS
+      0.to_s
+    elsif @size + @total_results_received <= MAX_RESULTS
+      @size.to_s
+    elsif @size + @total_results_received > MAX_RESULTS
+      (MAX_RESULTS - @total_results_received).to_s
+    end
+  end
+
   def build_query
     {
-      size:  @size, track_scores: TRACK_SCORES, sort: sort, min_score: MIN_SCORE,
+      size:  calc_size, track_scores: TRACK_SCORES, sort: sort, min_score: MIN_SCORE,
       _source: fields, highlight: highlight
     }.tap { |query| query[:search_after] = @search_after if @search_after }
   end
