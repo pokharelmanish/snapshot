@@ -3,6 +3,102 @@ import SearchResultsTable from 'common/search/SearchResultsTable'
 import {mount} from 'enzyme'
 import ReactTooltip from 'react-tooltip'
 
+const defaultMockedResults = [
+  {
+    'gender': 'female',
+    'caseStatus': 'Closed',
+    'spCounty': 'pokhara',
+    'spPhone': '111-111-1111',
+    'isSealed': true,
+    'legacyDescriptor': {
+      'legacy_id': '6j6DKYI0Ki',
+    },
+    'address': {
+      'city': 'Lake Elsinore',
+      'state': 'CA',
+      'zip': '92530',
+      'streetAddress': '4451 Anniversary Parkway',
+      'type': 'Home',
+    },
+    'phoneNumber': {
+      'number': '(923) 000-9928',
+      'type': 'Home',
+    },
+    'dateOfBirth': '2005-01-03',
+    'fullName': 'Sarah Timson',
+  },
+  {
+    'gender': 'female',
+    'spCounty': 'pokhara',
+    'spPhone': '111-111-1111',
+    'isSensitive': true,
+    'clientCounties': [
+      'Los Angeles',
+    ],
+    'address': null,
+    'phoneNumber': null,
+    'dateOfBirth': '1994-10-01',
+    'fullName': 'c2 Bimson',
+  },
+  {
+    'gender': 'unknown',
+    'spCounty': 'pokhara',
+    'spPhone': '111-111-1111',
+    'address': {
+      'city': 'King City',
+      'state': 'CA',
+      'zip': '95662',
+      'streetAddress': '456 Anhalt Terrace',
+      'type': 'Home',
+    },
+    'phoneNumber': {
+      'number': '(923) 000-9928',
+      'type': 'Home',
+    },
+    'dateOfBirth': '1999-02-17',
+    'fullName': 'Sally Mae Dibson',
+  },
+  {
+    'gender': 'male',
+    'spCounty': 'pokhara',
+    'spPhone': '111-111-1111',
+    'address': null,
+    'phoneNumber': null,
+    'dateOfBirth': '1994-05-14',
+    'fullName': 'Simon Donativo',
+  },
+  {
+    'gender': 'male',
+    'spCounty': 'pokhara',
+    'spPhone': '111-111-1111',
+    'address': {
+      'city': 'town',
+      'state': 'CA',
+      'zip': null,
+      'streetAddress': '123 4th',
+      'type': 'Placement Home',
+    },
+    'phoneNumber': null,
+    'dateOfBirth': '1983-01-01',
+    'fullName': 'First Gimson',
+  },
+  {
+    'gender': 'male',
+    'spCounty': 'pokhara',
+    'spPhone': '111-111-1111',
+    'address': {
+      'city': 'town',
+      'state': 'CA',
+      'zip': null,
+      'streetAddress': '123 4th',
+      'type': 'Placement Home',
+    },
+    'phoneNumber': null,
+    'dateOfBirth': '1983-01-01',
+    'fullName': 'First Gimson',
+  },
+]
+
 const render = (
   {
     results = [],
@@ -30,102 +126,6 @@ const render = (
 }
 
 describe('SearchResultsTable', () => {
-  const defaultMockedResults = [
-    {
-      'gender': 'female',
-      'caseStatus': 'Closed',
-      'spCounty': 'pokhara',
-      'spPhone': '111-111-1111',
-      'isSealed': true,
-      'legacyDescriptor': {
-        'legacy_id': '6j6DKYI0Ki',
-      },
-      'address': {
-        'city': 'Lake Elsinore',
-        'state': 'CA',
-        'zip': '92530',
-        'streetAddress': '4451 Anniversary Parkway',
-        'type': 'Home',
-      },
-      'phoneNumber': {
-        'number': '(923) 000-9928',
-        'type': 'Home',
-      },
-      'dateOfBirth': '2005-01-03',
-      'fullName': 'Sarah Timson',
-    },
-    {
-      'gender': 'female',
-      'spCounty': 'pokhara',
-      'spPhone': '111-111-1111',
-      'isSensitive': true,
-      'clientCounties': [
-        'Los Angeles',
-      ],
-      'address': null,
-      'phoneNumber': null,
-      'dateOfBirth': '1994-10-01',
-      'fullName': 'c2 Bimson',
-    },
-    {
-      'gender': 'unknown',
-      'spCounty': 'pokhara',
-      'spPhone': '111-111-1111',
-      'address': {
-        'city': 'King City',
-        'state': 'CA',
-        'zip': '95662',
-        'streetAddress': '456 Anhalt Terrace',
-        'type': 'Home',
-      },
-      'phoneNumber': {
-        'number': '(923) 000-9928',
-        'type': 'Home',
-      },
-      'dateOfBirth': '1999-02-17',
-      'fullName': 'Sally Mae Dibson',
-    },
-    {
-      'gender': 'male',
-      'spCounty': 'pokhara',
-      'spPhone': '111-111-1111',
-      'address': null,
-      'phoneNumber': null,
-      'dateOfBirth': '1994-05-14',
-      'fullName': 'Simon Donativo',
-    },
-    {
-      'gender': 'male',
-      'spCounty': 'pokhara',
-      'spPhone': '111-111-1111',
-      'address': {
-        'city': 'town',
-        'state': 'CA',
-        'zip': null,
-        'streetAddress': '123 4th',
-        'type': 'Placement Home',
-      },
-      'phoneNumber': null,
-      'dateOfBirth': '1983-01-01',
-      'fullName': 'First Gimson',
-    },
-    {
-      'gender': 'male',
-      'spCounty': 'pokhara',
-      'spPhone': '111-111-1111',
-      'address': {
-        'city': 'town',
-        'state': 'CA',
-        'zip': null,
-        'streetAddress': '123 4th',
-        'type': 'Placement Home',
-      },
-      'phoneNumber': null,
-      'dateOfBirth': '1983-01-01',
-      'fullName': 'First Gimson',
-    },
-  ]
-
   let component
   beforeEach(() => {
     component = render({resultsSubset: defaultMockedResults})
@@ -140,9 +140,73 @@ describe('SearchResultsTable', () => {
       expect(alertMessage.props().total).toBe(totalResults)
     })
 
-    it('renders a ReactTable', () => {
-      const searchResultsTable = component.find('ReactTable')
-      expect(searchResultsTable.exists()).toBe(true)
+    describe('ReactTable', () => {
+      it('renders a table', () => {
+        const table = component.find('ReactTable')
+        expect(table.exists()).toBe(true)
+      })
+
+      describe('page count', () => {
+        describe('when the total number of results is 250 or less', () => {
+          describe('when the total is 198', () => {
+            describe('and the number of rows per page is 5', () => {
+              it('sets the page count to 40', () => {
+                const totalResults = 198
+                const numOfResultsPerPage = 5
+                const expectedPageCount = 40
+                const component = render({total: totalResults, currentRow: numOfResultsPerPage})
+                const table = component.find('ReactTable')
+                const pages = table.props().pages
+                expect(pages).toBe(expectedPageCount)
+              })
+            })
+          })
+
+          describe('when the total is 140', () => {
+            describe('and the number of rows per page is 100', () => {
+              it('sets the page count to 2', () => {
+                const totalResults = 140
+                const numOfResultsPerPage = 100
+                const expectedPageCount = 2
+                const component = render({total: totalResults, currentRow: numOfResultsPerPage})
+                const table = component.find('ReactTable')
+                const pages = table.props().pages
+                expect(pages).toBe(expectedPageCount)
+              })
+            })
+          })
+        })
+
+        describe('when the total number of results is 251 or more', () => {
+          describe('when the total is 801', () => {
+            describe('and the number of rows per page is 20', () => {
+              it('sets the page count to 13', () => {
+                const totalResults = 801
+                const numOfResultsPerPage = 20
+                const expectedPageCount = 13
+                const component = render({total: totalResults, currentRow: numOfResultsPerPage})
+                const table = component.find('ReactTable')
+                const pages = table.props().pages
+                expect(pages).toBe(expectedPageCount)
+              })
+            })
+          })
+
+          describe('when the total is 684', () => {
+            describe('and the number of rows per page is 50', () => {
+              it('sets the page count to 5', () => {
+                const totalResults = 684
+                const numOfResultsPerPage = 50
+                const expectedPageCount = 5
+                const component = render({total: totalResults, currentRow: numOfResultsPerPage})
+                const table = component.find('ReactTable')
+                const pages = table.props().pages
+                expect(pages).toBe(expectedPageCount)
+              })
+            })
+          })
+        })
+      })
     })
 
     it('renders the table headers', () => {
@@ -192,6 +256,7 @@ describe('SearchResultsTable', () => {
     it('calls onLoadMoreResults', () => {
       const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
       const personSearchFields = {lastName: 'laure'}
+      const totalResultsReceived = defaultMockedResults.length
       const component = render({
         results: defaultMockedResults,
         resultsSubset: defaultMockedResults,
@@ -200,12 +265,13 @@ describe('SearchResultsTable', () => {
       })
       const searchResultsTable = component.find('ReactTable')
       searchResultsTable.props().onPageChange(1)
-      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, 6)
+      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
     })
 
     it('does not call onLoadMoreResults when currentPage is less than previousPage', () => {
       const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
       const personSearchFields = {lastName: 'laure'}
+      const totalResultsReceived = defaultMockedResults.length
       const component = render({
         results: defaultMockedResults,
         resultsSubset: defaultMockedResults,
@@ -214,7 +280,7 @@ describe('SearchResultsTable', () => {
       })
       const searchResultsTable = component.find('ReactTable')
       searchResultsTable.props().onPageChange(-2)
-      expect(onLoadMoreResults).not.toHaveBeenCalledWith({lastName: 'laure'}, 6)
+      expect(onLoadMoreResults).not.toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
     })
   })
 
@@ -238,6 +304,7 @@ describe('SearchResultsTable', () => {
     it('calls onLoadMoreResults', () => {
       const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
       const personSearchFields = {lastName: 'laure'}
+      const totalResultsReceived = defaultMockedResults.length
       const component = render({
         results: defaultMockedResults,
         resultsSubset: defaultMockedResults,
@@ -246,7 +313,7 @@ describe('SearchResultsTable', () => {
       })
       const searchResultsTable = component.find('ReactTable')
       searchResultsTable.props().onPageSizeChange(5, 1)
-      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, 6)
+      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
     })
   })
 
