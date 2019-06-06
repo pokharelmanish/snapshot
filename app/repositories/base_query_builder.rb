@@ -27,8 +27,8 @@ class BaseQueryBuilder
     @search_term              = params.dig(:person_search_fields, :search_term)
     @search_after             = params[:search_after]
     @is_client_only           = params.fetch(:is_client_only, 'true') == 'true'
-    @size                     = params[:size].to_i
-    @total_results_received   = params[:total_results_received].to_i
+    @size                     = params.fetch(:size, '0').to_i
+    @total_results_received   = params.fetch(:total_results_received, '0').to_i
   end
 
   def initialize_name_ssn_client_id
