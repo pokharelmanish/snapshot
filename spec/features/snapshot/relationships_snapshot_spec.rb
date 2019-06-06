@@ -160,7 +160,7 @@ feature 'Snapshot relationship card' do
       end
 
       within '#person-search-results-card' do
-        click_link 'Simpson'
+        click_button 'Simpson'
       end
     end
 
@@ -224,7 +224,7 @@ feature 'Snapshot relationship card' do
       end
 
       within '#person-search-results-card' do
-        click_link 'Simpson'
+        click_button 'Simpson'
       end
     end
 

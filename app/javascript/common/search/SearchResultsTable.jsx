@@ -4,7 +4,6 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import {dateFormatter} from 'utils/dateFormatter'
 import {capitalizedStr} from 'utils/textFormatter'
-import {Link} from 'react-router'
 import ReactTooltip from 'react-tooltip'
 import {phoneNumberFormatter} from 'utils/phoneNumberFormatter'
 import AlertMessageResultsLimit from 'common/search/AlertMessageResultsLimit'
@@ -22,7 +21,7 @@ class SearchResultsTable extends React.Component {
     ReactTooltip.rebuild()
   }
 
-  columns = [
+  columns = (onAuthorize) => [
     {
       Header: '',
       id: 'row',
@@ -42,7 +41,7 @@ class SearchResultsTable extends React.Component {
         const id = person.legacyDescriptor && person.legacyDescriptor.legacy_id
         return (
           <div>
-            {<Link to={`/snapshot/detail/${id}`}>{person.fullName}</Link>}
+            {<button className='person-search-detail-link' onClick={() => onAuthorize(id)}>{person.fullName}</button>}
             {person.isSensitive && <span data-tip="Sensitive">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             {person.isSealed && <span data-tip="Sealed">&nbsp;<i className="fa fa-circle search-information-flag" aria-hidden="true"/></span>}
             <ReactTooltip className="custom-tool-tip" />
@@ -113,12 +112,12 @@ class SearchResultsTable extends React.Component {
   }
 
   render() {
-    const {resultsSubset, total, currentRow} = this.props
+    const {resultsSubset, total, currentRow, onAuthorize} = this.props
     return (
       <Fragment>
         <AlertMessageResultsLimit total={total} />
         <ReactTable
-          columns={this.columns}
+          columns={this.columns(onAuthorize)}
           manual
           data={resultsSubset}
           minRows={0}
@@ -134,6 +133,7 @@ class SearchResultsTable extends React.Component {
 
 SearchResultsTable.propTypes = {
   currentRow: PropTypes.number,
+  onAuthorize: PropTypes.func,
   onLoadMoreResults: PropTypes.func,
   personSearchFields: PropTypes.object,
   results: PropTypes.array,

@@ -13,6 +13,7 @@ const render = (
     personSearchFields = {},
     currentRow = 25,
     total = 0,
+    onAuthorize = () => {},
   } = {}) => {
   return mount(
     <SearchResultsTable
@@ -24,6 +25,7 @@ const render = (
       personSearchFields={personSearchFields}
       currentRow={currentRow}
       total={total}
+      onAuthorize={onAuthorize}
     />, {disableLifecycleMethods: true})
 }
 
@@ -35,6 +37,9 @@ describe('SearchResultsTable', () => {
       'spCounty': 'pokhara',
       'spPhone': '111-111-1111',
       'isSealed': true,
+      'legacyDescriptor': {
+        'legacy_id': '6j6DKYI0Ki',
+      },
       'address': {
         'city': 'Lake Elsinore',
         'state': 'CA',
@@ -161,7 +166,7 @@ describe('SearchResultsTable', () => {
       const row = component.find('div.rt-tr-group').at(0)
       const cell = row.find('div.rt-td')
       expect(cell.at(0).text()).toEqual('1.')
-      expect(cell.at(1).find('a').text()).toEqual('Sarah Timson')
+      expect(cell.at(1).find('button').text()).toEqual('Sarah Timson')
       expect(cell.at(2).text()).toEqual('01/03/2005')
       expect(cell.at(3).text()).toEqual('Female')
       expect(cell.at(4).text()).toEqual('pokhara')
@@ -249,7 +254,7 @@ describe('SearchResultsTable', () => {
     it('renders Link', () => {
       const row = component.find('div.rt-tr-group').at(0)
       const cell = row.find('div.rt-td')
-      expect(cell.find('Link').exists()).toBe(true)
+      expect(cell.find('button').exists()).toBe(true)
     })
 
     it('render client with tooltip', () => {
@@ -275,6 +280,17 @@ describe('SearchResultsTable', () => {
       const currentRow = 10
       component.setProps({currentRow: currentRow})
       expect(rebuild).toHaveBeenCalled()
+    })
+  })
+
+  describe('onClick', () => {
+    it('calls onAuthorize with id', () => {
+      const onAuthorize = jasmine.createSpy('onClick')
+      const wrapper = render({resultsSubset: defaultMockedResults, onAuthorize})
+      const row = wrapper.find('div.rt-tr-group').at(0)
+      const cell = row.find('div.rt-td').at(1)
+      cell.find('button').props().onClick()
+      expect(onAuthorize).toHaveBeenCalledWith('6j6DKYI0Ki')
     })
   })
 })

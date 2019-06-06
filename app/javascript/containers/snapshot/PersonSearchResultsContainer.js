@@ -12,6 +12,7 @@ import {
   setSearchCurrentPage,
   setSearchCurrentRow,
 } from 'actions/peopleSearchActions'
+import {authorizeSnapshotPerson} from 'actions/personCardActions'
 
 const mapStateToProps = state => {
   return {
@@ -33,7 +34,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const setCurrentRowNumber = (pageNumber) => {
     dispatch(setSearchCurrentRow(pageNumber))
   }
-  return {onLoadMoreResults, setCurrentPageNumber, setCurrentRowNumber, dispatch}
+  const onAuthorize = (id) => dispatch(authorizeSnapshotPerson(id))
+  return {onLoadMoreResults, setCurrentPageNumber, setCurrentRowNumber, onAuthorize, dispatch}
 }
 
 export default connect(

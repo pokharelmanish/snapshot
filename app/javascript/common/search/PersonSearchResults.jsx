@@ -14,6 +14,7 @@ const PersonSearchResults = (
     results,
     resultsSubset,
     currentRow,
+    onAuthorize,
   }) => {
   const resultsLimit = 250
   const totalResults = total > resultsLimit ? '250+' : total
@@ -33,6 +34,7 @@ const PersonSearchResults = (
           setCurrentPageNumber={setCurrentPageNumber}
           setCurrentRowNumber={setCurrentRowNumber}
           currentRow={currentRow}
+          onAuthorize={onAuthorize}
         />
       }
     />
@@ -41,6 +43,7 @@ const PersonSearchResults = (
 
 PersonSearchResults.propTypes = {
   currentRow: PropTypes.number,
+  onAuthorize: PropTypes.func,
   onLoadMoreResults: PropTypes.func,
   personSearchFields: PropTypes.object,
   results: PropTypes.array,

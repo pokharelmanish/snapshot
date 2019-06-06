@@ -13,6 +13,7 @@ const render = ({
   onLoadMoreResults = () => {},
   personSearchFields = {},
   currentRow = 25,
+  onAuthorize = () => {},
 } = {}) => (
   shallow(
     <PersonSearchResults
@@ -24,6 +25,7 @@ const render = ({
       onLoadMoreResults={onLoadMoreResults}
       personSearchFields={personSearchFields}
       currentRow={currentRow}
+      onAuthorize={onAuthorize}
     />, {disableLifecycleMethods: true})
 )
 
@@ -39,11 +41,13 @@ describe('PersonSearchResults', () => {
       const setCurrentPageNumber = () => {}
       const setCurrentRowNumber = () => {}
       const onLoadMoreResults = () => {}
+      const onAuthorize = () => {}
       const componentProps = {
         total: 200,
         setCurrentPageNumber,
         setCurrentRowNumber,
         onLoadMoreResults,
+        onAuthorize,
       }
       const component = render(componentProps)
       const cardView = component.find('CardView')
@@ -57,6 +61,7 @@ describe('PersonSearchResults', () => {
         setCurrentPageNumber,
         setCurrentRowNumber,
         currentRow: 25,
+        onAuthorize,
       }
       const table = (<SearchResultsTable {...tableProps} />)
       expect(props.id).toEqual('person-search-results-card')

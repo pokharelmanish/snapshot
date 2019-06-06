@@ -172,8 +172,12 @@
   text-align: center;
 }
 
-.sensitive-person {
+.person-search-detail-link {
+  background-color: transparent;
+  border: none;
+  color: $medium-blue;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .alert-container.search-results-limit {
