@@ -36,9 +36,8 @@ module Api
 
       def search_params
         params.permit(
-          :is_client_only,
-          :is_advanced_search_on,
-          :size,
+          :is_client_only, :is_advanced_search_on,
+          :size, :total_results_received,
           search_after: [],
           person_search_fields: %i[
             search_term last_name first_name middle_name suffix ssn date_of_birth street
