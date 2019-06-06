@@ -27,7 +27,7 @@ function isSnapshot(location) {
 }
 
 export function isSearchByAddressOn(location) {
-  return  isFeatureActive('address_search_snapshot')
+  return isFeatureActive('address_search_snapshot')
 }
 
 export function isAdvancedSearchOn(location) {

@@ -13,13 +13,11 @@ import {resetFieldValues as resetScreeningDecisionFormValues} from 'actions/scre
 import {cardName as decisionCardName} from 'containers/screenings/DecisionFormContainer'
 import {resetFieldValues as resetWorkerSafetyFormValues} from 'actions/workerSafetyFormActions'
 import {cardName as workerSafetyCardName} from 'containers/screenings/WorkerSafetyFormContainer'
-import {resetFieldValues as resetCrossReportFormValues} from 'actions/crossReportFormActions'
 
 export function* clearCardEdits({payload: {card}}) {
   const screening = yield select(getScreeningSelector)
   const actions = {
     [allegationsCardName]: resetAllegations,
-    [crossReportsCardName]: resetCrossReportFormValues,
     [decisionCardName]: resetScreeningDecisionFormValues,
     [incidentInformationCardName]: resetIncidentInformationValues,
     [narrativeCardName]: resetNarrativeFormValues,

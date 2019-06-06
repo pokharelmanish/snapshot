@@ -15,9 +15,6 @@ import {
   getScreeningWithEditsSelector as getScreeningWithWorkerSafetyEditsSelector,
 } from 'selectors/screening/workerSafetyFormSelectors'
 import {
-  getScreeningWithEditsSelector as getScreeningWithCrossReportEditsSelector,
-} from 'selectors/screening/crossReportFormSelectors'
-import {
   getScreeningWithEditsSelector as getScreeningWithDecisionEditsSelector,
 } from 'selectors/screening/decisionFormSelectors'
 import {cardName as allegationsCardName} from 'containers/screenings/AllegationsFormContainer'
