@@ -13,13 +13,13 @@ export const setPersonSearchField = (field, value) => ({
   type: SET_SEARCH_FIELD,
   payload: {field, value},
 })
-export const search = (isClientOnly, isAdvancedSearchOn, personSearchFields) => ({
+export const search = (isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived) => ({
   type: PEOPLE_SEARCH_FETCH,
-  payload: {isClientOnly, isAdvancedSearchOn, personSearchFields},
+  payload: {isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived},
 })
-export const loadMoreResults = (isClientOnly, isAdvancedSearchOn, personSearchFields) => ({
+export const loadMoreResults = (isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived) => ({
   type: LOAD_MORE_RESULTS,
-  payload: {isClientOnly, isAdvancedSearchOn, personSearchFields},
+  payload: {isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived},
 })
 export const loadMoreResultsFailure = (error) => ({
   type: LOAD_MORE_RESULTS_COMPLETE,

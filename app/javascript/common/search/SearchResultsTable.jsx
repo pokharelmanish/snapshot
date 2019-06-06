@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
@@ -6,8 +6,9 @@ import {dateFormatter} from 'utils/dateFormatter'
 import {capitalizedStr} from 'utils/textFormatter'
 import ReactTooltip from 'react-tooltip'
 import {phoneNumberFormatter} from 'utils/phoneNumberFormatter'
+import AlertMessageResultsLimit from 'common/search/AlertMessageResultsLimit'
 
-class SearchResultsTable extends Component {
+class SearchResultsTable extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -84,35 +85,48 @@ class SearchResultsTable extends Component {
   ]
 
   fetchData(pageIndex) {
+    const {setCurrentPageNumber, onLoadMoreResults, personSearchFields, results} = this.props
     const previousPage = this.state.previousPage
     const currentPage = pageIndex + 1
-    this.props.setCurrentPageNumber(currentPage)
+    const totalResultsReceived = results.length
+    setCurrentPageNumber(currentPage)
     if (currentPage > previousPage) {
-      this.props.onLoadMoreResults(this.props.personSearchFields)
+      onLoadMoreResults(personSearchFields, totalResultsReceived)
     }
     this.setState({previousPage: pageIndex})
   }
 
   setRowAndFetchData(pageSize, pageIndex) {
+    const {
+      setCurrentRowNumber,
+      setCurrentPageNumber,
+      onLoadMoreResults,
+      personSearchFields,
+      results,
+    } = this.props
     const currentPage = pageIndex + 1
-    this.props.setCurrentRowNumber(pageSize)
-    this.props.setCurrentPageNumber(currentPage)
-    this.props.onLoadMoreResults(this.props.personSearchFields)
+    const totalResultsReceived = results.length
+    setCurrentRowNumber(pageSize)
+    setCurrentPageNumber(currentPage)
+    onLoadMoreResults(personSearchFields, totalResultsReceived)
   }
 
   render() {
     const {resultsSubset, total, currentRow, onAuthorize} = this.props
     return (
-      <ReactTable
-        columns={this.columns(onAuthorize)}
-        manual
-        data={resultsSubset}
-        minRows={0}
-        pages={Math.ceil(total / currentRow)}
-        onPageChange={(pageIndex) => this.fetchData(pageIndex)}
-        defaultPageSize={currentRow}
-        onPageSizeChange={(pageSize, pageIndex) => this.setRowAndFetchData(pageSize, pageIndex)}
-      />
+      <Fragment>
+        <AlertMessageResultsLimit total={total} />
+        <ReactTable
+          columns={this.columns(onAuthorize)}
+          manual
+          data={resultsSubset}
+          minRows={0}
+          pages={Math.ceil(total / currentRow)}
+          onPageChange={(pageIndex) => this.fetchData(pageIndex)}
+          defaultPageSize={currentRow}
+          onPageSizeChange={(pageSize, pageIndex) => this.setRowAndFetchData(pageSize, pageIndex)}
+        />
+      </Fragment>
     )
   }
 }

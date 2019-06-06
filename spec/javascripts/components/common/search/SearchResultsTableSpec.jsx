@@ -5,22 +5,26 @@ import ReactTooltip from 'react-tooltip'
 
 const render = (
   {
+    results = [],
     resultsSubset = [],
     setCurrentPageNumber = () => {},
     setCurrentRowNumber = () => {},
     onLoadMoreResults = () => {},
     personSearchFields = {},
     currentRow = 25,
+    total = 0,
     onAuthorize = () => {},
   } = {}) => {
   return mount(
     <SearchResultsTable
+      results={results}
       resultsSubset={resultsSubset}
       setCurrentPageNumber={setCurrentPageNumber}
       setCurrentRowNumber={setCurrentRowNumber}
       onLoadMoreResults={onLoadMoreResults}
       personSearchFields={personSearchFields}
       currentRow={currentRow}
+      total={total}
       onAuthorize={onAuthorize}
     />, {disableLifecycleMethods: true})
 }
@@ -128,6 +132,19 @@ describe('SearchResultsTable', () => {
   })
 
   describe('layout', () => {
+    it('renders a AlertMessageResultsLimit component and sets total', () => {
+      const totalResults = 251
+      const component = render({total: totalResults})
+      const alertMessage = component.find('AlertMessageResultsLimit')
+      expect(alertMessage.exists()).toBe(true)
+      expect(alertMessage.props().total).toBe(totalResults)
+    })
+
+    it('renders a ReactTable', () => {
+      const searchResultsTable = component.find('ReactTable')
+      expect(searchResultsTable.exists()).toBe(true)
+    })
+
     it('renders the table headers', () => {
       const header = component.find('div.rt-resizable-header-content')
       expect(header.at(0).text()).toEqual('')
@@ -162,7 +179,11 @@ describe('SearchResultsTable', () => {
   describe('onPageChange', () => {
     it('calls setCurrentPageNumber', () => {
       const setCurrentPageNumber = jasmine.createSpy('setCurrentPageNumber')
-      const component = render({resultsSubset: defaultMockedResults, setCurrentPageNumber})
+      const component = render({
+        results: defaultMockedResults,
+        resultsSubset: defaultMockedResults,
+        setCurrentPageNumber,
+      })
       const searchResultsTable = component.find('ReactTable')
       searchResultsTable.props().onPageChange(1)
       expect(setCurrentPageNumber).toHaveBeenCalledWith(2)
@@ -171,19 +192,29 @@ describe('SearchResultsTable', () => {
     it('calls onLoadMoreResults', () => {
       const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
       const personSearchFields = {lastName: 'laure'}
-      const component = render({resultsSubset: defaultMockedResults, onLoadMoreResults, personSearchFields})
+      const component = render({
+        results: defaultMockedResults,
+        resultsSubset: defaultMockedResults,
+        onLoadMoreResults,
+        personSearchFields,
+      })
       const searchResultsTable = component.find('ReactTable')
       searchResultsTable.props().onPageChange(1)
-      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'})
+      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, 6)
     })
 
-    it('doesnot call onLoadMoreResults when currentPage is less than previousPage', () => {
+    it('does not call onLoadMoreResults when currentPage is less than previousPage', () => {
       const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
       const personSearchFields = {lastName: 'laure'}
-      const component = render({resultsSubset: defaultMockedResults, onLoadMoreResults, personSearchFields})
+      const component = render({
+        results: defaultMockedResults,
+        resultsSubset: defaultMockedResults,
+        onLoadMoreResults,
+        personSearchFields,
+      })
       const searchResultsTable = component.find('ReactTable')
       searchResultsTable.props().onPageChange(-2)
-      expect(onLoadMoreResults).not.toHaveBeenCalledWith({lastName: 'laure'})
+      expect(onLoadMoreResults).not.toHaveBeenCalledWith({lastName: 'laure'}, 6)
     })
   })
 
@@ -207,10 +238,15 @@ describe('SearchResultsTable', () => {
     it('calls onLoadMoreResults', () => {
       const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
       const personSearchFields = {lastName: 'laure'}
-      const component = render({resultsSubset: defaultMockedResults, onLoadMoreResults, personSearchFields})
+      const component = render({
+        results: defaultMockedResults,
+        resultsSubset: defaultMockedResults,
+        onLoadMoreResults,
+        personSearchFields,
+      })
       const searchResultsTable = component.find('ReactTable')
       searchResultsTable.props().onPageSizeChange(5, 1)
-      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'})
+      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, 6)
     })
   })
 

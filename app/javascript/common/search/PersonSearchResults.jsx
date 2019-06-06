@@ -6,17 +6,19 @@ import SearchResultsTable from 'common/search/SearchResultsTable'
 
 const PersonSearchResults = (
   {
-    results,
     total,
     personSearchFields,
     onLoadMoreResults,
     setCurrentPageNumber,
     setCurrentRowNumber,
+    results,
     resultsSubset,
     currentRow,
     onAuthorize,
   }) => {
-  const title = `Search Results (${total || '0'} records found)`
+  const resultsLimit = 250
+  const totalResults = total > resultsLimit ? '250+' : total
+  const title = `Search Results (${totalResults} records found)`
   return (
     <CardView
       id="person-search-results-card"
@@ -24,6 +26,7 @@ const PersonSearchResults = (
       mode={SHOW_MODE}
       show={
         <SearchResultsTable
+          results={results}
           resultsSubset={resultsSubset}
           total={total}
           personSearchFields={personSearchFields}

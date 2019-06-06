@@ -313,7 +313,7 @@ describe('<Autocompleter />', () => {
             .find('Autocomplete')
             .props()
             .onSelect('_value', {showMoreResults: true})
-          expect(onLoadMoreResults).toHaveBeenCalledWith(true, defaultPersonSearchFields)
+          expect(onLoadMoreResults).toHaveBeenCalledWith(true, defaultPersonSearchFields, 3)
         })
 
         it('calls onLoadMoreResults with an address', () => {
@@ -345,7 +345,7 @@ describe('<Autocompleter />', () => {
             city: 'Central City',
             address: 'Star Labs',
             approximateAgeUnits: '',
-          })
+          }, 3)
         })
       })
     })
@@ -490,12 +490,14 @@ describe('<Autocompleter />', () => {
         personSearchFields: {
           lastName: 'Sandiego',
         },
+        results: [
+          {person: 'one'},
+          {person: 'two'},
+        ],
       })
       const personSearchFields = autocompleter.find('PersonSearchFields')
       personSearchFields.simulate('keypress', {charCode: 13})
-      expect(onSearch).toHaveBeenCalledWith(true, {
-        lastName: 'Sandiego',
-      })
+      expect(onSearch).toHaveBeenCalledWith(true, {lastName: 'Sandiego'}, 2)
     })
 
     it('doesnot search when canSearch is false', () => {
@@ -532,14 +534,16 @@ describe('<Autocompleter />', () => {
         personSearchFields: {
           dateOfBirth: '2018-11-11',
         },
+        results: [
+          {person: 'one'},
+          {person: 'two'},
+        ],
       })
       const personSearchFields = autocompleter.find('PersonSearchFields')
       personSearchFields.props().onKeyUp({target: {value: '11/11/2018'}})
       expect(onChange).toHaveBeenCalledWith('dateOfBirth', '2018-11-11')
       personSearchFields.simulate('keypress', {charCode: 13})
-      expect(onSearch).toHaveBeenCalledWith(true, {
-        dateOfBirth: '2018-11-11',
-      })
+      expect(onSearch).toHaveBeenCalledWith(true, {dateOfBirth: '2018-11-11'}, 2)
     })
   })
 
@@ -569,6 +573,10 @@ describe('<Autocompleter />', () => {
           approximateAge: '24',
           approximateAgeUnits: 'months',
         },
+        results: [
+          {person: 'one'},
+          {person: 'two'},
+        ],
       })
       const personSearchFields = autocompleter.find('PersonSearchFields')
       personSearchFields.props().onSubmit()
@@ -581,7 +589,7 @@ describe('<Autocompleter />', () => {
         county: 'Yolo',
         approximateAge: '24',
         approximateAgeUnits: 'months',
-      })
+      }, 2)
     })
 
     describe('sets the search term', () => {

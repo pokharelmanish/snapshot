@@ -22,22 +22,24 @@ const personSearchParams = (personSearchFields) => {
 
 const searchAfterParams = (sort) => (sort ? {search_after: sort} : {})
 
-export function getPeopleEffect({isClientOnly, isAdvancedSearchOn, personSearchFields, size, sort}) {
-  return call(get, '/api/v1/people', {
+export function getPeopleEffect({isClientOnly, isAdvancedSearchOn, personSearchFields, size, totalResultsReceived, sort}) {
+  const requestPayload = {
     is_client_only: isClientOnly,
     is_advanced_search_on: isAdvancedSearchOn,
     size: size,
+    total_results_received: totalResultsReceived,
     ...personSearchParams(personSearchFields),
     ...searchAfterParams(sort),
-  })
+  }
+  return call(get, '/api/v1/people', requestPayload)
 }
 
-export function* fetchPeopleSearch({payload: {isClientOnly, isAdvancedSearchOn, personSearchFields}}) {
+export function* fetchPeopleSearch({payload: {isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived}}) {
   try {
     const TIME_TO_DEBOUNCE = 400
     yield call(delay, TIME_TO_DEBOUNCE)
     const size = yield select(selectSearchResultsCurrentRow)
-    const response = yield getPeopleEffect({isClientOnly, isAdvancedSearchOn, personSearchFields, size})
+    const response = yield getPeopleEffect({isClientOnly, isAdvancedSearchOn, personSearchFields, size, totalResultsReceived})
     const staffId = yield select(getStaffIdSelector)
     yield put(fetchSuccess(response))
     yield call(logEvent, 'personSearch', {

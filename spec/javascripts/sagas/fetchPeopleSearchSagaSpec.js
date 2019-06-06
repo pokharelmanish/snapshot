@@ -18,15 +18,24 @@ describe('fetchPeopleSearch', () => {
   const isClientOnly = true
   const isAdvancedSearchOn = true
   const personSearchFields = {lastName: 'Doe'}
-  const action = search(isClientOnly, isAdvancedSearchOn, personSearchFields)
+  const totalResultsReceived = 250
+  const action = search(isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived)
 
   it('finds some error during the process', () => {
     const error = 'Something went wrong'
     const size = 25
     const peopleSearchGenerator = fetchPeopleSearch(action)
-    const searchParams = {is_client_only: true, is_advanced_search_on: true, person_search_fields: {last_name: 'doe'}, size: size}
+    const searchParams = {
+      is_client_only: true,
+      is_advanced_search_on: true,
+      total_results_received: totalResultsReceived,
+      person_search_fields: {
+        last_name: 'doe',
+      },
+      size: size,
+    }
     expect(peopleSearchGenerator.next().value).toEqual(call(delay, 400))
-    expect(peopleSearchGenerator.next(size).value).toEqual(
+    expect(peopleSearchGenerator.next().value).toEqual(
       select(selectSearchResultsCurrentRow)
     )
     expect(peopleSearchGenerator.next(size).value).toEqual(call(get, '/api/v1/people', searchParams))
@@ -43,7 +52,15 @@ describe('fetchPeopleSearch', () => {
       },
     }
     const peopleSearchGenerator = fetchPeopleSearch(action)
-    const searchParams = {is_client_only: true, is_advanced_search_on: true, person_search_fields: {last_name: 'doe'}, size: size}
+    const searchParams = {
+      is_client_only: true,
+      is_advanced_search_on: true,
+      total_results_received: totalResultsReceived,
+      person_search_fields: {
+        last_name: 'doe',
+      },
+      size: size,
+    }
     expect(peopleSearchGenerator.next().value).toEqual(call(delay, 400))
     expect(peopleSearchGenerator.next(size).value).toEqual(
       select(selectSearchResultsCurrentRow)
@@ -65,11 +82,13 @@ describe('getPeopleEffect', () => {
     expect(getPeopleEffect({
       isClientOnly: true,
       isAdvancedSearchOn: true,
+      totalResultsReceived: 250,
       personSearchFields: {firstName: 'John', county: 'Yolo'},
       size: 25,
     })).toEqual(call(get, '/api/v1/people', {
       is_client_only: true,
       is_advanced_search_on: true,
+      total_results_received: 250,
       person_search_fields: {first_name: 'john'},
       size: 25,
     }))
@@ -78,12 +97,14 @@ describe('getPeopleEffect', () => {
     expect(getPeopleEffect({
       isClientOnly: true,
       isAdvancedSearchOn: false,
+      totalResultsReceived: 100,
       personSearchFields: {firstName: 'John', lastName: 'Doe', county: 'Yolo'},
       size: 25,
       sort: 'What even goes here?',
     })).toEqual(call(get, '/api/v1/people', {
       is_client_only: true,
       is_advanced_search_on: false,
+      total_results_received: 100,
       size: 25,
       person_search_fields: {first_name: 'john', last_name: 'doe'},
       search_after: 'What even goes here?',
