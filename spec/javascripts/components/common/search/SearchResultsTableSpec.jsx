@@ -243,46 +243,44 @@ describe('SearchResultsTable', () => {
   })
 
   describe('onPageChange', () => {
-    it('calls setCurrentPageNumber', () => {
-      const setCurrentPageNumber = jasmine.createSpy('setCurrentPageNumber')
-      const component = render({
-        results: defaultMockedResults,
-        resultsSubset: defaultMockedResults,
-        setCurrentPageNumber,
+    describe('setCurrentPageNumber', () => {
+      describe('when the page is changed', () => {
+        it('setCurrentPageNumber is called with the current page number', () => {
+          const setCurrentPageNumber = jasmine.createSpy('setCurrentPageNumber')
+          const component = render({setCurrentPageNumber})
+          const searchResultsTable = component.find('ReactTable')
+          searchResultsTable.props().onPageChange(1)
+          expect(setCurrentPageNumber).toHaveBeenCalledWith(2)
+        })
       })
-      const searchResultsTable = component.find('ReactTable')
-      searchResultsTable.props().onPageChange(1)
-      expect(setCurrentPageNumber).toHaveBeenCalledWith(2)
     })
 
-    it('calls onLoadMoreResults', () => {
-      const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-      const personSearchFields = {lastName: 'laure'}
-      const totalResultsReceived = defaultMockedResults.length
-      const component = render({
-        results: defaultMockedResults,
-        resultsSubset: defaultMockedResults,
-        onLoadMoreResults,
-        personSearchFields,
+    describe('onLoadMoreResults', () => {
+      describe('when the next page is requested', () => {
+        it('onLoadMoreResults is called with personSearchFields and totalResultsReceived', () => {
+          const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
+          const personSearchFields = {lastName: 'laure'}
+          const totalResultsReceived = defaultMockedResults.length
+          const component = render({
+            results: defaultMockedResults,
+            onLoadMoreResults,
+            personSearchFields,
+          })
+          const searchResultsTable = component.find('ReactTable')
+          searchResultsTable.props().onPageChange(1)
+          expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
+        })
       })
-      const searchResultsTable = component.find('ReactTable')
-      searchResultsTable.props().onPageChange(1)
-      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
     })
 
-    it('does not call onLoadMoreResults when currentPage is less than previousPage', () => {
-      const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-      const personSearchFields = {lastName: 'laure'}
-      const totalResultsReceived = defaultMockedResults.length
-      const component = render({
-        results: defaultMockedResults,
-        resultsSubset: defaultMockedResults,
-        onLoadMoreResults,
-        personSearchFields,
+    describe('when the previous page is requested', () => {
+      it('onLoadMoreResults is not called', () => {
+        const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
+        const component = render({onLoadMoreResults})
+        const searchResultsTable = component.find('ReactTable')
+        searchResultsTable.props().onPageChange(-2)
+        expect(onLoadMoreResults).not.toHaveBeenCalled()
       })
-      const searchResultsTable = component.find('ReactTable')
-      searchResultsTable.props().onPageChange(-2)
-      expect(onLoadMoreResults).not.toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
     })
   })
 
