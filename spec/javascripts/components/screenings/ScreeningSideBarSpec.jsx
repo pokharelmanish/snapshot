@@ -28,12 +28,6 @@ describe('ScreeningSideBar', () => {
       .toBe('#screening-information-card-anchor')
   })
 
-  it('renders People & Roles', () => {
-    const sidebarPeople = component.find('SideBarPeople')
-    expect(sidebarPeople.exists()).toEqual(true)
-    expect(sidebarPeople.props().participants).toEqual(participants)
-  })
-
   it('renders a link to the Narrative card', () => {
     expect(component.find('NavLink[text="Narrative"]').props().href)
       .toBe('#narrative-card-anchor')

@@ -1,7 +1,6 @@
 import React from 'react'
 import {SideBar, NavLinks, NavLink} from 'react-wood-duck'
 import PropTypes from 'prop-types'
-import SideBarPeople from 'views/SideBarPeople'
 
 const ScreeningSideBar = (props) => (
   <div className='col-xs-3 col-sm-3 col-md-2 hide-mobile hidden-print pad-top side-bar-container'>
@@ -9,7 +8,6 @@ const ScreeningSideBar = (props) => (
     <SideBar>
       <NavLinks>
         <NavLink text='Screening Information' href='#screening-information-card-anchor' />
-        <SideBarPeople participants={props.participants} />
         <NavLink text='Narrative' href='#narrative-card-anchor' />
         <NavLink text='Incident Information' href='#incident-information-card-anchor' />
         <NavLink text='Allegations' href='#allegations-card-anchor' />
