@@ -146,6 +146,7 @@ describe('SearchResultsTable', () => {
       it('renders a table', () => {
         const table = component.find('ReactTable')
         expect(table.exists()).toBe(true)
+        expect(table.props().sortable).toBe(false)
       })
 
       describe('page count', () => {
