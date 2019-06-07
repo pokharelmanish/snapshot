@@ -96,7 +96,7 @@ const defaultMockedResults = [
     },
     'phoneNumber': null,
     'dateOfBirth': '1983-01-01',
-    'fullName': 'First Gimson',
+    'fullName': 'Second Gimson',
   },
 ]
 
@@ -257,18 +257,39 @@ describe('SearchResultsTable', () => {
 
     describe('onLoadMoreResults', () => {
       describe('when the next page is requested', () => {
-        it('onLoadMoreResults is called with personSearchFields and totalResultsReceived', () => {
-          const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-          const personSearchFields = {lastName: 'laure'}
-          const totalResultsReceived = defaultMockedResults.length
-          const component = render({
-            results: defaultMockedResults,
-            onLoadMoreResults,
-            personSearchFields,
+        describe('and we have not requested the results for the next page', () => {
+          it('onLoadMoreResults is called with personSearchFields and totalResultsReceived', () => {
+            const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
+            const personSearchFields = {lastName: 'laure'}
+            const totalResultsReceived = defaultMockedResults.length
+            const numberOfRowsPerPage = totalResultsReceived
+            const component = render({
+              currentRow: numberOfRowsPerPage,
+              results: defaultMockedResults,
+              onLoadMoreResults,
+              personSearchFields,
+            })
+            const searchResultsTable = component.find('ReactTable')
+            searchResultsTable.props().onPageChange(1)
+            expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
           })
-          const searchResultsTable = component.find('ReactTable')
-          searchResultsTable.props().onPageChange(1)
-          expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
+        })
+
+        describe('and we have requested the results for the next page', () => {
+          it('onLoadMoreResults is not called', () => {
+            const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
+            const totalResultsReceived = defaultMockedResults.length
+            const numberOfRowsPerPage = totalResultsReceived
+            const results = [...defaultMockedResults].concat(...defaultMockedResults)
+            const component = render({
+              currentRow: numberOfRowsPerPage,
+              results,
+              onLoadMoreResults,
+            })
+            const searchResultsTable = component.find('ReactTable')
+            searchResultsTable.props().onPageChange(1)
+            expect(onLoadMoreResults).not.toHaveBeenCalled()
+          })
         })
       })
     })
