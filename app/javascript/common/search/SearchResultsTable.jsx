@@ -142,6 +142,7 @@ class SearchResultsTable extends React.Component {
         <AlertMessageResultsLimit total={total} />
         <ReactTable
           columns={this.columns(onAuthorize)}
+          sortable={false}
           manual
           data={resultsSubset}
           minRows={0}
