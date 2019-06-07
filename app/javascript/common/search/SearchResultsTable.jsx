@@ -111,6 +111,13 @@ class SearchResultsTable extends React.Component {
     onLoadMoreResults(personSearchFields, totalResultsReceived)
   }
 
+  calculateNumberOfPages(total, currentRow) {
+    const maxResults = 250
+    const totalForPageCount = total > maxResults ? maxResults : total
+    const pageCount = totalForPageCount / currentRow
+    return Math.ceil(pageCount)
+  }
+
   render() {
     const {resultsSubset, total, currentRow, onAuthorize} = this.props
     return (
@@ -121,7 +128,7 @@ class SearchResultsTable extends React.Component {
           manual
           data={resultsSubset}
           minRows={0}
-          pages={Math.ceil(total / currentRow)}
+          pages={this.calculateNumberOfPages(total, currentRow)}
           onPageChange={(pageIndex) => this.fetchData(pageIndex)}
           defaultPageSize={currentRow}
           onPageSizeChange={(pageSize, pageIndex) => this.setRowAndFetchData(pageSize, pageIndex)}
