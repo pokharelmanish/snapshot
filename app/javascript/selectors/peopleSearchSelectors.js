@@ -116,34 +116,39 @@ export const selectAkaFullName = (state, result) => {
     ''})`
 }
 
+const peopleResults = (state, result, highlight) => {
+  return {
+    akaFullName: selectAkaFullName(state, result),
+    legacy_id: result.get('id'),
+    fullName: formatFullName(result, highlight),
+    legacyDescriptor: result.get('legacy_descriptor'),
+    gender: result.get('gender'),
+    caseStatus: result.get('case_status'),
+    spCounty: result.get('sp_county'),
+    spPhone: result.get('sp_phone'),
+    isApproximateAge: result.get('estimated_dob_code'),
+    languages: mapLanguages(state, result),
+    races: mapRaces(state, result),
+    ethnicity: mapEthnicities(state, result),
+    dateOfBirth: formatDOB(result.get('date_of_birth'), highlight.has('searchable_date_of_birth')),
+    isDeceased: Boolean(result.get('date_of_death')),
+    isCsec: hasActiveCsec(result),
+    ssn: formatSSN(maybeHighlightedField(result, highlight, 'ssn') || result.get('ssn')),
+    clientCounties: mapCounties(result.get('client_counties', List()), selectCounties(state)),
+    address: mapAddress(state, result),
+    phoneNumber: formatPhoneNumber(mapPhoneNumber(result).first()),
+    isSensitive: mapIsSensitive(result),
+    isSealed: mapIsSealed(result),
+    isProbationYouth: mapIsProbationYouth(result),
+  }
+}
+
 export const selectPeopleResults = (state) => selectPeopleSearch(state)
   .get('results')
   .map((fullResult) => {
     const result = fullResult.get('_source', Map())
     const highlight = fullResult.get('highlight', Map())
-    return Map({
-      akaFullName: selectAkaFullName(state, result),
-      legacy_id: result.get('id'),
-      fullName: formatFullName(result, highlight),
-      legacyDescriptor: result.get('legacy_descriptor'),
-      gender: result.get('gender'),
-      caseStatus: result.get('case_status'),
-      spCounty: result.get('sp_county'),
-      spPhone: result.get('sp_phone'),
-      languages: mapLanguages(state, result),
-      races: mapRaces(state, result),
-      ethnicity: mapEthnicities(state, result),
-      dateOfBirth: formatDOB(result.get('date_of_birth'), highlight.has('searchable_date_of_birth')),
-      isDeceased: Boolean(result.get('date_of_death')),
-      isCsec: hasActiveCsec(result),
-      ssn: formatSSN(maybeHighlightedField(result, highlight, 'ssn') || result.get('ssn')),
-      clientCounties: mapCounties(result.get('client_counties', List()), selectCounties(state)),
-      address: mapAddress(state, result),
-      phoneNumber: formatPhoneNumber(mapPhoneNumber(result).first()),
-      isSensitive: mapIsSensitive(result),
-      isSealed: mapIsSealed(result),
-      isProbationYouth: mapIsProbationYouth(result),
-    })
+    return Map(peopleResults(state, result, highlight))
   })
 
 export const selectSearchResultsCurrentRow = (state) => selectPeopleSearch(state).get('searchTableCurrentRow')

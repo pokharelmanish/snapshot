@@ -68,6 +68,7 @@ module QueryBuilderHelper
       'phone_numbers.id',
       'phone_numbers.number',
       'phone_numbers.type',
+      'estimated_dob_code',
       'sensitivity_indicator',
       'race_ethnicity',
       'open_case_responsible_agency_code'
