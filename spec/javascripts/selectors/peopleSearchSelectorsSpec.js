@@ -97,6 +97,7 @@ describe('peopleSearchSelectors', () => {
               case_status: 'N/A',
               sp_county: 'pokhara',
               sp_phone: '111-111-1111',
+              estimated_dob_code: 'Y',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -167,6 +168,7 @@ describe('peopleSearchSelectors', () => {
             spCounty: 'pokhara',
             spPhone: '111-111-1111',
             akaFullName: null,
+            isApproximateAge: 'Y',
             legacyDescriptor: {
               legacy_ui_id: '123-456-789',
               legacy_table_description: 'Client',
@@ -1041,6 +1043,7 @@ describe('peopleSearchSelectors', () => {
               case_status: 'N/A',
               sp_county: 'pokhara',
               sp_phone: '111-111-1111',
+              estimated_dob_code: 'Y',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1081,6 +1084,7 @@ describe('peopleSearchSelectors', () => {
               case_status: 'Open',
               sp_county: 'pokhara',
               sp_phone: '111-111-1111',
+              estimated_dob_code: 'Y',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1121,6 +1125,7 @@ describe('peopleSearchSelectors', () => {
               case_status: 'Closed',
               sp_county: 'pokhara',
               sp_phone: '111-111-1111',
+              estimated_dob_code: 'Y',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1161,6 +1166,7 @@ describe('peopleSearchSelectors', () => {
               case_status: 'Closed',
               sp_county: 'pokhara',
               sp_phone: '111-111-1111',
+              estimated_dob_code: 'N',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1201,6 +1207,7 @@ describe('peopleSearchSelectors', () => {
               case_status: 'Closed',
               sp_county: 'pokhara',
               sp_phone: '111-111-1111',
+              estimated_dob_code: 'N',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1241,6 +1248,7 @@ describe('peopleSearchSelectors', () => {
               case_status: 'Closed',
               sp_county: 'pokhara',
               sp_phone: '111-111-1111',
+              estimated_dob_code: 'Y',
               akas: [],
               languages: [{id: '3'}, {id: '2'}],
               race_ethnicity: {
@@ -1284,6 +1292,7 @@ describe('peopleSearchSelectors', () => {
           caseStatus: 'N/A',
           spCounty: 'pokhara',
           spPhone: '111-111-1111',
+          isApproximateAge: 'Y',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',
@@ -1313,6 +1322,7 @@ describe('peopleSearchSelectors', () => {
           caseStatus: 'Open',
           spCounty: 'pokhara',
           spPhone: '111-111-1111',
+          isApproximateAge: 'Y',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',
@@ -1342,6 +1352,7 @@ describe('peopleSearchSelectors', () => {
           caseStatus: 'Closed',
           spCounty: 'pokhara',
           spPhone: '111-111-1111',
+          isApproximateAge: 'Y',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',
@@ -1371,6 +1382,7 @@ describe('peopleSearchSelectors', () => {
           caseStatus: 'Closed',
           spCounty: 'pokhara',
           spPhone: '111-111-1111',
+          isApproximateAge: 'N',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',
@@ -1400,6 +1412,7 @@ describe('peopleSearchSelectors', () => {
           caseStatus: 'Closed',
           spCounty: 'pokhara',
           spPhone: '111-111-1111',
+          isApproximateAge: 'N',
           akaFullName: null,
           legacyDescriptor: {
             legacy_ui_id: '123-456-789',

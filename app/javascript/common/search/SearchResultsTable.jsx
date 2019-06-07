@@ -59,7 +59,11 @@ class SearchResultsTable extends React.Component {
     {
       Header: <DateOfBirthWithTooltip/>,
       accessor: 'dateOfBirth',
-      Cell: (row) => dateFormatter(row.original.dateOfBirth),
+      Cell: (row) => {
+        const isApproximateAge = row.original.isApproximateAge
+        const dateOfBirth = row.original.dateOfBirth
+        return isApproximateAge === 'Y' ? `~${dateFormatter(dateOfBirth)}` : dateFormatter(dateOfBirth)
+      },
       ...commonStyle,
     },
     {
@@ -153,6 +157,7 @@ class SearchResultsTable extends React.Component {
         <AlertMessageResultsLimit total={total} />
         <ReactTable
           columns={this.columns(onAuthorize)}
+          sortable={false}
           manual
           data={resultsSubset}
           minRows={0}
