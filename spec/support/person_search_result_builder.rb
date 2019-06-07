@@ -63,6 +63,7 @@ class PersonSearchResultBuilder
         csec: [],
         sp_county: '',
         sp_phone: '',
+        estimated_dob_code: '',
         date_of_birth: '',
         legacy_descriptor: {},
         sensitivity_indicator: ''
@@ -108,9 +109,7 @@ class PersonSearchResultBuilder
   end
 
   def with_phone_number(phone_number)
-    @search_result[:_source][:phone_numbers] = [
-      phone_number
-    ]
+    @search_result[:_source][:phone_numbers] = [phone_number]
   end
 
   def with_addresses
