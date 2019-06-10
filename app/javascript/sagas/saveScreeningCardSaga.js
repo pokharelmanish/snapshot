@@ -18,7 +18,6 @@ import {
   getScreeningWithEditsSelector as getScreeningWithDecisionEditsSelector,
 } from 'selectors/screening/decisionFormSelectors'
 import {cardName as screeningInformationCardName} from 'containers/screenings/ScreeningInformationFormContainer'
-import {cardName as incidentInformationCardName} from 'containers/screenings/IncidentInformationFormContainer'
 import {cardName as narrativeCardName} from 'containers/screenings/NarrativeFormContainer'
 import {cardName as decisionCardName} from 'containers/screenings/DecisionFormContainer'
 import {cardName as workerSafetyCardName} from 'containers/screenings/WorkerSafetyFormContainer'
@@ -38,10 +37,6 @@ export function* quietlySaveScreeningCard({payload: {card}}) {
   switch (card) {
     case decisionCardName: {
       screening = yield select(getScreeningWithDecisionEditsSelector)
-      break
-    }
-    case incidentInformationCardName: {
-      screening = yield select(getScreeningWithIncidentInformationEditsSelector)
       break
     }
     case narrativeCardName: {

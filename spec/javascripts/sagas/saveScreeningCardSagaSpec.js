@@ -23,9 +23,7 @@ import {
 import {
   getScreeningWithEditsSelector as getScreeningWithDecisionEditsSelector,
 } from 'selectors/screening/decisionFormSelectors'
-// import {cardName as allegationsCardName} from 'containers/screenings/AllegationsFormContainer'
 import {cardName as screeningInformationCardName} from 'containers/screenings/ScreeningInformationFormContainer'
-import {cardName as incidentInformationCardName} from 'containers/screenings/IncidentInformationFormContainer'
 import {cardName as narrativeCardName} from 'containers/screenings/NarrativeFormContainer'
 import {cardName as decisionCardName} from 'containers/screenings/DecisionFormContainer'
 import {cardName as workerSafetyCardName} from 'containers/screenings/WorkerSafetyFormContainer'
@@ -84,22 +82,6 @@ describe('saveScreeningCard', () => {
     const gen = saveScreeningCard(action)
     expect(gen.next().value).toEqual(
       select(getScreeningWithNarrativeEditsSelector)
-    )
-    expect(gen.next(screening).value).toEqual(
-      call(Utils.put, '/api/v1/screenings/123', {screening: screening.toJS()})
-    )
-    expect(gen.next(screening).value).toEqual(
-      put(saveSuccess(screening))
-    )
-  })
-
-  it('saves incident information edits and puts screening', () => {
-    const action = saveCard(incidentInformationCardName)
-    const screening = fromJS({id: 123, incident_date: '01/01/1990', participants: []})
-
-    const gen = saveScreeningCard(action)
-    expect(gen.next().value).toEqual(
-      select(getScreeningWithIncidentInformationEditsSelector)
     )
     expect(gen.next(screening).value).toEqual(
       call(Utils.put, '/api/v1/screenings/123', {screening: screening.toJS()})
