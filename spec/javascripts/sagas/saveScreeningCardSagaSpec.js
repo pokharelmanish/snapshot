@@ -24,7 +24,6 @@ import {
   getScreeningWithEditsSelector as getScreeningWithDecisionEditsSelector,
 } from 'selectors/screening/decisionFormSelectors'
 import {cardName as screeningInformationCardName} from 'containers/screenings/ScreeningInformationFormContainer'
-import {cardName as decisionCardName} from 'containers/screenings/DecisionFormContainer'
 import {cardName as workerSafetyCardName} from 'containers/screenings/WorkerSafetyFormContainer'
 import {replace} from 'react-router-redux'
 
@@ -81,22 +80,6 @@ describe('saveScreeningCard', () => {
     const gen = saveScreeningCard(action)
     expect(gen.next().value).toEqual(
       select(getScreeningWithWorkerSafetyEditsSelector)
-    )
-    expect(gen.next(screening).value).toEqual(
-      call(Utils.put, '/api/v1/screenings/123', {screening: screening.toJS()})
-    )
-    expect(gen.next(screening).value).toEqual(
-      put(saveSuccess(screening))
-    )
-  })
-
-  it('saves decision edits and puts screening', () => {
-    const action = saveCard(decisionCardName)
-    const screening = fromJS({id: 123, decision: 'screen_out', participants: []})
-
-    const gen = saveScreeningCard(action)
-    expect(gen.next().value).toEqual(
-      select(getScreeningWithDecisionEditsSelector)
     )
     expect(gen.next(screening).value).toEqual(
       call(Utils.put, '/api/v1/screenings/123', {screening: screening.toJS()})
