@@ -17,7 +17,6 @@ import {
 import {
   getScreeningWithEditsSelector as getScreeningWithDecisionEditsSelector,
 } from 'selectors/screening/decisionFormSelectors'
-import {cardName as screeningInformationCardName} from 'containers/screenings/ScreeningInformationFormContainer'
 import {cardName as workerSafetyCardName} from 'containers/screenings/WorkerSafetyFormContainer'
 import {replace} from 'react-router-redux'
 
@@ -33,10 +32,6 @@ export function* createScreeningBase(screening) {
 export function* quietlySaveScreeningCard({payload: {card}}) {
   let screening
   switch (card) {
-    case screeningInformationCardName: {
-      screening = yield select(getScreeningWithScreeningInformationEditsSelector)
-      break
-    }
     case workerSafetyCardName: {
       screening = yield select(getScreeningWithWorkerSafetyEditsSelector)
       break

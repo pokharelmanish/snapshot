@@ -11,7 +11,6 @@ import PersonSearchFormContainer from 'containers/common/PersonSearchFormContain
 import ErrorDetail from 'common/ErrorDetail'
 import ScreeningSideBar from 'screenings/ScreeningSideBar'
 import AllegationsCard from 'screenings/AllegationsCard'
-import ScreeningInformationCard from 'screenings/ScreeningInformationCard'
 import WorkerSafetyCard from 'screenings/WorkerSafetyCard'
 import PageHeader from 'common/PageHeader'
 import BreadCrumb from 'containers/common/BreadCrumb'
@@ -114,7 +113,6 @@ export class ScreeningPage extends React.Component {
       <div className='col-xs-8 col-xs-offset-4 col-md-9 col-md-offset-3 hotline-inner-container'>
         {referralId && <h1>Referral #{referralId}</h1>}
         {hasApiValidationErrors && <ErrorDetail errors={submitReferralErrors} />}
-        <ScreeningInformationCard />
         {editable && this.renderPersonSearchForm()}
         {this.props.participants.map(({id}) => <PersonCardView key={id} personId={id} />)}
         <AllegationsCard />

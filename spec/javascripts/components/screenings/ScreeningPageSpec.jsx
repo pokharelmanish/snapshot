@@ -3,7 +3,6 @@ import * as IntakeConfig from 'common/config'
 import React from 'react'
 import {ScreeningPage} from 'screenings/ScreeningPage'
 import AllegationsCard from 'screenings/AllegationsCard'
-import ScreeningInformationCard from 'screenings/ScreeningInformationCard'
 import WorkerSafetyCard from 'screenings/WorkerSafetyCard'
 import {shallow} from 'enzyme'
 
@@ -238,11 +237,6 @@ describe('ScreeningPage', () => {
         const editLink = component.find({children: 'Edit', to: '/screenings/1/edit'})
         expect(homeLink.exists()).toBe(true)
         expect(editLink.exists()).toBe(true)
-      })
-
-      it('renders the screening information card', () => {
-        const card = component.find(ScreeningInformationCard)
-        expect(card.exists()).toEqual(true)
       })
 
       it('renders the participants card for each participant', () => {

@@ -6,7 +6,6 @@ import {clearCardEdits as clearEdits, CLEAR_CARD_EDITS} from 'actions/screeningA
 import {getScreeningSelector} from 'selectors/screeningSelectors'
 import {resetAllegations} from 'actions/allegationsFormActions'
 import {resetFieldValues as resetScreeningInformationValues} from 'actions/screeningInformationFormActions'
-import {cardName as screeningInformationCardName} from 'containers/screenings/ScreeningInformationFormContainer'
 import {resetFieldValues as resetIncidentInformationValues} from 'actions/incidentInformationFormActions'
 import {resetFieldValues as resetNarrativeFormValues} from 'actions/narrativeFormActions'
 import {resetFieldValues as resetScreeningDecisionFormValues} from 'actions/screeningDecisionFormActions'
