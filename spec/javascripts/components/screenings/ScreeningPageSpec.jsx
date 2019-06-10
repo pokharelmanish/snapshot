@@ -4,7 +4,6 @@ import React from 'react'
 import {ScreeningPage} from 'screenings/ScreeningPage'
 import AllegationsCard from 'screenings/AllegationsCard'
 import DecisionCard from 'screenings/DecisionCard'
-import NarrativeCard from 'screenings/NarrativeCard'
 import ScreeningInformationCard from 'screenings/ScreeningInformationCard'
 import WorkerSafetyCard from 'screenings/WorkerSafetyCard'
 import {shallow} from 'enzyme'
@@ -250,11 +249,6 @@ describe('ScreeningPage', () => {
       it('renders the participants card for each participant', () => {
         const cards = component.find('PersonCardView')
         expect(cards.length).toEqual(2)
-      })
-
-      it('renders the narrative card', () => {
-        const card = component.find(NarrativeCard)
-        expect(card.exists()).toEqual(true)
       })
 
       it('renders the allegations card', () => {

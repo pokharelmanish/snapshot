@@ -12,7 +12,6 @@ import ErrorDetail from 'common/ErrorDetail'
 import ScreeningSideBar from 'screenings/ScreeningSideBar'
 import AllegationsCard from 'screenings/AllegationsCard'
 import DecisionCard from 'screenings/DecisionCard'
-import NarrativeCard from 'screenings/NarrativeCard'
 import ScreeningInformationCard from 'screenings/ScreeningInformationCard'
 import WorkerSafetyCard from 'screenings/WorkerSafetyCard'
 import PageHeader from 'common/PageHeader'
@@ -119,7 +118,6 @@ export class ScreeningPage extends React.Component {
         <ScreeningInformationCard />
         {editable && this.renderPersonSearchForm()}
         {this.props.participants.map(({id}) => <PersonCardView key={id} personId={id} />)}
-        <NarrativeCard />
         <AllegationsCard />
         <RelationshipsCardContainer />
         <WorkerSafetyCard />
