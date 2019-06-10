@@ -23,7 +23,7 @@ import {
 import {
   getScreeningWithEditsSelector as getScreeningWithDecisionEditsSelector,
 } from 'selectors/screening/decisionFormSelectors'
-import {cardName as allegationsCardName} from 'containers/screenings/AllegationsFormContainer'
+// import {cardName as allegationsCardName} from 'containers/screenings/AllegationsFormContainer'
 import {cardName as screeningInformationCardName} from 'containers/screenings/ScreeningInformationFormContainer'
 import {cardName as incidentInformationCardName} from 'containers/screenings/IncidentInformationFormContainer'
 import {cardName as narrativeCardName} from 'containers/screenings/NarrativeFormContainer'
@@ -59,41 +59,8 @@ describe('createScreeningBase', () => {
   })
 })
 
-describe('quietlySaveScreeningCard', () => {
-  it('saves a screening card without putting success events', () => {
-    const action = saveCard(allegationsCardName)
-    const screening = fromJS({id: 123, allegations: [], participants: []})
-
-    const gen = quietlySaveScreeningCard(action)
-    expect(gen.next().value).toEqual(
-      select(getScreeningWithAllegationsEditsSelector)
-    )
-    expect(gen.next(screening).value).toEqual(
-      call(Utils.put, '/api/v1/screenings/123', {screening: screening.toJS()})
-    )
-    const final = gen.next(screening)
-    expect(final.done).toEqual(true)
-    expect(final.value).not.toEqual(put(saveSuccess(screening)))
-  })
-})
 
 describe('saveScreeningCard', () => {
-  it('saves allegations edits and puts screening', () => {
-    const action = saveCard(allegationsCardName)
-    const screening = fromJS({id: 123, allegations: [], participants: []})
-
-    const gen = saveScreeningCard(action)
-    expect(gen.next().value).toEqual(
-      select(getScreeningWithAllegationsEditsSelector)
-    )
-    expect(gen.next(screening).value).toEqual(
-      call(Utils.put, '/api/v1/screenings/123', {screening: screening.toJS()})
-    )
-    expect(gen.next(screening).value).toEqual(
-      put(saveSuccess(screening))
-    )
-  })
-
   it('saves screening information edits and puts screening', () => {
     const action = saveCard(screeningInformationCardName)
     const screening = fromJS({id: 123, name: 'My Screening', participants: []})
@@ -172,35 +139,5 @@ describe('saveScreeningCard', () => {
     expect(gen.next(screening).value).toEqual(
       put(saveSuccess(screening))
     )
-  })
-
-  it('puts errors when errors are thrown', () => {
-    const action = saveCard(allegationsCardName)
-    const screening = fromJS({id: 123, allegations: [], participants: []})
-
-    const gen = saveScreeningCard(action)
-    expect(gen.next().value).toEqual(
-      select(getScreeningWithAllegationsEditsSelector)
-    )
-    expect(gen.next(screening).value).toEqual(
-      call(Utils.put, '/api/v1/screenings/123', {screening: screening.toJS()})
-    )
-    const error = {responseJSON: 'some error'}
-    expect(gen.throw(error).value).toEqual(
-      put(saveFailure(error))
-    )
-  })
-
-  it('puts saveFailure when saving the screening with undefined participants', () => {
-    const action = saveCard(allegationsCardName)
-    const screening = fromJS({id: 123, allegations: []})
-
-    const gen = saveScreeningCard(action)
-    expect(gen.next().value).toEqual(
-      select(getScreeningWithAllegationsEditsSelector)
-    )
-
-    expect(gen.next(screening).value).toEqual(put(saveFailureFromNoParticipants()))
-    expect(gen.next().done).toEqual(true)
   })
 })

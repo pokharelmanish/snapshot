@@ -17,7 +17,6 @@ import {
 import {
   getScreeningWithEditsSelector as getScreeningWithDecisionEditsSelector,
 } from 'selectors/screening/decisionFormSelectors'
-import {cardName as allegationsCardName} from 'containers/screenings/AllegationsFormContainer'
 import {cardName as screeningInformationCardName} from 'containers/screenings/ScreeningInformationFormContainer'
 import {cardName as incidentInformationCardName} from 'containers/screenings/IncidentInformationFormContainer'
 import {cardName as narrativeCardName} from 'containers/screenings/NarrativeFormContainer'
@@ -37,10 +36,6 @@ export function* createScreeningBase(screening) {
 export function* quietlySaveScreeningCard({payload: {card}}) {
   let screening
   switch (card) {
-    case allegationsCardName: {
-      screening = yield select(getScreeningWithAllegationsEditsSelector)
-      break
-    }
     case decisionCardName: {
       screening = yield select(getScreeningWithDecisionEditsSelector)
       break
