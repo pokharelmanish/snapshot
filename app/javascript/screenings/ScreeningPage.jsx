@@ -11,7 +11,6 @@ import PersonSearchFormContainer from 'containers/common/PersonSearchFormContain
 import ErrorDetail from 'common/ErrorDetail'
 import ScreeningSideBar from 'screenings/ScreeningSideBar'
 import AllegationsCard from 'screenings/AllegationsCard'
-import CrossReportCard from 'screenings/CrossReportCard'
 import DecisionCard from 'screenings/DecisionCard'
 import IncidentInformationCard from 'screenings/IncidentInformationCard'
 import NarrativeCard from 'screenings/NarrativeCard'
@@ -127,7 +126,6 @@ export class ScreeningPage extends React.Component {
         <RelationshipsCardContainer />
         <WorkerSafetyCard />
         <HistoryOfInvolvementContainer empty={<EmptyHistory />} notEmpty={<HistoryTableContainer includesScreenings={true} />} />
-        <CrossReportCard />
         <DecisionCard />
         {this.renderScreeningFooter()}
       </div>

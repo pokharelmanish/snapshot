@@ -3,7 +3,6 @@ import * as IntakeConfig from 'common/config'
 import React from 'react'
 import {ScreeningPage} from 'screenings/ScreeningPage'
 import AllegationsCard from 'screenings/AllegationsCard'
-import CrossReportCard from 'screenings/CrossReportCard'
 import DecisionCard from 'screenings/DecisionCard'
 import IncidentInformationCard from 'screenings/IncidentInformationCard'
 import NarrativeCard from 'screenings/NarrativeCard'
@@ -276,11 +275,6 @@ describe('ScreeningPage', () => {
 
       it('renders the history card', () => {
         const card = component.find('Connect(HistoryOfInvolvement)')
-        expect(card.exists()).toEqual(true)
-      })
-
-      it('renders the cross report show card', () => {
-        const card = component.find(CrossReportCard)
         expect(card.exists()).toEqual(true)
       })
 
