@@ -17,9 +17,9 @@ export const search = (isClientOnly, isAdvancedSearchOn, personSearchFields, tot
   type: PEOPLE_SEARCH_FETCH,
   payload: {isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived},
 })
-export const loadMoreResults = (isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived) => ({
+export const loadMoreResults = (isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived, totalResultsRequested) => ({
   type: LOAD_MORE_RESULTS,
-  payload: {isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived},
+  payload: {isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived, totalResultsRequested},
 })
 export const loadMoreResultsFailure = (error) => ({
   type: LOAD_MORE_RESULTS_COMPLETE,
