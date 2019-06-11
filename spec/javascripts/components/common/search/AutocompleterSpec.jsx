@@ -300,6 +300,9 @@ describe('<Autocompleter />', () => {
       })
 
       describe('isAdvancedSearchOn feature toggle is On', () => {
+        const totalResultsReceived = results.length
+        const pageSize = 25
+
         it('calls onLoadMoreResults', () => {
           const autocompleter = mountAutocompleter({
             results,
@@ -309,35 +312,18 @@ describe('<Autocompleter />', () => {
             isAdvancedSearchOn: true,
             dobErrors: [],
           })
+          const currentPageNumber = autocompleter.state().currentPageNumber
+          const nextPageNumber = currentPageNumber + 1
+          const totalResultsRequested = pageSize * nextPageNumber
           autocompleter
             .find('Autocomplete')
             .props()
             .onSelect('_value', {showMoreResults: true})
-          expect(onLoadMoreResults).toHaveBeenCalledWith(true, defaultPersonSearchFields, 3)
+          expect(onLoadMoreResults).toHaveBeenCalledWith(true, defaultPersonSearchFields, totalResultsReceived, totalResultsRequested)
         })
 
         it('calls onLoadMoreResults with an address', () => {
-          const autocompleter = mountAutocompleter({
-            results,
-            onSelect,
-            onLoadMoreResults,
-            total,
-            personSearchFields: {
-              ssn: '',
-              clientId: '',
-              state: '',
-              county: 'Colusa',
-              city: 'Central City',
-              address: 'Star Labs',
-              approximateAgeUnits: '',
-            },
-            isAdvancedSearchOn: true,
-          })
-          autocompleter
-            .find('Autocomplete')
-            .props()
-            .onSelect('_value', {showMoreResults: true})
-          expect(onLoadMoreResults).toHaveBeenCalledWith(true, {
+          const personSearchFields = {
             ssn: '',
             clientId: '',
             state: '',
@@ -345,7 +331,23 @@ describe('<Autocompleter />', () => {
             city: 'Central City',
             address: 'Star Labs',
             approximateAgeUnits: '',
-          }, 3)
+          }
+          const autocompleter = mountAutocompleter({
+            results,
+            onSelect,
+            onLoadMoreResults,
+            total,
+            personSearchFields,
+            isAdvancedSearchOn: true,
+          })
+          const currentPageNumber = autocompleter.state().currentPageNumber
+          const nextPageNumber = currentPageNumber + 1
+          const totalResultsRequested = pageSize * nextPageNumber
+          autocompleter
+            .find('Autocomplete')
+            .props()
+            .onSelect('_value', {showMoreResults: true})
+          expect(onLoadMoreResults).toHaveBeenCalledWith(true, personSearchFields, totalResultsReceived, totalResultsRequested)
         })
       })
     })

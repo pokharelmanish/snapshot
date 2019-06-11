@@ -24,7 +24,10 @@ const itemClassName = (isHighlighted) => `search-item${isHighlighted ? ' highlig
 export default class Autocompleter extends Component {
   constructor(props) {
     super(props)
-    this.state = {menuVisible: false}
+    this.state = {
+      menuVisible: false,
+      currentPageNumber: 1,
+    }
     this.hideMenu = this.hideMenu.bind(this)
     this.onItemSelect = this.onItemSelect.bind(this)
     this.renderMenu = this.renderMenu.bind(this)
@@ -69,10 +72,15 @@ export default class Autocompleter extends Component {
 
   loadMoreResults() {
     const {onLoadMoreResults, isAdvancedSearchOn, personSearchFields, results} = this.props
+    const pageSize = 25
+    const {currentPageNumber} = this.state
+    const nextPageNumber = currentPageNumber + 1
     const totalResultsReceived = results.length
-    onLoadMoreResults(isAdvancedSearchOn, personSearchFields, totalResultsReceived)
+    const totalResultsRequested = pageSize * nextPageNumber
+    onLoadMoreResults(isAdvancedSearchOn, personSearchFields, totalResultsReceived, totalResultsRequested)
     this.element_ref.setIgnoreBlur(true)
     if (this.inputRef) { this.inputRef.focus() }
+    this.setState({currentPageNumber: nextPageNumber})
   }
 
   onSelect(item) {
