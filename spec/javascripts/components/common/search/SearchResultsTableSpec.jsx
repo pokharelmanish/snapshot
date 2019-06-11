@@ -3,6 +3,15 @@ import SearchResultsTable from 'common/search/SearchResultsTable'
 import {mount} from 'enzyme'
 import ReactTooltip from 'react-tooltip'
 
+const generateMockResults = (numberOfResults) => {
+  const results = []
+  for (let x = 0; x < numberOfResults; x++) {
+    const result = {'legacyDescriptor': {legacy_id: `${x}`}}
+    results.push(result)
+  }
+  return results
+}
+
 const defaultMockedResults = [
   {
     'gender': 'female',
@@ -269,11 +278,10 @@ describe('SearchResultsTable', () => {
           it('onLoadMoreResults is called with personSearchFields and totalResultsReceived', () => {
             const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
             const personSearchFields = {lastName: 'laure'}
-            const totalResultsReceived = defaultMockedResults.length
-            const numberOfRowsPerPage = totalResultsReceived
+            const results = generateMockResults(25)
+            const totalResultsReceived = results.length
             const component = render({
-              currentRow: numberOfRowsPerPage,
-              results: defaultMockedResults,
+              results,
               onLoadMoreResults,
               personSearchFields,
             })
@@ -286,11 +294,8 @@ describe('SearchResultsTable', () => {
         describe('and we have requested the results for the next page', () => {
           it('onLoadMoreResults is not called', () => {
             const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-            const totalResultsReceived = defaultMockedResults.length
-            const numberOfRowsPerPage = totalResultsReceived
-            const results = [...defaultMockedResults].concat(...defaultMockedResults)
+            const results = generateMockResults(50)
             const component = render({
-              currentRow: numberOfRowsPerPage,
               results,
               onLoadMoreResults,
             })
@@ -306,7 +311,7 @@ describe('SearchResultsTable', () => {
           const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
           const component = render({onLoadMoreResults})
           const searchResultsTable = component.find('ReactTable')
-          searchResultsTable.props().onPageChange(-2)
+          searchResultsTable.props().onPageChange(-1)
           expect(onLoadMoreResults).not.toHaveBeenCalled()
         })
       })
@@ -314,7 +319,7 @@ describe('SearchResultsTable', () => {
   })
 
   describe('onPageSizeChange', () => {
-    it('calls setCurrentRowNumber', () => {
+    it('calls setCurrentRowNumber with current page size', () => {
       const setCurrentRowNumber = jasmine.createSpy('setCurrentRowNumber')
       const component = render({resultsSubset: defaultMockedResults, setCurrentRowNumber})
       const searchResultsTable = component.find('ReactTable')
@@ -322,7 +327,7 @@ describe('SearchResultsTable', () => {
       expect(setCurrentRowNumber).toHaveBeenCalledWith(5)
     })
 
-    it('calls setCurrentRowNumber with currentPage', () => {
+    it('calls setCurrentPageNumber with current page', () => {
       const setCurrentPageNumber = jasmine.createSpy('setCurrentPageNumber')
       const component = render({resultsSubset: defaultMockedResults, setCurrentPageNumber})
       const searchResultsTable = component.find('ReactTable')
@@ -330,19 +335,49 @@ describe('SearchResultsTable', () => {
       expect(setCurrentPageNumber).toHaveBeenCalledWith(2)
     })
 
-    it('calls onLoadMoreResults', () => {
-      const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-      const personSearchFields = {lastName: 'laure'}
-      const totalResultsReceived = defaultMockedResults.length
-      const component = render({
-        results: defaultMockedResults,
-        resultsSubset: defaultMockedResults,
-        onLoadMoreResults,
-        personSearchFields,
+    describe('onLoadMoreResults', () => {
+      describe('when the page size is increased', () => {
+        describe('and we have do not have all the results to display', () => {
+          it('onLoadMoreResults is called', () => {
+            const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
+            const personSearchFields = {lastName: 'Bravo'}
+            const results = generateMockResults(25)
+            const totalResultsReceived = results.length
+            const component = render({
+              results,
+              onLoadMoreResults,
+              personSearchFields,
+            })
+            const searchResultsTable = component.find('ReactTable')
+            searchResultsTable.props().onPageSizeChange(50, 0)
+            expect(onLoadMoreResults).toHaveBeenCalledWith(personSearchFields, totalResultsReceived)
+          })
+        })
+
+        describe('and we do have all the results to display', () => {
+          it('onLoadMoreResults is not called', () => {
+            const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
+            const results = generateMockResults(50)
+            const component = render({
+              results,
+              onLoadMoreResults,
+            })
+            const searchResultsTable = component.find('ReactTable')
+            searchResultsTable.props().onPageSizeChange(50, 0)
+            expect(onLoadMoreResults).not.toHaveBeenCalled()
+          })
+        })
       })
-      const searchResultsTable = component.find('ReactTable')
-      searchResultsTable.props().onPageSizeChange(5, 1)
-      expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
+
+      describe('when the page size is decreased', () => {
+        it('onLoadMoreResults is not called', () => {
+          const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
+          const component = render({onLoadMoreResults})
+          const searchResultsTable = component.find('ReactTable')
+          searchResultsTable.props().onPageSizeChange(5, 1)
+          expect(onLoadMoreResults).not.toHaveBeenCalled()
+        })
+      })
     })
   })
 

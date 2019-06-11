@@ -112,20 +112,20 @@ class SearchResultsTable extends React.Component {
     return Math.ceil(pageCount)
   }
 
-  shouldRequestResults(currentPageNumber) {
-    const {currentRow, results} = this.props
-    const {previousPageNumber} = this.state
+  haveResults(currentPageNumber, currentPageSize) {
+    const {results} = this.props
     const totalResultsReceived = results.length
-    const nextPageRequested = currentPageNumber > previousPageNumber
-    const haveResults = totalResultsReceived >= currentRow * currentPageNumber
-    const requestResults = nextPageRequested && !haveResults
-    return requestResults
+    const numberOfResultsRequested = currentPageNumber * currentPageSize
+    const haveResults = totalResultsReceived >= numberOfResultsRequested
+    return haveResults
   }
 
   handlePageChange(pageIndex) {
-    const {setCurrentPageNumber} = this.props
+    const {currentRow, setCurrentPageNumber} = this.props
+    const {previousPageNumber} = this.state
     const currentPageNumber = ++pageIndex
-    const requestResults = this.shouldRequestResults(currentPageNumber)
+    const nextPageRequested = currentPageNumber > previousPageNumber
+    const requestResults = !this.haveResults(currentPageNumber, currentRow) && nextPageRequested
     setCurrentPageNumber(currentPageNumber)
     if (requestResults) {
       this.fetchData()
@@ -134,11 +134,12 @@ class SearchResultsTable extends React.Component {
   }
 
   handlePageSizeChange(pageSize, pageIndex) {
-    const {setCurrentRowNumber, setCurrentPageNumber} = this.props
-    const currentPageNumber = pageIndex + 1
-    const requestResults = this.shouldRequestResults(currentPageNumber)
-    setCurrentRowNumber(pageSize)
+    const {currentRow, setCurrentRowNumber, setCurrentPageNumber} = this.props
+    const currentPageNumber = ++pageIndex
+    const pageSizeIncreased = pageSize > currentRow
+    const requestResults = !this.haveResults(currentPageNumber, pageSize) && pageSizeIncreased
     setCurrentPageNumber(currentPageNumber)
+    setCurrentRowNumber(pageSize)
     if (requestResults) {
       this.fetchData()
     }
