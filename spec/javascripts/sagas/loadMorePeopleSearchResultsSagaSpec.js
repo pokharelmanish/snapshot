@@ -4,10 +4,7 @@ import {
   loadMorePeopleSearchResultsSaga,
   loadMorePeopleSearch,
 } from 'sagas/loadMorePeopleSearchResultsSaga'
-import {
-  selectLastResultsSortValue,
-  selectSearchResultsCurrentRow,
-} from 'selectors/peopleSearchSelectors'
+import {selectLastResultsSortValue} from 'selectors/peopleSearchSelectors'
 import {
   LOAD_MORE_RESULTS,
   loadMoreResults,
@@ -28,26 +25,24 @@ describe('loadMorePeopleSearch', () => {
   const isClientOnly = true
   const isAdvancedSearchOn = true
   const personSearchFields = {lastName: 'Doe'}
-  const totalResultsReceived = 250
-  const action = loadMoreResults(isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived)
+  const totalResultsReceived = 200
+  const totalResultsRequested = 250
+  const size = totalResultsRequested - totalResultsReceived
+  const action = loadMoreResults(isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived, totalResultsRequested)
   const lastResultSort = ['last_result_sort']
 
-  it('finds some error during the process', () => {
+  it('catches errors during the process', () => {
     const error = 'Something went wrong'
     const peopleSeachGenerator = loadMorePeopleSearch(action)
-    const size = 25
     const searchParams = {
       is_client_only: true,
       is_advanced_search_on: true,
       total_results_received: totalResultsReceived,
       person_search_fields: {last_name: 'doe'},
-      size: size,
+      size,
       search_after: lastResultSort,
     }
-    expect(peopleSeachGenerator.next().value).toEqual(
-      select(selectSearchResultsCurrentRow)
-    )
-    expect(peopleSeachGenerator.next(size).value).toEqual(select(selectLastResultsSortValue))
+    expect(peopleSeachGenerator.next().value).toEqual(select(selectLastResultsSortValue))
     expect(peopleSeachGenerator.next(lastResultSort).value).toEqual(call(get, '/api/v1/people', searchParams))
     expect(peopleSeachGenerator.throw(error).value).toEqual(put(loadMoreResultsFailure('Something went wrong')))
   })
@@ -58,18 +53,14 @@ describe('loadMorePeopleSearch', () => {
         hits: [],
       },
     }
-    const size = 25
     const peopleSeachGenerator = loadMorePeopleSearch(action)
-    expect(peopleSeachGenerator.next().value).toEqual(
-      select(selectSearchResultsCurrentRow)
-    )
-    expect(peopleSeachGenerator.next(size).value).toEqual(select(selectLastResultsSortValue))
+    expect(peopleSeachGenerator.next().value).toEqual(select(selectLastResultsSortValue))
     expect(peopleSeachGenerator.next(lastResultSort).value).toEqual(call(get, '/api/v1/people', {
       is_client_only: true,
       is_advanced_search_on: true,
       total_results_received: totalResultsReceived,
       person_search_fields: {last_name: 'doe'},
-      size: size,
+      size,
       search_after: lastResultSort,
     }))
     expect(peopleSeachGenerator.next(searchResults).value).toEqual(put(loadMoreResultsSuccess(searchResults)))
