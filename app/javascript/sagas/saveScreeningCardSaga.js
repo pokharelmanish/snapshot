@@ -17,7 +17,6 @@ import {
 import {
   getScreeningWithEditsSelector as getScreeningWithDecisionEditsSelector,
 } from 'selectors/screening/decisionFormSelectors'
-import {cardName as workerSafetyCardName} from 'containers/screenings/WorkerSafetyFormContainer'
 import {replace} from 'react-router-redux'
 
 export function* createScreeningBase(screening) {
@@ -31,12 +30,6 @@ export function* createScreeningBase(screening) {
 
 export function* quietlySaveScreeningCard({payload: {card}}) {
   let screening
-  switch (card) {
-    case workerSafetyCardName: {
-      screening = yield select(getScreeningWithWorkerSafetyEditsSelector)
-      break
-    }
-  }
 
   if (screening.get('participants') === undefined) {
     yield put(saveFailureFromNoParticipants())

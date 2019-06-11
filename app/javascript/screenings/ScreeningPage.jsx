@@ -11,7 +11,6 @@ import PersonSearchFormContainer from 'containers/common/PersonSearchFormContain
 import ErrorDetail from 'common/ErrorDetail'
 import ScreeningSideBar from 'screenings/ScreeningSideBar'
 import AllegationsCard from 'screenings/AllegationsCard'
-import WorkerSafetyCard from 'screenings/WorkerSafetyCard'
 import PageHeader from 'common/PageHeader'
 import BreadCrumb from 'containers/common/BreadCrumb'
 
@@ -117,7 +116,6 @@ export class ScreeningPage extends React.Component {
         {this.props.participants.map(({id}) => <PersonCardView key={id} personId={id} />)}
         <AllegationsCard />
         <RelationshipsCardContainer />
-        <WorkerSafetyCard />
         <HistoryOfInvolvementContainer empty={<EmptyHistory />} notEmpty={<HistoryTableContainer includesScreenings={true} />} />
         {this.renderScreeningFooter()}
       </div>

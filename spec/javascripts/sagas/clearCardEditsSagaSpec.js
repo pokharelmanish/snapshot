@@ -10,7 +10,6 @@ import {resetFieldValues as resetIncidentInformationValues} from 'actions/incide
 import {resetFieldValues as resetNarrativeFormValues} from 'actions/narrativeFormActions'
 import {resetFieldValues as resetScreeningDecisionFormValues} from 'actions/screeningDecisionFormActions'
 import {resetFieldValues as resetWorkerSafetyFormValues} from 'actions/workerSafetyFormActions'
-import {cardName as workerSafetyCardName} from 'containers/screenings/WorkerSafetyFormContainer'
 import {resetFieldValues as resetCrossReportFormValues} from 'actions/crossReportFormActions'
 
 describe('clearCardEditsSaga', () => {

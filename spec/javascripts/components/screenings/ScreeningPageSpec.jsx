@@ -3,7 +3,6 @@ import * as IntakeConfig from 'common/config'
 import React from 'react'
 import {ScreeningPage} from 'screenings/ScreeningPage'
 import AllegationsCard from 'screenings/AllegationsCard'
-import WorkerSafetyCard from 'screenings/WorkerSafetyCard'
 import {shallow} from 'enzyme'
 
 describe('ScreeningPage', () => {
@@ -246,11 +245,6 @@ describe('ScreeningPage', () => {
 
       it('renders the allegations card', () => {
         const card = component.find(AllegationsCard)
-        expect(card.exists()).toEqual(true)
-      })
-
-      it('renders the worker safety card', () => {
-        const card = component.find(WorkerSafetyCard)
         expect(card.exists()).toEqual(true)
       })
 
