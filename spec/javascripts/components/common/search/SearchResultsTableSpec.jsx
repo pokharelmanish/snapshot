@@ -234,7 +234,7 @@ describe('SearchResultsTable', () => {
       const cell = row.find('div.rt-td')
       expect(cell.at(0).text()).toEqual('1.')
       expect(cell.at(1).find('button').text()).toEqual('Sarah Timson')
-      expect(cell.at(1).find('span').at(0).text()).toEqual(' (AKA: Laure)')
+      expect(cell.at(1).find('span').at(1).text()).toEqual(' (AKA: Laure)')
       expect(cell.at(2).text()).toEqual('01/03/2005')
       expect(cell.at(3).text()).toEqual('Female')
       expect(cell.at(4).text()).toEqual('pokhara')
@@ -356,7 +356,7 @@ describe('SearchResultsTable', () => {
     it('render client with tooltip', () => {
       const row = component.find('div.rt-tr-group').at(0)
       const cell = row.find('div.rt-td')
-      expect(cell.find('span').at(1).html()).toContain('Sealed')
+      expect(cell.find('span').at(0).html()).toContain('Sealed')
       expect(cell.find('span i').exists()).toBe(true)
     })
   })
@@ -365,7 +365,7 @@ describe('SearchResultsTable', () => {
     it('render client with tooltip', () => {
       const row = component.find('div.rt-tr-group').at(1)
       const cell = row.find('div.rt-td')
-      expect(cell.find('span').at(1).html()).toContain('Sensitive')
+      expect(cell.find('span').at(0).html()).toContain('Sensitive')
       expect(cell.find('span i').exists()).toBe(true)
     })
   })
