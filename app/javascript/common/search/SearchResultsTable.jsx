@@ -99,10 +99,11 @@ class SearchResultsTable extends React.Component {
     },
   ]
 
-  fetchData() {
+  fetchData(currentPageNumber, currentPageSize) {
     const {onLoadMoreResults, personSearchFields, results} = this.props
     const totalResultsReceived = results.length
-    onLoadMoreResults(personSearchFields, totalResultsReceived)
+    const totalResultsRequested = currentPageNumber * currentPageSize
+    onLoadMoreResults(personSearchFields, totalResultsReceived, totalResultsRequested)
   }
 
   calculateNumberOfPages(total, currentRow) {
@@ -115,8 +116,8 @@ class SearchResultsTable extends React.Component {
   haveResults(currentPageNumber, currentPageSize) {
     const {results} = this.props
     const totalResultsReceived = results.length
-    const numberOfResultsRequested = currentPageNumber * currentPageSize
-    const haveResults = totalResultsReceived >= numberOfResultsRequested
+    const totalResultsRequested = currentPageNumber * currentPageSize
+    const haveResults = totalResultsReceived >= totalResultsRequested
     return haveResults
   }
 
@@ -128,7 +129,7 @@ class SearchResultsTable extends React.Component {
     const requestResults = !this.haveResults(currentPageNumber, currentRow) && nextPageRequested
     setCurrentPageNumber(currentPageNumber)
     if (requestResults) {
-      this.fetchData()
+      this.fetchData(currentPageNumber, currentRow)
     }
     this.setState({previousPageNumber: pageIndex})
   }
@@ -141,7 +142,7 @@ class SearchResultsTable extends React.Component {
     setCurrentPageNumber(currentPageNumber)
     setCurrentRowNumber(pageSize)
     if (requestResults) {
-      this.fetchData()
+      this.fetchData(currentPageNumber, pageSize)
     }
   }
 

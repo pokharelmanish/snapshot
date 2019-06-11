@@ -276,18 +276,22 @@ describe('SearchResultsTable', () => {
       describe('when the next page is requested', () => {
         describe('and we have not requested the results for the next page', () => {
           it('onLoadMoreResults is called with personSearchFields and totalResultsReceived', () => {
+            const nextPageNumber = 2
+            const pageSize = 25
             const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
             const personSearchFields = {lastName: 'laure'}
             const results = generateMockResults(25)
             const totalResultsReceived = results.length
+            const totalResultsRequested = nextPageNumber * pageSize
             const component = render({
+              currentRow: pageSize,
               results,
               onLoadMoreResults,
               personSearchFields,
             })
             const searchResultsTable = component.find('ReactTable')
             searchResultsTable.props().onPageChange(1)
-            expect(onLoadMoreResults).toHaveBeenCalledWith({lastName: 'laure'}, totalResultsReceived)
+            expect(onLoadMoreResults).toHaveBeenCalledWith(personSearchFields, totalResultsReceived, totalResultsRequested)
           })
         })
 
@@ -339,18 +343,21 @@ describe('SearchResultsTable', () => {
       describe('when the page size is increased', () => {
         describe('and we have do not have all the results to display', () => {
           it('onLoadMoreResults is called', () => {
+            const currentPageNumber = 1
+            const pageSize = 50
             const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
             const personSearchFields = {lastName: 'Bravo'}
             const results = generateMockResults(25)
             const totalResultsReceived = results.length
+            const totalResultsRequested = currentPageNumber * pageSize
             const component = render({
               results,
               onLoadMoreResults,
               personSearchFields,
             })
             const searchResultsTable = component.find('ReactTable')
-            searchResultsTable.props().onPageSizeChange(50, 0)
-            expect(onLoadMoreResults).toHaveBeenCalledWith(personSearchFields, totalResultsReceived)
+            searchResultsTable.props().onPageSizeChange(pageSize, 0)
+            expect(onLoadMoreResults).toHaveBeenCalledWith(personSearchFields, totalResultsReceived, totalResultsRequested)
           })
         })
 
