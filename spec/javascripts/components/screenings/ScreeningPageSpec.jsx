@@ -2,7 +2,6 @@ import {EDIT_MODE, SHOW_MODE} from 'actions/screeningPageActions'
 import * as IntakeConfig from 'common/config'
 import React from 'react'
 import {ScreeningPage} from 'screenings/ScreeningPage'
-import AllegationsCard from 'screenings/AllegationsCard'
 import {shallow} from 'enzyme'
 
 describe('ScreeningPage', () => {
@@ -241,11 +240,6 @@ describe('ScreeningPage', () => {
       it('renders the participants card for each participant', () => {
         const cards = component.find('PersonCardView')
         expect(cards.length).toEqual(2)
-      })
-
-      it('renders the allegations card', () => {
-        const card = component.find(AllegationsCard)
-        expect(card.exists()).toEqual(true)
       })
 
       it('renders the history card', () => {

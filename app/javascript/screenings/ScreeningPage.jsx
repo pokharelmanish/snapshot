@@ -10,7 +10,6 @@ import EmptyHistory from 'views/history/EmptyHistory'
 import PersonSearchFormContainer from 'containers/common/PersonSearchFormContainer'
 import ErrorDetail from 'common/ErrorDetail'
 import ScreeningSideBar from 'screenings/ScreeningSideBar'
-import AllegationsCard from 'screenings/AllegationsCard'
 import PageHeader from 'common/PageHeader'
 import BreadCrumb from 'containers/common/BreadCrumb'
 
@@ -114,7 +113,6 @@ export class ScreeningPage extends React.Component {
         {hasApiValidationErrors && <ErrorDetail errors={submitReferralErrors} />}
         {editable && this.renderPersonSearchForm()}
         {this.props.participants.map(({id}) => <PersonCardView key={id} personId={id} />)}
-        <AllegationsCard />
         <RelationshipsCardContainer />
         <HistoryOfInvolvementContainer empty={<EmptyHistory />} notEmpty={<HistoryTableContainer includesScreenings={true} />} />
         {this.renderScreeningFooter()}
