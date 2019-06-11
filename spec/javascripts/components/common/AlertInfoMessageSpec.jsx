@@ -1,7 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 import AlertInfoMessage from 'common/AlertInfoMessage'
-import {SafelySurrenderedBabyMessage} from 'views/ScreeningInformationHelpTextBox'
 
 describe('AlertInfoMessage', () => {
   const render = ({
@@ -13,11 +12,6 @@ describe('AlertInfoMessage', () => {
     const messageText = 'Help me Obi-Wan Kenobi'
     const component = render({message: messageText})
     expect(component.text()).toEqual(messageText)
-  })
-
-  it('renders the component passed to it', () => {
-    const component = render({message: <SafelySurrenderedBabyMessage />})
-    expect(component.html()).toContain('<li>Complete all other fields marked as required.</li>')
   })
 
   describe('layout', () => {
