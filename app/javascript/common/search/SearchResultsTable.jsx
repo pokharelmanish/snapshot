@@ -43,12 +43,12 @@ class SearchResultsTable extends React.Component {
         const akaFullName = person.akaFullName
         return (
           <div>
-            {<button className='person-search-detail-link' onClick={() => onAuthorize(id)}>{person.fullName}</button>}
-            <span>{akaFullName}</span>
             {person.isSensitive && <span data-tip="Sensitive" data-for="Sensitive">&nbsp;<i className="fa fa-eye-slash search-information-flag" aria-hidden="true"/></span>}
             <ReactTooltip id='Sensitive' className="custom-tool-tip" />
             {person.isSealed && <span data-tip="Sealed" data-for="Sealed">&nbsp;<i className="fa fa-shield search-information-flag" aria-hidden="true"/></span>}
             <ReactTooltip id='Sealed' className="custom-tool-tip" />
+            {<button className='person-search-detail-link' onClick={() => onAuthorize(id)}>{person.fullName}</button>}
+            <span>{akaFullName}</span>
           </div>
         )
       },
