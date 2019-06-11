@@ -300,15 +300,15 @@ describe('SearchResultsTable', () => {
           })
         })
       })
-    })
 
-    describe('when the previous page is requested', () => {
-      it('onLoadMoreResults is not called', () => {
-        const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-        const component = render({onLoadMoreResults})
-        const searchResultsTable = component.find('ReactTable')
-        searchResultsTable.props().onPageChange(-2)
-        expect(onLoadMoreResults).not.toHaveBeenCalled()
+      describe('when the previous page is requested', () => {
+        it('onLoadMoreResults is not called', () => {
+          const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
+          const component = render({onLoadMoreResults})
+          const searchResultsTable = component.find('ReactTable')
+          searchResultsTable.props().onPageChange(-2)
+          expect(onLoadMoreResults).not.toHaveBeenCalled()
+        })
       })
     })
   })
