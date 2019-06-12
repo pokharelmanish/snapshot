@@ -44,7 +44,7 @@ describe('peopleSearchActions', () => {
     const action = loadMoreResults(true, {
       firstName: 'Nikola',
       lastName: 'Tesla',
-    }, 250)
+    }, 200, 300)
     expect(isFSA(action)).toEqual(true)
   })
 

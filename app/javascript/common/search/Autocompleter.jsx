@@ -24,7 +24,10 @@ const itemClassName = (isHighlighted) => `search-item${isHighlighted ? ' highlig
 export default class Autocompleter extends Component {
   constructor(props) {
     super(props)
-    this.state = {menuVisible: false}
+    this.state = {
+      menuVisible: false,
+      currentPageNumber: 1,
+    }
     this.hideMenu = this.hideMenu.bind(this)
     this.onItemSelect = this.onItemSelect.bind(this)
     this.renderMenu = this.renderMenu.bind(this)
@@ -69,10 +72,15 @@ export default class Autocompleter extends Component {
 
   loadMoreResults() {
     const {onLoadMoreResults, isAdvancedSearchOn, personSearchFields, results} = this.props
+    const pageSize = 25
+    const {currentPageNumber} = this.state
+    const nextPageNumber = currentPageNumber + 1
     const totalResultsReceived = results.length
-    onLoadMoreResults(isAdvancedSearchOn, personSearchFields, totalResultsReceived)
+    const totalResultsRequested = pageSize * nextPageNumber
+    onLoadMoreResults(isAdvancedSearchOn, personSearchFields, totalResultsReceived, totalResultsRequested)
     this.element_ref.setIgnoreBlur(true)
     if (this.inputRef) { this.inputRef.focus() }
+    this.setState({currentPageNumber: nextPageNumber})
   }
 
   onSelect(item) {
@@ -201,7 +209,7 @@ export default class Autocompleter extends Component {
   }
 
   renderPersonSearchFields() {
-    const {states, counties, onChange, onCancel, onBlur, onFocus, personSearchFields, isAdvancedSearchOn, clientIdError, ssnErrors, dobErrors, canSearch} = this.props
+    const {onChange, onCancel, onBlur, onFocus, personSearchFields, isAdvancedSearchOn, clientIdError, ssnErrors, dobErrors, canSearch} = this.props
     const searchWithEnter = (e) => {
       const enterKeyCode = 13
       if ((canSearch && e.charCode === enterKeyCode)) { this.handleSubmit() }
@@ -214,8 +222,6 @@ export default class Autocompleter extends Component {
         onCancel={onCancel}
         onSubmit={this.handleSubmit}
         personSearchFields={personSearchFields}
-        states={states}
-        counties={counties}
         isAdvancedSearchOn={isAdvancedSearchOn}
         clientIdError={clientIdError}
         ssnErrors={ssnErrors}
@@ -236,10 +242,6 @@ Autocompleter.propTypes = {
   canCreateNewPerson: PropTypes.bool,
   canSearch: PropTypes.bool,
   clientIdError: PropTypes.array,
-  counties: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.string,
-    value: PropTypes.string,
-  })),
   dobErrors: PropTypes.array,
   id: PropTypes.string,
   isAdvancedSearchOn: PropTypes.bool,
@@ -257,12 +259,6 @@ Autocompleter.propTypes = {
   ssnErrors: PropTypes.array,
   staffId: PropTypes.string,
   startTime: PropTypes.string,
-  states: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string,
-      value: PropTypes.string,
-    })
-  ),
   total: PropTypes.number,
 }
 

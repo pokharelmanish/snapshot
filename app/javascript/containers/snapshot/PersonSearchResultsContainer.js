@@ -25,15 +25,11 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const onLoadMoreResults = (personSearchFields, totalResultsReceived) => {
-    dispatch(loadMoreResults(true, true, personSearchFields, totalResultsReceived))
+  const onLoadMoreResults = (personSearchFields, totalResultsReceived, totalResultsRequested) => {
+    dispatch(loadMoreResults(true, true, personSearchFields, totalResultsReceived, totalResultsRequested))
   }
-  const setCurrentPageNumber = (pageNumber) => {
-    dispatch(setSearchCurrentPage(pageNumber))
-  }
-  const setCurrentRowNumber = (pageNumber) => {
-    dispatch(setSearchCurrentRow(pageNumber))
-  }
+  const setCurrentPageNumber = (pageNumber) => dispatch(setSearchCurrentPage(pageNumber))
+  const setCurrentRowNumber = (pageNumber) => dispatch(setSearchCurrentRow(pageNumber))
   const onAuthorize = (id) => dispatch(authorizeSnapshotPerson(id))
   return {onLoadMoreResults, setCurrentPageNumber, setCurrentRowNumber, onAuthorize, dispatch}
 }

@@ -1,15 +1,16 @@
 import {takeEvery, put, select} from 'redux-saga/effects'
 import {getPeopleEffect} from 'sagas/fetchPeopleSearchSaga'
-import {selectLastResultsSortValue, selectSearchResultsCurrentRow} from 'selectors/peopleSearchSelectors'
+import {selectLastResultsSortValue} from 'selectors/peopleSearchSelectors'
 import {
   LOAD_MORE_RESULTS,
   loadMoreResultsSuccess,
   loadMoreResultsFailure,
 } from 'actions/peopleSearchActions'
 
-export function* loadMorePeopleSearch({payload: {isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived}}) {
+export function* loadMorePeopleSearch({payload}) {
   try {
-    const size = yield select(selectSearchResultsCurrentRow)
+    const {isClientOnly, isAdvancedSearchOn, personSearchFields, totalResultsReceived, totalResultsRequested} = payload
+    const size = totalResultsRequested - totalResultsReceived
     const sort = yield select(selectLastResultsSortValue)
     const response = yield getPeopleEffect({isClientOnly, isAdvancedSearchOn, personSearchFields, size, totalResultsReceived, sort})
     yield put(loadMoreResultsSuccess(response))
