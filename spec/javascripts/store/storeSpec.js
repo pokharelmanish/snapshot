@@ -108,72 +108,6 @@ describe('Store', () => {
     store = createStore(rootReducer)
   })
 
-  it('has initial state', () => {
-    expect(store.getState()).toEqualImmutable(initialState)
-  })
-
-  it('handles fetch screening', () => {
-    spyOn(IntakeConfig, 'isFeatureActive').and.returnValue(false)
-    const screening = fromJS({
-      id: '1',
-      name: 'Mock screening',
-      participants: [
-        {
-          id: '2',
-          legacy_id: '3',
-          screening_id: '1',
-          addresses: [],
-          ethnicity: [
-            {
-              hispanic_latino_origin: 'Yes',
-              ethnicity_detail: ['Mexican'],
-            },
-          ],
-        },
-      ],
-      allegations: [],
-      incident_address: {},
-    })
-    const participants = screening.get('participants')
-    const action = fetchScreeningSuccess(screening.toJS())
-    store.dispatch(action)
-    expect(store.getState().get('screening')).toEqualImmutable(
-      fromJS({
-        id: '1',
-        name: 'Mock screening',
-        allegations: [],
-        incident_address: {},
-        fetch_status: 'FETCHED',
-      })
-    )
-    expect(store.getState().get('participants')).toEqualImmutable(participants)
-  })
-
-  it('handles create screening', () => {
-    const screening = fromJS({
-      id: '1',
-      name: 'Mock screening',
-      participants: [],
-      incident_address: {id: '1111'},
-    })
-    const action = createScreeningSuccess(screening.toJS())
-    store.dispatch(action)
-    expect(store.getState().get('screening')).toEqualImmutable(
-      fromJS({
-        id: '1',
-        name: 'Mock screening',
-        fetch_status: 'FETCHED',
-        incident_address: {id: '1111'},
-      })
-    )
-    expect(
-      store
-        .getState()
-        .get('participants')
-        .isEmpty()
-    ).toEqual(true)
-  })
-
   describe('when a screening already exists in the store', () => {
     beforeEach(() => {
       initialState = initialState.set(
@@ -185,27 +119,6 @@ describe('Store', () => {
         })
       )
       store = createStore(rootReducer, initialState)
-    })
-
-    it('handles update screening', () => {
-      const participants = fromJS([
-        {id: '2', legacy_id: '3', screening_id: '1', addresses: []},
-      ])
-      const updatedScreening = initialState
-        .get('screening')
-        .set('participants', participants)
-      const action = saveSuccess(updatedScreening.toJS())
-      store.dispatch(action)
-      expect(store.getState().get('screening')).toEqualImmutable(
-        fromJS({
-          id: '1',
-          name: 'Mock screening',
-          fetch_status: 'FETCHED',
-        })
-      )
-      expect(store.getState().get('participants')).toEqualImmutable(
-        participants
-      )
     })
 
     it('handles create participant', () => {
