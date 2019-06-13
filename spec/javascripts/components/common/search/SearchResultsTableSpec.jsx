@@ -416,7 +416,7 @@ describe('SearchResultsTable', () => {
       const currentPageNumber = 1
       expect(previousPageNumberBeforePageChange).toBe(currentPageNumber)
       const searchResultsTable = component.find('ReactTable')
-      const pageSize = 25
+      const pageSize = 50
       const zeroIndexedNextPageNumber = 1
       const nextPageNumber = 2
       searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
