@@ -266,8 +266,10 @@ describe('SearchResultsTable', () => {
           const setCurrentPageNumber = jasmine.createSpy('setCurrentPageNumber')
           const component = render({setCurrentPageNumber})
           const searchResultsTable = component.find('ReactTable')
-          searchResultsTable.props().onPageChange(1)
-          expect(setCurrentPageNumber).toHaveBeenCalledWith(2)
+          const zeroIndexedNextPageNumber = 1
+          const nextPageNumber = 2
+          searchResultsTable.props().onPageChange(zeroIndexedNextPageNumber)
+          expect(setCurrentPageNumber).toHaveBeenCalledWith(nextPageNumber)
         })
       })
     })
@@ -290,7 +292,8 @@ describe('SearchResultsTable', () => {
               personSearchFields,
             })
             const searchResultsTable = component.find('ReactTable')
-            searchResultsTable.props().onPageChange(1)
+            const zeroIndexedNextPageNumber = 1
+            searchResultsTable.props().onPageChange(zeroIndexedNextPageNumber)
             expect(onLoadMoreResults).toHaveBeenCalledWith(personSearchFields, totalResultsReceived, totalResultsRequested)
           })
         })
@@ -320,6 +323,19 @@ describe('SearchResultsTable', () => {
         })
       })
     })
+
+    it('sets the previous page state to the new page number', () => {
+      const component = render({})
+      const previousPageNumberBeforePageChange = component.state().previousPageNumber
+      const currentPageNumber = 1
+      expect(previousPageNumberBeforePageChange).toBe(currentPageNumber)
+      const searchResultsTable = component.find('ReactTable')
+      const zeroIndexedNextPageNumber = 1
+      const nextPageNumber = 2
+      searchResultsTable.props().onPageChange(zeroIndexedNextPageNumber)
+      const previousPageNumberAfterPageChange = component.state().previousPageNumber
+      expect(previousPageNumberAfterPageChange).toBe(nextPageNumber)
+    })
   })
 
   describe('onPageSizeChange', () => {
@@ -327,7 +343,9 @@ describe('SearchResultsTable', () => {
       const setCurrentRowNumber = jasmine.createSpy('setCurrentRowNumber')
       const component = render({resultsSubset: defaultMockedResults, setCurrentRowNumber})
       const searchResultsTable = component.find('ReactTable')
-      searchResultsTable.props().onPageSizeChange(5, 1)
+      const pageSize = 5
+      const zeroIndexedNextPageNumber = 1
+      searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
       expect(setCurrentRowNumber).toHaveBeenCalledWith(5)
     })
 
@@ -356,7 +374,8 @@ describe('SearchResultsTable', () => {
               personSearchFields,
             })
             const searchResultsTable = component.find('ReactTable')
-            searchResultsTable.props().onPageSizeChange(pageSize, 0)
+            const zeroIndexedNextPageNumber = 0
+            searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
             expect(onLoadMoreResults).toHaveBeenCalledWith(personSearchFields, totalResultsReceived, totalResultsRequested)
           })
         })
@@ -370,7 +389,9 @@ describe('SearchResultsTable', () => {
               onLoadMoreResults,
             })
             const searchResultsTable = component.find('ReactTable')
-            searchResultsTable.props().onPageSizeChange(50, 0)
+            const pageSize = 50
+            const zeroIndexedNextPageNumber = 0
+            searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
             expect(onLoadMoreResults).not.toHaveBeenCalled()
           })
         })
@@ -381,10 +402,26 @@ describe('SearchResultsTable', () => {
           const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
           const component = render({onLoadMoreResults})
           const searchResultsTable = component.find('ReactTable')
-          searchResultsTable.props().onPageSizeChange(5, 1)
+          const pageSize = 5
+          const zeroIndexedNextPageNumber = 1
+          searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
           expect(onLoadMoreResults).not.toHaveBeenCalled()
         })
       })
+    })
+
+    it('sets the previous page state to the new page number', () => {
+      const component = render({})
+      const previousPageNumberBeforePageChange = component.state().previousPageNumber
+      const currentPageNumber = 1
+      expect(previousPageNumberBeforePageChange).toBe(currentPageNumber)
+      const searchResultsTable = component.find('ReactTable')
+      const pageSize = 50
+      const zeroIndexedNextPageNumber = 1
+      const nextPageNumber = 2
+      searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
+      const previousPageNumberAfterPageChange = component.state().previousPageNumber
+      expect(previousPageNumberAfterPageChange).toBe(nextPageNumber)
     })
   })
 

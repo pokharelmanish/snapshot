@@ -14,7 +14,7 @@ const commonStyle = {headerClassName: 'search-results-header'}
 class SearchResultsTable extends React.Component {
   constructor() {
     super()
-    this.state = {previousPageNumber: -1}
+    this.state = {previousPageNumber: 1}
     this.fetchData = this.fetchData.bind(this)
   }
 
@@ -124,19 +124,19 @@ class SearchResultsTable extends React.Component {
   handlePageChange(pageIndex) {
     const {currentRow, setCurrentPageNumber} = this.props
     const {previousPageNumber} = this.state
-    const currentPageNumber = ++pageIndex
+    const currentPageNumber = pageIndex + 1
     const nextPageRequested = currentPageNumber > previousPageNumber
     const requestResults = !this.haveResults(currentPageNumber, currentRow) && nextPageRequested
     setCurrentPageNumber(currentPageNumber)
     if (requestResults) {
       this.fetchData(currentPageNumber, currentRow)
     }
-    this.setState({previousPageNumber: pageIndex})
+    this.setState({previousPageNumber: currentPageNumber})
   }
 
   handlePageSizeChange(pageSize, pageIndex) {
     const {currentRow, setCurrentRowNumber, setCurrentPageNumber} = this.props
-    const currentPageNumber = ++pageIndex
+    const currentPageNumber = pageIndex + 1
     const pageSizeIncreased = pageSize > currentRow
     const requestResults = !this.haveResults(currentPageNumber, pageSize) && pageSizeIncreased
     setCurrentPageNumber(currentPageNumber)
@@ -144,6 +144,7 @@ class SearchResultsTable extends React.Component {
     if (requestResults) {
       this.fetchData(currentPageNumber, pageSize)
     }
+    this.setState({previousPageNumber: currentPageNumber})
   }
 
   render() {
