@@ -253,7 +253,7 @@ def triggerReleasePipeline() {
   stage('Trigger Release Pipeline') {
     curStage = 'Trigger Release Pipeline'
     withCredentials([usernameColonPassword(credentialsId: 'fa186416-faac-44c0-a2fa-089aed50ca17', variable: 'jenkinsauth')]) {
-      sh "curl -v -u $jenkinsauth 'https://jenkins.mgmt.cwds.io:8080/job/PreInt-Integration/job/deploy-intake-app/buildWithParameters" +
+      sh "curl -v -u $jenkinsauth 'https://jenkins.mgmt.cwds.io/job/PreInt-Integration/job/deploy-intake-app/buildWithParameters" +
       "?token=trigger-intake-deploy" +
       "&cause=Caused%20by%20Build%20${env.BUILD_ID}" +
       "&APP_VERSION=${VERSION}'"
