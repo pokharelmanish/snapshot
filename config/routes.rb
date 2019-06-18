@@ -3,7 +3,6 @@
 require File.join(File.dirname(__FILE__), 'routes/active_screenings_constraint')
 
 Rails.application.routes.draw do
-  mount Coverband::Reporters::Web.new, at: '/coverage'
   root 'home#index'
 
   namespace :api, defaults: { format: :json } do
