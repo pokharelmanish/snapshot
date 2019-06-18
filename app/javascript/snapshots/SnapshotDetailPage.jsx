@@ -43,13 +43,18 @@ export class SnapshotDetailPage extends React.Component {
     )
   }
 
-  renderBody(participants) {
-    return (
+  renderParticipant(participants) {
+    return participants.map(({id}) => (
+      <PersonCardView key={id} personId={id} />
+    ))
+  }
+
+  renderParticipantDetails(participants) {
+    const shouldRenderDetails = participants.length
+    return shouldRenderDetails ? (
       <div className="col-md-12 col-xs-12 snapshot-inner-container">
         <div className="row">
-          {participants.map(({id}) => (
-            <PersonCardView key={id} personId={id} />
-          ))}
+          {this.renderParticipant(participants)}
           <RelationshipsCardContainer />
           <HistoryOfInvolvementContainer
             empty={<EmptyHistory />}
@@ -57,7 +62,7 @@ export class SnapshotDetailPage extends React.Component {
           />
         </div>
       </div>
-    )
+    ) : null
   }
 
   renderBreadCrumbs() {
@@ -79,7 +84,7 @@ export class SnapshotDetailPage extends React.Component {
         </div>
         <div className={`container snapshot-container ${genericErrorClass}`}>
           <div className="row">
-            {this.renderBody(participants)}
+            {this.renderParticipantDetails(participants)}
           </div>
         </div>
       </Fragment>
