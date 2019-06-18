@@ -149,6 +149,7 @@ class SearchResultsTable extends React.Component {
 
   render() {
     const {resultsSubset, total, currentRow, onAuthorize} = this.props
+    const noDataText = total > 0 ? 'Loading' : 'No Results Found'
     return (
       <Fragment>
         <AlertMessageResultsLimit total={total} />
@@ -162,6 +163,7 @@ class SearchResultsTable extends React.Component {
           defaultPageSize={currentRow}
           onPageChange={(pageIndex) => this.handlePageChange(pageIndex)}
           onPageSizeChange={(pageSize, pageIndex) => this.handlePageSizeChange(pageSize, pageIndex)}
+          noDataText={noDataText}
         />
       </Fragment>
     )
