@@ -119,7 +119,7 @@ const render = (
     onLoadMoreResults = () => {},
     personSearchFields = {},
     currentRow = 25,
-    total = 0,
+    total = 1,
     onAuthorize = () => {},
   } = {}) => {
   return mount(
@@ -151,11 +151,24 @@ describe('SearchResultsTable', () => {
       expect(alertMessage.props().total).toBe(totalResults)
     })
 
+    it('renders a InfoMessage component when total is 0', () => {
+      const totalResults = 0
+      const component = render({total: 0})
+      const infoMessage = component.find('InfoMessage')
+      expect(infoMessage.exists()).toBe(true)
+      expect(infoMessage.props().total).toBe(totalResults)
+    })
+
     describe('ReactTable', () => {
       it('renders a table', () => {
         const table = component.find('ReactTable')
         expect(table.exists()).toBe(true)
         expect(table.props().sortable).toBe(false)
+      })
+
+      it('doesnot render a table when total is 0', () => {
+        const table = render({total: 0}).find('ReactTable')
+        expect(table.exists()).toBe(false)
       })
 
       describe('page count', () => {

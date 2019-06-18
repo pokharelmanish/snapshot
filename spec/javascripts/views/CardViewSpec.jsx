@@ -5,8 +5,8 @@ import CardView from 'views/CardView'
 import * as Navigation from 'utils/navigation'
 
 describe('Card View', () => {
-  const renderCardView = ({editable = false, ...args}) => {
-    const props = {editable, ...args}
+  const renderCardView = ({title = 'Test', editable = false, ...args}) => {
+    const props = {title, editable, ...args}
     return shallow(<CardView {...props} />)
   }
 

@@ -14,6 +14,7 @@ const render = ({
   personSearchFields = {},
   currentRow = 25,
   onAuthorize = () => {},
+  isSearchResults = true,
 } = {}) => (
   shallow(
     <PersonSearchResults
@@ -26,6 +27,7 @@ const render = ({
       personSearchFields={personSearchFields}
       currentRow={currentRow}
       onAuthorize={onAuthorize}
+      isSearchResults={isSearchResults}
     />, {disableLifecycleMethods: true})
 )
 
