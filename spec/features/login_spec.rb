@@ -14,7 +14,7 @@ feature 'login' do
   let(:staff_info) do
     { first_name: 'Joe', last_name: 'Cool' }
   end
-  let(:screening_results) { [{ id: '1' }, { id: '2' }] }
+  let(:relationships_dummy_results) { [{ id: '1' }, { id: '2' }] }
   let(:base_path) { '' }
 
   around do |example|
@@ -38,8 +38,8 @@ feature 'login' do
   context 'user provides valid security access code' do
     let(:staff_url) { ferb_api_url(FerbRoutes.staff_path(1234)) }
     before do
-      stub_request(:get, ferb_api_url(FerbRoutes.screenings_path))
-        .and_return(json_body(screening_results, status: 200))
+      stub_request(:get, ferb_api_url(FerbRoutes.relationships_path))
+        .and_return(json_body(relationships_dummy_results, status: 200))
     end
 
     scenario 'and verification provides staff_id' do
@@ -121,8 +121,8 @@ feature 'login' do
 
   scenario 'user has already logged in' do
     staff_url = ferb_api_url(FerbRoutes.staff_path(1234))
-    stub_request(:get, ferb_api_url(FerbRoutes.screenings_path))
-      .and_return(json_body(screening_results, status: 200))
+    stub_request(:get, ferb_api_url(FerbRoutes.relationships_path))
+      .and_return(json_body(relationships_dummy_results, status: 200))
     stub_request(:get, auth_access_code_url).and_return(json_body('123', status: 200))
     stub_request(:get, auth_validation_url)
       .and_return(json_body(auth_artifact.to_json, status: 200))
@@ -134,69 +134,11 @@ feature 'login' do
     WebMock.reset!
 
     stub_system_codes
-    stub_request(:get, ferb_api_url(FerbRoutes.screenings_path))
-      .and_return(json_body(screening_results, status: 200))
+    stub_request(:get, ferb_api_url(FerbRoutes.relationships_path))
+      .and_return(json_body(relationships_dummy_results, status: 200))
     visit root_path
     expect(a_request(:get, %r{http://www.example.com})).to_not have_been_made
     expect(page).to have_current_path(root_path)
-  end
-
-  scenario 'user uses session access code when communicating to API' do
-    screening = {
-      id: '1',
-      name: 'My Screening',
-      incident_address: {},
-      addresses: [],
-      cross_reports: [],
-      participants: [],
-      allegations: [],
-      safety_alerts: ['Firearms in Home']
-    }
-    stub_request(:get, ferb_api_url(FerbRoutes.intake_screening_path(screening[:id])))
-      .and_return(json_body(screening.to_json, status: 200))
-    stub_empty_history_for_screening(screening)
-    stub_empty_relationships
-    stub_request(:get, ferb_api_url(FerbRoutes.screenings_path))
-      .and_return(json_body([].to_json, status: 200))
-    stub_empty_history_for_screening(screening)
-
-    bobs_access_code = 'BOBS_ACCESS_CODE'
-    bobs_token = 'BOBS_TOKEN'
-    Capybara.using_session(:bob) do
-      stub_request(:get, "http://www.example.com/authn/token?accessCode=#{bobs_access_code}")
-        .and_return(json_body(bobs_token, status: 200))
-      stub_request(:get, "http://www.example.com/authn/validate?token=#{bobs_token}")
-        .and_return(status: 200)
-      visit root_path(accessCode: bobs_access_code)
-    end
-
-    alexs_access_code = 'ALEXS_ACCESS_CODE'
-    alexs_token = 'ALEXS_TOKEN'
-    Capybara.using_session(:alex) do
-      stub_request(:get, "http://www.example.com/authn/token?accessCode=#{alexs_access_code}")
-        .and_return(json_body(alexs_token, status: 200))
-      stub_request(:get, "http://www.example.com/authn/validate?token=#{alexs_token}")
-        .and_return(status: 200)
-      visit root_path(accessCode: alexs_access_code)
-    end
-
-    Capybara.using_session(:bob) do
-      visit screening_path(screening[:id])
-      expect(page).to have_content 'My Screening'
-      expect(
-        a_request(:get, ferb_api_url(FerbRoutes.intake_screening_path(screening[:id])))
-        .with(headers: { 'Authorization' => bobs_token })
-      ).to have_been_made
-    end
-
-    Capybara.using_session(:alex) do
-      visit screening_path(screening[:id])
-      expect(page).to have_content 'My Screening'
-      expect(
-        a_request(:get, ferb_api_url(FerbRoutes.intake_screening_path(screening[:id])))
-        .with(headers: { 'Authorization' => alexs_token })
-      ).to have_been_made
-    end
   end
 end
 
@@ -209,7 +151,7 @@ feature 'login perry v1' do
   let(:staff_info) do
     { first_name: 'Joe', last_name: 'Cool' }
   end
-  let(:screening_results) { [{ id: '1' }, { id: '2' }] }
+  let(:relationships_dummy_results) { [{ id: '1' }, { id: '2' }] }
 
   around do |example|
     Feature.run_with_activated(:authentication) do
@@ -231,8 +173,8 @@ feature 'login perry v1' do
   context 'user provides valid security token' do
     let(:staff_url) { ferb_api_url(FerbRoutes.staff_path(1234)) }
     before do
-      stub_request(:get, ferb_api_url(FerbRoutes.screenings_path))
-        .and_return(json_body(screening_results, status: 200))
+      stub_request(:get, ferb_api_url(FerbRoutes.relationships_path))
+        .and_return(json_body(relationships_dummy_results, status: 200))
     end
 
     scenario 'and verification provides staff_id' do
@@ -291,8 +233,8 @@ feature 'login perry v1' do
     staff_url = ferb_api_url(FerbRoutes.staff_path(1234))
     stub_request(:get, staff_url)
       .and_return(json_body(staff_info.to_json, status: 200))
-    stub_request(:get, ferb_api_url(FerbRoutes.screenings_path))
-      .and_return(json_body(screening_results, status: 200))
+    stub_request(:get, ferb_api_url(FerbRoutes.relationships_path))
+      .and_return(json_body(relationships_dummy_results, status: 200))
     stub_request(:get, auth_validation_url)
       .and_return(json_body(auth_artifact.to_json, status: 200))
     # .and_return(status: 200)
@@ -301,65 +243,10 @@ feature 'login perry v1' do
     WebMock.reset!
 
     stub_system_codes
-    stub_request(:get, ferb_api_url(FerbRoutes.screenings_path))
-      .and_return(json_body(screening_results, status: 200))
+    stub_request(:get, ferb_api_url(FerbRoutes.relationships_path))
+      .and_return(json_body(relationships_dummy_results, status: 200))
     visit root_path
     expect(a_request(:get, %r{http://www.example.com})).to_not have_been_made
     expect(page).to have_current_path(root_path)
-  end
-
-  scenario 'user uses session token when communicating to API' do
-    Feature.run_with_activated(:authentication) do
-      screening = {
-        id: '1',
-        name: 'My Screening',
-        incident_address: {},
-        addresses: [],
-        cross_reports: [],
-        participants: [],
-        allegations: [],
-        safety_alerts: ['Firearms in Home']
-      }
-      stub_request(:get, ferb_api_url(FerbRoutes.intake_screening_path(screening[:id])))
-        .and_return(json_body(screening.to_json, status: 200))
-      stub_request(:get, ferb_api_url(FerbRoutes.screenings_path))
-        .and_return(json_body([].to_json, status: 200))
-      stub_request(:get, auth_validation_url)
-        .and_return(json_body(auth_artifact.to_json, status: 200))
-      stub_empty_history_for_screening(screening)
-      stub_empty_relationships
-
-      bobs_token = 'BOBS_TOKEN'
-      Capybara.using_session(:bob) do
-        stub_request(:get, "http://www.example.com/authn/validate?token=#{bobs_token}")
-          .and_return(status: 200)
-        visit root_path(token: bobs_token)
-      end
-
-      alexs_token = 'ALEXS_TOKEN'
-      Capybara.using_session(:alex) do
-        stub_request(:get, "http://www.example.com/authn/validate?token=#{alexs_token}")
-          .and_return(status: 200)
-        visit root_path(token: alexs_token)
-      end
-
-      Capybara.using_session(:bob) do
-        visit screening_path(screening[:id])
-        expect(page).to have_content 'My Screening'
-        expect(
-          a_request(:get, ferb_api_url(FerbRoutes.intake_screening_path(screening[:id])))
-          .with(headers: { 'Authorization' => bobs_token })
-        ).to have_been_made
-      end
-
-      Capybara.using_session(:alex) do
-        visit screening_path(screening[:id])
-        expect(page).to have_content 'My Screening'
-        expect(
-          a_request(:get, ferb_api_url(FerbRoutes.intake_screening_path(screening[:id])))
-          .with(headers: { 'Authorization' => alexs_token })
-        ).to have_been_made
-      end
-    end
   end
 end
