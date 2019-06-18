@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Handles interface for relationships API
 class RelationshipsRepository
   def self.search(token, request_id, client_ids)
     return [] if client_ids.blank?

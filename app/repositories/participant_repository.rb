@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Handles interface for participant API
 class ParticipantRepository
   class AuthorizationError < StandardError; end
 
