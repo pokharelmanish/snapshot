@@ -17,6 +17,7 @@ import {getHasGenericErrorValueSelector} from 'selectors/errorsSelectors'
 import {selectPeopleResults} from 'selectors/peopleSearchSelectors'
 import {urlHelper} from 'common/url_helper.js.erb'
 import {Link} from 'react-router'
+import LoadingModal from 'common/LoadingModal'
 
 export class SnapshotDetailPage extends React.Component {
   componentDidMount() {
@@ -27,6 +28,14 @@ export class SnapshotDetailPage extends React.Component {
 
   componentWillUnmount() {
     this.props.unmount()
+  }
+
+  renderBreadCrumbs() {
+    const {id} = this.props.params
+    const snapShotCrumb = (<Link key={id} to={urlHelper('/snapshot')}>Snapshot</Link>)
+    const detailCrumb = 'Detail'
+    const crumbs = [snapShotCrumb, detailCrumb]
+    return <BreadCrumb navigationElements={crumbs}/>
   }
 
   backToResultsButton() {
@@ -50,8 +59,7 @@ export class SnapshotDetailPage extends React.Component {
   }
 
   renderParticipantDetails(participants) {
-    const shouldRenderDetails = participants.length
-    return shouldRenderDetails ? (
+    return (
       <div className="col-md-12 col-xs-12 snapshot-inner-container">
         <div className="row">
           {this.renderParticipant(participants)}
@@ -62,15 +70,23 @@ export class SnapshotDetailPage extends React.Component {
           />
         </div>
       </div>
-    ) : null
+    )
   }
 
-  renderBreadCrumbs() {
-    const {id} = this.props.params
-    const snapShotCrumb = (<Link key={id} to={urlHelper('/snapshot')}>Snapshot</Link>)
-    const detailCrumb = 'Detail'
-    const crumbs = [snapShotCrumb, detailCrumb]
-    return <BreadCrumb navigationElements={crumbs}/>
+  renderLoadingModal() {
+    const showModal = true
+    return (
+      <div className="participants loading-modal-container">
+        <LoadingModal showModal={showModal} />
+      </div>
+    )
+  }
+
+  renderBody(participants) {
+    const shouldRenderDetails = participants.length
+    return shouldRenderDetails ?
+      this.renderParticipantDetails(participants) :
+      this.renderLoadingModal()
   }
 
   render() {
@@ -84,7 +100,7 @@ export class SnapshotDetailPage extends React.Component {
         </div>
         <div className={`container snapshot-container ${genericErrorClass}`}>
           <div className="row">
-            {this.renderParticipantDetails(participants)}
+            {this.renderBody(participants)}
           </div>
         </div>
       </Fragment>

@@ -72,6 +72,12 @@ describe('SnapshotDetailPage', () => {
         it('does not render a history of involvement card', () => {
           expect(page.find('Connect(HistoryOfInvolvement)').exists()).toBe(false)
         })
+
+        it('renders a participants loading modal', () => {
+          const modalContainer = page.find('div.participants.loading-modal-container')
+          expect(modalContainer.exists()).toBe(true)
+          expect(modalContainer.find('LoadingModal').exists()).toBe(true)
+        })
       })
     })
   })
