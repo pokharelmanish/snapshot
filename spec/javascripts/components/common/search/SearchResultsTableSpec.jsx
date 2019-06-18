@@ -234,16 +234,6 @@ describe('SearchResultsTable', () => {
       })
 
       describe('no data text', () => {
-        describe('when the total results is zero', () => {
-          it('sets the noDataText prop to "No Results Found"', () => {
-            const total = 0
-            const component = render({total})
-            const searchResultsTable = component.find('ReactTable')
-            const noDataText = searchResultsTable.props().noDataText
-            expect(noDataText).toBe('No Results Found')
-          })
-        })
-
         describe('when the total results is greater than zero', () => {
           it('sets the noDataText prop to "Loading"', () => {
             const total = 1
