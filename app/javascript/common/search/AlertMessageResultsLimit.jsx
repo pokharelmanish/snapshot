@@ -25,7 +25,7 @@ class AlertMessageResultsLimit extends React.Component {
 }
 
 AlertMessageResultsLimit.propTypes = {
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
 }
 
 export default AlertMessageResultsLimit
