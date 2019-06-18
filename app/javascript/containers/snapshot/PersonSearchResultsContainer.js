@@ -6,6 +6,7 @@ import {
   selectPersonSearchFields,
   selectSearchResultsSubset,
   selectSearchResultsCurrentRow,
+  selectCheckSearchResults,
 } from 'selectors/peopleSearchSelectors'
 import {
   loadMoreResults,
@@ -21,6 +22,7 @@ const mapStateToProps = state => {
     personSearchFields: selectPersonSearchFields(state),
     resultsSubset: selectSearchResultsSubset(state),
     currentRow: selectSearchResultsCurrentRow(state),
+    isSearchResults: selectCheckSearchResults(state),
   }
 }
 

@@ -8,6 +8,7 @@ import ReactTooltip from 'react-tooltip'
 import {phoneNumberFormatter} from 'utils/phoneNumberFormatter'
 import AlertMessageResultsLimit from 'common/search/AlertMessageResultsLimit'
 import DateOfBirthWithTooltip from 'common/search/DateOfBirthWithTooltip'
+import InfoMessage from 'common/search/InfoMessage'
 
 const commonStyle = {headerClassName: 'search-results-header'}
 
@@ -153,6 +154,8 @@ class SearchResultsTable extends React.Component {
     return (
       <Fragment>
         <AlertMessageResultsLimit total={total} />
+        <InfoMessage total={total} />
+        {total > 0 &&
         <ReactTable
           columns={this.columns(onAuthorize)}
           sortable={false}
@@ -164,7 +167,7 @@ class SearchResultsTable extends React.Component {
           onPageChange={(pageIndex) => this.handlePageChange(pageIndex)}
           onPageSizeChange={(pageSize, pageIndex) => this.handlePageSizeChange(pageSize, pageIndex)}
           noDataText={noDataText}
-        />
+        />}
       </Fragment>
     )
   }

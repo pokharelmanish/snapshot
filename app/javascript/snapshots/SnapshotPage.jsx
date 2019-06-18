@@ -36,9 +36,8 @@ export class SnapshotPage extends React.Component {
   }
 
   renderBody() {
-    const {results, location} = this.props
+    const {location} = this.props
     const advancedSearchFeatureFlag = isAdvancedSearchOn(location)
-    const hasResults = results && results.length !== 0
     return (
       <div className="col-md-12 col-xs-12 snapshot-inner-container">
         <div className="row">
@@ -48,7 +47,7 @@ export class SnapshotPage extends React.Component {
             canCreateNewPerson={false}
             isClientOnly={true}
           />
-          {advancedSearchFeatureFlag && hasResults && <PersonSearchResultsContainer />}
+          {advancedSearchFeatureFlag && <PersonSearchResultsContainer />}
         </div>
       </div>
     )

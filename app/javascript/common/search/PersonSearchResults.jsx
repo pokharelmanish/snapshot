@@ -15,11 +15,13 @@ const PersonSearchResults = (
     resultsSubset,
     currentRow,
     onAuthorize,
+    isSearchResults,
   }) => {
   const resultsLimit = 250
   const totalResults = total > resultsLimit ? '250+' : total
-  const title = `Search Results (${totalResults} records found)`
+  const title = totalResults == null ? '' : `Search Results (${totalResults} records found)`
   return (
+    isSearchResults &&
     <CardView
       id="person-search-results-card"
       title={title}
