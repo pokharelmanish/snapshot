@@ -1,48 +1,7 @@
 # frozen_string_literal: true
 
-# ParticipantRepository is a service class responsible for creation of a participant
-# resource via the API
 class ParticipantRepository
   class AuthorizationError < StandardError; end
-
-  def self.create(token, request_id, participant)
-    screening_id = participant[:screening_id]
-
-    response = FerbAPI.make_api_call(
-      token: token,
-      request_id: request_id,
-      url: FerbRoutes.screening_participant_path(screening_id),
-      method: :post,
-      payload: participant
-    )
-    response.body.as_json
-  end
-
-  def self.delete(token, request_id, screening_id, id)
-    FerbAPI.make_api_call(
-      token: token,
-      request_id: request_id,
-      url: FerbRoutes.delete_screening_participant_path(screening_id, id),
-      method: :delete
-    )
-  end
-
-  def self.update(token, request_id, participant)
-    raise 'Error updating participant: id is required' unless participant[:id]
-
-    response = FerbAPI.make_api_call(
-      token: token,
-      request_id: request_id,
-      url: FerbRoutes.screening_participant_path(participant[:screening_id], participant[:id]),
-      method: :put,
-      payload: participant.as_json
-    )
-    response.body.as_json
-  end
-
-  def self.participant_json_without_root_id(participant)
-    participant.as_json.except('id')
-  end
 
   def self.authorize(token, request_id, id)
     return if id.blank?
