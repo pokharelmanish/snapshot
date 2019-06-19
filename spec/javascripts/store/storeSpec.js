@@ -1,10 +1,5 @@
 import * as matchers from 'jasmine-immutable-matchers'
 import * as IntakeConfig from 'common/config'
-import {
-  fetchScreeningSuccess,
-  createScreeningSuccess,
-  saveSuccess,
-} from 'actions/screeningActions'
 import {createPersonSuccess} from 'actions/personCardActions'
 import {fromJS} from 'immutable'
 import rootReducer from 'reducers'

@@ -1,5 +1,5 @@
 import {snapshotEnabledSelector} from 'selectors/homePageSelectors'
-import {List, fromJS} from 'immutable'
+import {fromJS} from 'immutable'
 import * as IntakeConfig from 'common/config'
 
 describe('snapshotEnabledSelector', () => {

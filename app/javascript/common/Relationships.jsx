@@ -18,42 +18,42 @@ export const Relationships = ({
 }) => (
   <div className="card-body no-pad-top">
     {people.map((person, index) => (
-        <div className="row" key={index}>
-          <div className="col-md-8 gap-top">
-            <span className="person">{person.name}</span>
-            {person.relationships.length > 0 && (
-              <span>
-                <strong> is the...</strong>
-                <ul className="relationships">
-                  {person.relationships.map((relationship, index) => (
-                    <li key={index} className="gap-top person-relationship">
-                      <strong className="relationship-type">{relationship.type}</strong> &nbsp; of{' '}
-                      <span className="relationship-name">{relationship.name}</span>
-                      {relationship.isSealed && (
-                        <span className="information-flag search-result">
-                          Sealed
-                        </span>
-                      )}
-                      {relationship.isSensitive && (
-                        <span className="information-flag search-result">
-                          Sensitive
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </span>
-            )}
-            {person.relationships.length === 0 && (
-              <strong className="relationships">
-                {' '}
-                has no known relationships
-              </strong>
-            )}
-            <div id="relationships-list" />
-          </div>
+      <div className="row" key={index}>
+        <div className="col-md-8 gap-top">
+          <span className="person">{person.name}</span>
+          {person.relationships.length > 0 && (
+            <span>
+              <strong> is the...</strong>
+              <ul className="relationships">
+                {person.relationships.map((relationship, index) => (
+                  <li key={index} className="gap-top person-relationship">
+                    <strong className="relationship-type">{relationship.type}</strong> &nbsp; of{' '}
+                    <span className="relationship-name">{relationship.name}</span>
+                    {relationship.isSealed && (
+                      <span className="information-flag search-result">
+        Sealed
+                      </span>
+                    )}
+                    {relationship.isSensitive && (
+                      <span className="information-flag search-result">
+        Sensitive
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </span>
+          )}
+          {person.relationships.length === 0 && (
+            <strong className="relationships">
+              {' '}
+    has no known relationships
+            </strong>
+          )}
+          <div id="relationships-list" />
         </div>
-      ))}
+      </div>
+    ))}
   </div>
 )
 
@@ -104,7 +104,7 @@ export const EmptyRelationships = () => (
       <div className="col-md-12 empty-relationships">
         <div className="double-gap-top  centered">
           <span className="c-dark-grey">
-            Search for people and add them to see their relationships.
+  Search for people and add them to see their relationships.
           </span>
         </div>
       </div>
