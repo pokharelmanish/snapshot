@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {ModalComponent} from 'react-wood-duck'
 
 const renderModalBody = () => (
-  <div className='client-detail-loading-icon'>
+  <div className='client-detail loading-icon-container'>
     <i className='fa fa-spinner fa-spin-faster' />
   </div>
 )
