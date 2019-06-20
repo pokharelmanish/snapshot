@@ -74,10 +74,12 @@ export class SnapshotDetailPage extends React.Component {
   }
 
   renderLoadingModal() {
-    const showModal = true
+    const show = true
+    const size = 'large'
+    const title = 'Opening Record...'
     return (
-      <div className="participants loading-modal-container">
-        <LoadingModal showModal={showModal} />
+      <div className="client-detail loading-modal-container">
+        <LoadingModal show={show} size={size} title={title} />
       </div>
     )
   }

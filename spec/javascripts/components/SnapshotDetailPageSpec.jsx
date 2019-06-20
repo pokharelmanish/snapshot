@@ -74,7 +74,7 @@ describe('SnapshotDetailPage', () => {
         })
 
         it('renders a participants loading modal', () => {
-          const modalContainer = page.find('div.participants.loading-modal-container')
+          const modalContainer = page.find('div.client-detail.loading-modal-container')
           expect(modalContainer.exists()).toBe(true)
           expect(modalContainer.find('LoadingModal').exists()).toBe(true)
         })
