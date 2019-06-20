@@ -28,7 +28,7 @@ describe('SnapshotDetailPage', () => {
       const crumbs = breadCrumb.props().navigationElements
       expect(breadCrumb.exists()).toBe(true)
       expect(crumbs.length).toEqual(2)
-      expect(crumbs[0].props.children).toBe('Snapshot')
+      expect(crumbs[0].props.children).toBe('Search Results')
       expect(crumbs[0].props.to).toBe('/snapshot')
       expect(crumbs[1]).toBe('Detail')
     })

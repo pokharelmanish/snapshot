@@ -32,7 +32,7 @@ export class SnapshotDetailPage extends React.Component {
 
   renderBreadCrumbs() {
     const {id} = this.props.params
-    const snapShotCrumb = (<Link key={id} to={urlHelper('/snapshot')}>Snapshot</Link>)
+    const snapShotCrumb = (<Link key={id} to={urlHelper('/snapshot')}>Search Results</Link>)
     const detailCrumb = 'Detail'
     const crumbs = [snapShotCrumb, detailCrumb]
     return <BreadCrumb navigationElements={crumbs}/>
