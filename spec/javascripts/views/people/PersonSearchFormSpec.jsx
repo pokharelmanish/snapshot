@@ -146,4 +146,12 @@ describe('PersonSearchForm', () => {
     const component = renderPersonSearchForm({})
     expect(component.find('.advanced-search-disabled').exists()).toEqual(true)
   })
+
+  it('renders a label for the autocompleter', () => {
+    const component = renderPersonSearchForm({searchPrompt: 'Search for any person'})
+    const label = component.find('label.autocompleter-label').at(1)
+    expect(label.exists()).toBe(true)
+    expect(label.text()).toContain('Search')
+    expect(label.props().htmlFor).toBe('screening_participants')
+  })
 })
