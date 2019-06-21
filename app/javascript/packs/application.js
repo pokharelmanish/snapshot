@@ -34,6 +34,7 @@ import '../../assets/stylesheets/page-error'
 import '../../assets/stylesheets/search'
 import '../../assets/stylesheets/shame_overrides'
 import '../../assets/stylesheets/screening_relationship.scss'
+import '../../assets/stylesheets/client-detail.scss'
 
 if (document.getElementById('app')) {
   ReactDOM.render(Routes(), document.getElementById('app'))

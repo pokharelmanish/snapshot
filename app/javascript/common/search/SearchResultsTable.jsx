@@ -7,7 +7,8 @@ import {capitalizedStr} from 'utils/textFormatter'
 import ReactTooltip from 'react-tooltip'
 import {phoneNumberFormatter} from 'utils/phoneNumberFormatter'
 import AlertMessageResultsLimit from 'common/search/AlertMessageResultsLimit'
-import DateOfBirthWithTooltip from 'common/search/DateOfBirthWithTooltip'
+import DateOfBirthTableHeader from 'common/search/DateOfBirthTableHeader'
+import CountyTableHeader from 'common/search/CountyTableHeader'
 import InfoMessage from 'common/search/InfoMessage'
 
 const commonStyle = {headerClassName: 'search-results-header'}
@@ -56,7 +57,7 @@ class SearchResultsTable extends React.Component {
       ...commonStyle,
     },
     {
-      Header: <DateOfBirthWithTooltip/>,
+      Header: <DateOfBirthTableHeader />,
       accessor: 'dateOfBirth',
       Cell: (row) => {
         const isApproximateAge = row.original.isApproximateAge
@@ -72,7 +73,7 @@ class SearchResultsTable extends React.Component {
       ...commonStyle,
     },
     {
-      Header: 'Service Provider County',
+      Header: <CountyTableHeader />,
       accessor: 'spCounty',
       ...commonStyle,
     },

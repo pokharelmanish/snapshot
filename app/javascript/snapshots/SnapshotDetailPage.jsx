@@ -17,6 +17,7 @@ import {getHasGenericErrorValueSelector} from 'selectors/errorsSelectors'
 import {selectPeopleResults} from 'selectors/peopleSearchSelectors'
 import {urlHelper} from 'common/url_helper.js.erb'
 import {Link} from 'react-router'
+import LoadingModal from 'common/LoadingModal'
 
 export class SnapshotDetailPage extends React.Component {
   componentDidMount() {
@@ -27,6 +28,14 @@ export class SnapshotDetailPage extends React.Component {
 
   componentWillUnmount() {
     this.props.unmount()
+  }
+
+  renderBreadCrumbs() {
+    const {id} = this.props.params
+    const snapShotCrumb = (<Link key={id} to={urlHelper('/snapshot')}>Search Results</Link>)
+    const detailCrumb = 'Detail'
+    const crumbs = [snapShotCrumb, detailCrumb]
+    return <BreadCrumb navigationElements={crumbs}/>
   }
 
   backToResultsButton() {
@@ -43,13 +52,17 @@ export class SnapshotDetailPage extends React.Component {
     )
   }
 
-  renderBody(participants) {
+  renderParticipant(participants) {
+    return participants.map(({id}) => (
+      <PersonCardView key={id} personId={id} />
+    ))
+  }
+
+  renderParticipantDetails(participants) {
     return (
       <div className="col-md-12 col-xs-12 snapshot-inner-container">
         <div className="row">
-          {participants.map(({id}) => (
-            <PersonCardView key={id} personId={id} />
-          ))}
+          {this.renderParticipant(participants)}
           <RelationshipsCardContainer />
           <HistoryOfInvolvementContainer
             empty={<EmptyHistory />}
@@ -60,12 +73,22 @@ export class SnapshotDetailPage extends React.Component {
     )
   }
 
-  renderBreadCrumbs() {
-    const {id} = this.props.params
-    const snapShotCrumb = (<Link key={id} to={urlHelper('/snapshot')}>Snapshot</Link>)
-    const detailCrumb = 'Detail'
-    const crumbs = [snapShotCrumb, detailCrumb]
-    return <BreadCrumb navigationElements={crumbs}/>
+  renderLoadingModal() {
+    const show = true
+    const size = 'large'
+    const title = 'Opening Record...'
+    return (
+      <div className="client-detail loading-modal-container">
+        <LoadingModal show={show} size={size} title={title} />
+      </div>
+    )
+  }
+
+  renderBody(participants) {
+    const shouldRenderDetails = participants.length
+    return shouldRenderDetails ?
+      this.renderParticipantDetails(participants) :
+      this.renderLoadingModal()
   }
 
   render() {

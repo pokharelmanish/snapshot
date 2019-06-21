@@ -17,13 +17,11 @@ describe('SnapshotPage', () => {
       spyOn(IntakeConfig, 'isFeatureActive').and.returnValue(false)
     })
 
-    it('renders PageHeader with title and start over button', () => {
+    it('renders PageHeader with title', () => {
       const snapshotPage = render({})
       const header = snapshotPage.find('Connect(PageHeader)')
       expect(header.exists()).toBe(true)
       expect(header.props().pageTitle).toEqual('Snapshot')
-      expect(header.props().button.type).toEqual('button')
-      expect(header.props().button.props.children).toEqual('Start Over')
     })
 
     it('renders a BreadCrumb with crumb', () => {
@@ -64,17 +62,6 @@ describe('SnapshotPage', () => {
   })
 
   describe('event handlers', () => {
-    describe('start over button', () => {
-      it('calls startOver when clicked', () => {
-        const startOver = jasmine.createSpy('startOver')
-        const snapshotPage = render({startOver})
-        const header = snapshotPage.find('Connect(PageHeader)')
-        const startOverButton = header.props().button
-        startOverButton.props.onClick()
-        expect(startOver).toHaveBeenCalled()
-      })
-    })
-
     describe('Person Search Form', () => {
       it('calls viewSnapshotDetail when a person is selected', () => {
         const person = {legacyDescriptor: {legacy_id: '1'}}

@@ -152,7 +152,7 @@ feature 'Search results page' do
     end
   end
 
-  scenario 'Clicking Start Over removes people from the snapshot page' do
+  scenario 'Clicking the Clear button removes people from the snapshot page' do
     visit snapshot_path
 
     within '#search-card', text: 'Search' do
@@ -164,7 +164,7 @@ feature 'Search results page' do
       expect(page).to have_content('Juan Simpson')
     end
 
-    click_button 'Start Over'
+    click_button 'Clear'
 
     expect(page).not_to have_content('Juan Simpson')
   end

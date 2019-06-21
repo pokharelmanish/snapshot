@@ -28,26 +28,57 @@ describe('SnapshotDetailPage', () => {
       const crumbs = breadCrumb.props().navigationElements
       expect(breadCrumb.exists()).toBe(true)
       expect(crumbs.length).toEqual(2)
-      expect(crumbs[0].props.children).toBe('Snapshot')
+      expect(crumbs[0].props.children).toBe('Search Results')
       expect(crumbs[0].props.to).toBe('/snapshot')
       expect(crumbs[1]).toBe('Detail')
     })
 
-    it('renders a person card for each participant', () => {
-      const participants = [{id: '3'}, {id: '5'}]
-      const page = render({participants})
-      expect(page.find('PersonCardView').length).toEqual(2)
-    })
+    describe('details', () => {
+      describe('when there are participant details', () => {
+        let page
+        const participants = [{id: '3'}, {id: '5'}]
+        beforeEach(() => {
+          page = render({participants})
+        })
 
-    it('renders a RelationshipsCardContainer', () => {
-      const page = render({})
-      const relationshipsContainer = page.find('Connect(RelationshipsCard)')
-      expect(relationshipsContainer.exists()).toBe(true)
-    })
+        it('renders the participant detail card', () => {
+          expect(page.find('PersonCardView').exists()).toBe(true)
+        })
 
-    it('renders history of involvement', () => {
-      const page = render({})
-      expect(page.find('Connect(HistoryOfInvolvement)').exists()).toBe(true)
+        it('renders a relationships card', () => {
+          expect(page.find('Connect(RelationshipsCard)').exists()).toBe(true)
+        })
+
+        it('renders a history of involvement card', () => {
+          expect(page.find('Connect(HistoryOfInvolvement)').exists()).toBe(true)
+        })
+      })
+
+      describe('when there are no participant details', () => {
+        let page
+        const participants = []
+        beforeEach(() => {
+          page = render({participants})
+        })
+
+        it('does not render the participant detail card', () => {
+          expect(page.find('PersonCardView').exists()).toBe(false)
+        })
+
+        it('does not render a relationships card', () => {
+          expect(page.find('Connect(RelationshipsCard)').exists()).toBe(false)
+        })
+
+        it('does not render a history of involvement card', () => {
+          expect(page.find('Connect(HistoryOfInvolvement)').exists()).toBe(false)
+        })
+
+        it('renders a participants loading modal', () => {
+          const modalContainer = page.find('div.client-detail.loading-modal-container')
+          expect(modalContainer.exists()).toBe(true)
+          expect(modalContainer.find('LoadingModal').exists()).toBe(true)
+        })
+      })
     })
   })
 
