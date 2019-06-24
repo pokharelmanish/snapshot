@@ -1,12 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import CountyNameSelect from 'common/county/CountyNameSelect'
 import SearchByAgeMethodSelect from 'common/search/age/SearchByAgeMethodSelect'
 import AgeSearchFields from 'common/search/age/AgeSearchFields'
 import SexAtBirthSelect from 'common/search/sexatbirth/SexAtBirthSelect'
 import MaskedSearchInput from 'common/search/MaskedSearchInput'
 import {PersonSearchFieldsPropType, PersonSearchFieldsDefaultProps} from 'data/personSearch'
 
-const PersonSearchAgeGenderNumbersGroup = ({onBlur, onChange, personSearchFields, onFocus, clientIdError, ssnErrors, dobErrors, onKeyPress, onKeyUp}) => {
+const PersonSearchAgeGenderNumbersGroup = (props) => {
+  const {
+    counties,
+    onBlur,
+    onChange,
+    personSearchFields,
+    onFocus,
+    clientIdError,
+    ssnErrors,
+    dobErrors,
+    onKeyPress,
+    onKeyUp,
+  } = props
   const actions = {onBlur, onChange, onFocus, onKeyPress}
 
   return (
@@ -50,6 +63,14 @@ const PersonSearchAgeGenderNumbersGroup = ({onBlur, onChange, personSearchFields
         mask='111-11-1111'
         value={personSearchFields.ssn}
         {...actions}
+      />
+      <CountyNameSelect
+        id="search-county"
+        gridClassName="col-md-3 county-field"
+        onChange={onChange}
+        value={personSearchFields.county}
+        counties={counties}
+        onKeyPress={onKeyPress}
       />
     </div>
   )

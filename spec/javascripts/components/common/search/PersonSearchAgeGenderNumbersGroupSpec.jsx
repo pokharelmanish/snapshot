@@ -5,6 +5,8 @@ import PersonSearchAgeGenderNumbersGroup from 'common/search/PersonSearchAgeGend
 const defaultPersonSearchFields = {
   approximateAgeUnits: '',
   searchByAgeMethod: '',
+  county: '',
+  sexAtBirth: '',
 }
 
 const render = (
@@ -68,7 +70,7 @@ describe('PersonSearchAgeGenderNumbersGroup', () => {
 
     describe('Sex At Birth', () => {
       it('renders sex at birth select', () => {
-        const component = render({personSearchFields: {sexAtBirth: ''}})
+        const component = render({})
         const sexAtBirthSelect = component.find('SexAtBirthSelect')
         expect(sexAtBirthSelect.props().id).toEqual('search-sex-at-birth')
         expect(sexAtBirthSelect.props().value).toEqual('')
@@ -76,11 +78,9 @@ describe('PersonSearchAgeGenderNumbersGroup', () => {
       })
 
       it('renders sex at birth select when a gender is selected', () => {
-        const component = render({
-          personSearchFields: {sexAtBirth: 'Female'},
-        })
+        const personSearchFields = {...defaultPersonSearchFields, sexAtBirth: 'Female'}
+        const component = render({personSearchFields})
         const sexAtBirthSelect = component.find('SexAtBirthSelect')
-        expect(sexAtBirthSelect.props().id).toEqual('search-sex-at-birth')
         expect(sexAtBirthSelect.props().value).toEqual('Female')
       })
 
@@ -88,10 +88,8 @@ describe('PersonSearchAgeGenderNumbersGroup', () => {
         it('calls onChange when a new sex at birth is selected', () => {
           const onChange = jasmine.createSpy('onChange')
           const component = render({onChange})
-          component
-            .find('SexAtBirthSelect')
-            .props()
-            .onChange('sexAtBirth', 'Female')
+          const sexAtBirthSelectProps = component.find('SexAtBirthSelect').props()
+          sexAtBirthSelectProps.onChange('sexAtBirth', 'Female')
           expect(onChange).toHaveBeenCalledWith('sexAtBirth', 'Female')
         })
       })
@@ -106,7 +104,8 @@ describe('PersonSearchAgeGenderNumbersGroup', () => {
 
       it('sets the correct props', () => {
         const clientId = '1111-2222-3333-4444444'
-        const component = render({personSearchFields: {clientId}})
+        const personSearchFields = {...defaultPersonSearchFields, clientId}
+        const component = render({personSearchFields})
         const maskedSearchInput = component.find('MaskedSearchInput[name="clientId"]')
         const props = maskedSearchInput.props()
         expect(props.errors).toEqual([])
@@ -130,7 +129,8 @@ describe('PersonSearchAgeGenderNumbersGroup', () => {
 
       it('sets the correct props', () => {
         const ssn = '123-45-6789'
-        const component = render({personSearchFields: {ssn}})
+        const personSearchFields = {...defaultPersonSearchFields, ssn}
+        const component = render({personSearchFields})
         const maskedSearchInput = component.find('MaskedSearchInput[name="ssn"]')
         const props = maskedSearchInput.props()
         expect(props.errors).toEqual([])
@@ -142,6 +142,38 @@ describe('PersonSearchAgeGenderNumbersGroup', () => {
         expect(typeof props.onChange).toEqual('function')
         expect(typeof props.onFocus).toEqual('function')
         expect(typeof props.onKeyPress).toEqual('function')
+      })
+    })
+
+    describe('County', () => {
+      it('renders county select', () => {
+        const personSearchFields = {...defaultPersonSearchFields, county: ''}
+        const component = render({personSearchFields})
+        const countySelect = component.find('CountyNameSelect')
+        const countySelectProps = countySelect.props()
+        expect(countySelectProps.id).toEqual('search-county')
+        expect(countySelectProps.value).toEqual('')
+        expect(typeof countySelectProps.onKeyPress).toEqual('function')
+      })
+
+      it('renders county select when a county is selected', () => {
+        const county = 'Yolo'
+        const personSearchFields = {...defaultPersonSearchFields, county}
+        const component = render({personSearchFields})
+        const countySelect = component.find('CountyNameSelect')
+        const countySelectProps = countySelect.props()
+        expect(countySelectProps.value).toEqual('Yolo')
+      })
+
+      describe('when the selected county changes', () => {
+        it('calls onChange with the new selection', () => {
+          const onChange = jasmine.createSpy('onChange')
+          const component = render({onChange})
+          const countySelect = component.find('CountyNameSelect')
+          const countySelectProps = countySelect.props()
+          countySelectProps.onChange('county', 'Sacramento')
+          expect(onChange).toHaveBeenCalledWith('county', 'Sacramento')
+        })
       })
     })
   })
