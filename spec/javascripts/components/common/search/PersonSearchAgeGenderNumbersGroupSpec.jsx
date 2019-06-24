@@ -175,6 +175,16 @@ describe('PersonSearchAgeGenderNumbersGroup', () => {
           expect(onChange).toHaveBeenCalledWith('county', 'Sacramento')
         })
       })
+
+      describe('when the user presses a key', () => {
+        it('calls onKeyPress', () => {
+          const onKeyPress = jasmine.createSpy('onKeyPress')
+          const component = render({onKeyPress})
+          const countySelect = component.find('CountyNameSelect')
+          countySelect.simulate('keypress', {charCode: 13})
+          expect(onKeyPress).toHaveBeenCalled()
+        })
+      })
     })
   })
 })
