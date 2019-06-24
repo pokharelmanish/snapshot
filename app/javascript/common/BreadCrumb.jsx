@@ -10,7 +10,7 @@ export const BreadCrumb = ({
     <div className={classNames}>
       <div className='row'>
         <div className='col-xs-7'>
-          <div className='breadcrumb-container'><span><a href='/dashboard'>Dashboard</a> {navigationElements.map((nav, index) => (<span key={index}> {'>'} {nav}</span>))}</span></div>
+          <div className='breadcrumb-container link-color'><span><a href='/dashboard'>Dashboard</a> {navigationElements.map((nav, index) => (<span key={index}> {'>'} {nav}</span>))}</span></div>
         </div>
       </div>
     </div>

@@ -8,6 +8,10 @@ describe('Footer', () => {
     component = shallow(<Footer />)
   })
 
+  it('renders className link-color', () => {
+    expect(component.find('div.link-color').exists()).toBe(true)
+  })
+
   it('renders an invisible header for accessibility outline', () => {
     const header = component.find('h2')
     expect(header.exists()).toEqual(true)
