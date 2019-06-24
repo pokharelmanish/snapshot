@@ -8,6 +8,7 @@ describe('CountyNameSelect', () => {
     gridClassName,
     id = 'county-select',
     onChange = () => {},
+    onKeyPress = () => {},
     value = '',
   } = {}) => {
     const props = {
@@ -15,6 +16,7 @@ describe('CountyNameSelect', () => {
       gridClassName,
       id,
       onChange,
+      onKeyPress,
       value,
     }
     return shallow(<CountyNameSelect {...props} />)

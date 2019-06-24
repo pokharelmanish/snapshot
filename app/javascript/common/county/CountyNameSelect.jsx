@@ -22,6 +22,7 @@ CountyNameSelect.propTypes = {
   gridClassName: PropTypes.string,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 }
 
