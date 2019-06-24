@@ -8,6 +8,7 @@ describe('BreadCrumb', () => {
       <BreadCrumb />, {disableLifecycleMethods: true}
     )
     expect(breadCrumb.find('a').props().href).toEqual('/dashboard')
+    expect(breadCrumb.find('div.link-color').exists()).toBe(true)
   })
 
   it('renders with a single node', () => {
