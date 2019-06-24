@@ -89,7 +89,7 @@ describe('getPeopleEffect', () => {
       is_client_only: true,
       is_advanced_search_on: true,
       total_results_received: 250,
-      person_search_fields: {first_name: 'john'},
+      person_search_fields: {first_name: 'john', county: 'yolo'},
       size: 25,
     }))
   })
@@ -106,7 +106,7 @@ describe('getPeopleEffect', () => {
       is_advanced_search_on: false,
       total_results_received: 100,
       size: 25,
-      person_search_fields: {first_name: 'john', last_name: 'doe'},
+      person_search_fields: {first_name: 'john', last_name: 'doe', county: 'yolo'},
       search_after: 'What even goes here?',
     }))
   })

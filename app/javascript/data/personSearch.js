@@ -13,6 +13,7 @@ const SEARCH_PARAMS = Object.freeze({
   approximateAgeUnits: 'approximate_age_units',
   searchByAgeMethod: 'search_by_age_method',
   clientId: 'client_id',
+  county: 'county',
   dateOfBirth: 'date_of_birth',
   firstName: 'first_name',
   sexAtBirth: 'gender',
