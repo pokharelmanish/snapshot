@@ -146,6 +146,11 @@
     background-size: 1.3rem;
     width: 10rem;
   }
+
+  .-pagination .-btn {
+    background: $lightest-grey;
+    color: $darkest-grey;
+  }
 }
 
 .search-information-flag {
