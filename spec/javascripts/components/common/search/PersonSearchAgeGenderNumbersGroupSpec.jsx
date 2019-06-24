@@ -18,6 +18,7 @@ const render = (
     clientIdError = [],
     ssnErrors = [],
     dobErrors = [],
+    counties = [],
   } = {},
 ) =>
   shallow(
@@ -31,6 +32,7 @@ const render = (
       onFocus={onFocus}
       onKeyPress={onKeyPress}
       onKeyUp={onKeyUp}
+      counties={counties}
     />
   )
 

@@ -57,6 +57,10 @@ const PersonSearchAgeGenderNumbersGroup = ({onBlur, onChange, personSearchFields
 
 PersonSearchAgeGenderNumbersGroup.propTypes = {
   clientIdError: PropTypes.array,
+  counties: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string,
+    value: PropTypes.string,
+  })),
   dobErrors: PropTypes.array,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,

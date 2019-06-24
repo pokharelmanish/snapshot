@@ -19,6 +19,7 @@ const PersonSearchFields = ({
   onKeyPress,
   onKeyUp,
   onFocus,
+  counties,
 }) => isAdvancedSearchOn ? (
   <div>
     <PersonSearchNameGroup
@@ -36,6 +37,7 @@ const PersonSearchFields = ({
       dobErrors={dobErrors}
       onKeyPress={onKeyPress}
       onKeyUp={onKeyUp}
+      counties={counties}
     />
     <PersonSearchButtonGroup
       onSubmit={onSubmit}
@@ -48,6 +50,10 @@ const PersonSearchFields = ({
 PersonSearchFields.propTypes = {
   canSearch: PropTypes.bool,
   clientIdError: PropTypes.array,
+  counties: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string,
+    value: PropTypes.string,
+  })),
   dobErrors: PropTypes.array,
   isAdvancedSearchOn: PropTypes.bool,
   onBlur: PropTypes.func.isRequired,
