@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import PersonSearchNameGroup from 'common/search/PersonSearchNameGroup'
-import PersonSearchAgeGenderNumbersGroup from 'common/search/PersonSearchAgeGenderNumbersGroup'
+import PersonSearchAdditionalCriteriaGroup from 'common/search/PersonSearchAdditionalCriteriaGroup'
 import PersonSearchButtonGroup from 'common/search/PersonSearchButtonGroup'
 import {PersonSearchFieldsPropType} from 'data/personSearch'
 
@@ -19,6 +19,7 @@ const PersonSearchFields = ({
   onKeyPress,
   onKeyUp,
   onFocus,
+  counties,
 }) => isAdvancedSearchOn ? (
   <div>
     <PersonSearchNameGroup
@@ -26,7 +27,7 @@ const PersonSearchFields = ({
       personSearchFields={personSearchFields}
       onKeyPress={onKeyPress}
     />
-    <PersonSearchAgeGenderNumbersGroup
+    <PersonSearchAdditionalCriteriaGroup
       onBlur={onBlur}
       onChange={onChange}
       onFocus={onFocus}
@@ -36,6 +37,7 @@ const PersonSearchFields = ({
       dobErrors={dobErrors}
       onKeyPress={onKeyPress}
       onKeyUp={onKeyUp}
+      counties={counties}
     />
     <PersonSearchButtonGroup
       onSubmit={onSubmit}
@@ -48,6 +50,10 @@ const PersonSearchFields = ({
 PersonSearchFields.propTypes = {
   canSearch: PropTypes.bool,
   clientIdError: PropTypes.array,
+  counties: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string,
+    value: PropTypes.string,
+  })),
   dobErrors: PropTypes.array,
   isAdvancedSearchOn: PropTypes.bool,
   onBlur: PropTypes.func.isRequired,

@@ -18,8 +18,9 @@ class BaseQueryBuilder
   def initialize(params = {})
     @params = params.with_indifferent_access
     initialize_search
-    initialize_name_ssn_client_id
-    initialize_age_gender
+    initialize_name_fields
+    initialize_additional_search_fields
+    initialize_county_field
     @payload = build_query
   end
 
@@ -31,20 +32,24 @@ class BaseQueryBuilder
     @total_results_received   = params.fetch(:total_results_received, '0').to_i
   end
 
-  def initialize_name_ssn_client_id
-    @client_id                = params.dig(:person_search_fields, :client_id)
+  def initialize_name_fields
     @last_name                = params.dig(:person_search_fields, :last_name)
     @first_name               = params.dig(:person_search_fields, :first_name)
     @middle_name              = params.dig(:person_search_fields, :middle_name)
     @suffix                   = params.dig(:person_search_fields, :suffix)
-    @ssn                      = params.dig(:person_search_fields, :ssn)
   end
 
-  def initialize_age_gender
+  def initialize_additional_search_fields
+    @client_id                = params.dig(:person_search_fields, :client_id)
+    @ssn                      = params.dig(:person_search_fields, :ssn)
     @date_of_birth            = params.dig(:person_search_fields, :date_of_birth)
     @approximate_age          = params.dig(:person_search_fields, :approximate_age)
     @approximate_age_units    = params.dig(:person_search_fields, :approximate_age_units)
     @gender                   = params.dig(:person_search_fields, :gender)
+  end
+
+  def initialize_county_field
+    @county                   = params.dig(:person_search_fields, :county)
   end
 
   def advanced_search_on?
@@ -57,6 +62,10 @@ class BaseQueryBuilder
 
   def ssn_searched?
     params.dig(:person_search_fields, :ssn).present?
+  end
+
+  def county_searched?
+    params.dig(:person_search_fields, :county).present?
   end
 
   def age_search_method
@@ -75,20 +84,10 @@ class BaseQueryBuilder
     @last_name.present? && @middle_name.blank? && @first_name.present?
   end
 
-  def calc_size
-    if @total_results_received == MAX_RESULTS
-      0.to_s
-    elsif @size + @total_results_received <= MAX_RESULTS
-      @size.to_s
-    elsif @size + @total_results_received > MAX_RESULTS
-      (MAX_RESULTS - @total_results_received).to_s
-    end
-  end
-
   def build_query
     {
-      size:  calc_size, track_scores: TRACK_SCORES, sort: sort, min_score: MIN_SCORE,
-      _source: fields, highlight: highlight
+      size:  calc_results_size(@size, @total_results_received), track_scores: TRACK_SCORES,
+      sort: sort, min_score: MIN_SCORE, _source: fields, highlight: highlight
     }.tap { |query| query[:search_after] = @search_after if @search_after }
   end
 

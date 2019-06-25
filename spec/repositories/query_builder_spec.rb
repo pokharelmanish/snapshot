@@ -41,6 +41,14 @@ describe QueryBuilder do
       first_name: 'first name' }
   end
 
+  let(:person_search_fields_with_last_first_name_name_suffix_county) do
+    { last_name: 'last name',
+      first_name: 'first name',
+      suffix: 'suffix',
+      county: 'yolo',
+      search_by_age_method: 'dob' }
+  end
+
   let(:person_search_fields_with_last_first_name_name_suffix_dob) do
     { last_name: 'last name',
       first_name: 'first name',
@@ -113,6 +121,9 @@ describe QueryBuilder do
   end
   let(:last_and_first_name_query) do
     PersonSearchResultBuilder.new.fs_last_and_first_name_query
+  end
+  let(:last_first_name_with_suffix_county_query) do
+    PersonSearchResultBuilder.new.fs_last_first_name_with_suffix_county_query
   end
   let(:last_first_name_with_suffix_dob_query) do
     PersonSearchResultBuilder.new.fs_last_first_name_with_suffix_dob_query
@@ -352,6 +363,21 @@ describe QueryBuilder do
         expect(result['sort']).to eq last_and_first_name_query['sort']
         expect(result['track_scores']).to eq last_and_first_name_query['track_scores']
         expect(result['query']).to eq last_and_first_name_query['query']
+      end
+
+      it 'returns query with last and first name, with suffix, and county' do
+        result = described_class.build(
+          is_advanced_search_on: 'true',
+          person_search_fields: person_search_fields_with_last_first_name_name_suffix_county,
+          size: '25'
+        ).payload.as_json
+        expect(result['_source']).to eq last_first_name_with_suffix_county_query['_source']
+        expect(result['size']).to eq last_first_name_with_suffix_county_query['size']
+        expect(result['sort']).to eq last_first_name_with_suffix_county_query['sort']
+        expect(
+          result['track_scores']
+        ).to eq last_first_name_with_suffix_county_query['track_scores']
+        expect(result['query']).to eq last_first_name_with_suffix_county_query['query']
       end
 
       it 'returns query with last and first name, with suffix, and date of birth' do

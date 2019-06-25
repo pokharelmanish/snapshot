@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# PeopleSearchQueryBuilder is a service class responsible for creation
+# PersonSearchByDateOfBirthQueryBuilder is a service class responsible for creation
 # of an elastic search person search query
 module PersonSearchByDateOfBirthQueryBuilder
   attr_reader :date_of_birth

@@ -4,7 +4,7 @@ import CountySelect from 'common/county/CountySelect'
 
 class CountyNameSelect extends React.PureComponent {
   onChange(systemCode) {
-    this.props.onChange('searchCounty', systemCode ? systemCode.value : '')
+    this.props.onChange('county', systemCode ? systemCode.value : '')
   }
 
   render() {
@@ -22,6 +22,8 @@ CountyNameSelect.propTypes = {
   gridClassName: PropTypes.string,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 }
+
 export default CountyNameSelect

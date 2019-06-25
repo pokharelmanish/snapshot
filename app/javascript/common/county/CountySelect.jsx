@@ -8,12 +8,19 @@ class CountySelect extends React.PureComponent {
     onChange(counties.find((county) => county.value === value) || null)
   }
 
+  renderCountyOptions(counties) {
+    return counties.map(
+      (county) => <option key={county.code} value={county.value}>{county.value}</option>
+    )
+  }
+
   render() {
     const {
       counties,
       gridClassName,
       id,
       value,
+      onKeyPress,
     } = this.props
 
     return (
@@ -23,9 +30,10 @@ class CountySelect extends React.PureComponent {
         label='County'
         onChange={this.onChange.bind(this)}
         value={value}
+        onKeyPress={onKeyPress}
       >
         <option key='' />
-        {counties.map((county) => <option key={county.code} value={county.value}>{county.value}</option>)}
+        {this.renderCountyOptions(counties)}
       </SelectField>
     )
   }
@@ -36,6 +44,7 @@ CountySelect.propTypes = {
   gridClassName: PropTypes.string,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired,
   value: PropTypes.string,
 }
 

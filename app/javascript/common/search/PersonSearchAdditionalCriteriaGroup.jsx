@@ -1,12 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import CountyNameSelect from 'common/county/CountyNameSelect'
 import SearchByAgeMethodSelect from 'common/search/age/SearchByAgeMethodSelect'
 import AgeSearchFields from 'common/search/age/AgeSearchFields'
 import SexAtBirthSelect from 'common/search/sexatbirth/SexAtBirthSelect'
 import MaskedSearchInput from 'common/search/MaskedSearchInput'
 import {PersonSearchFieldsPropType, PersonSearchFieldsDefaultProps} from 'data/personSearch'
 
-const PersonSearchAgeGenderNumbersGroup = ({onBlur, onChange, personSearchFields, onFocus, clientIdError, ssnErrors, dobErrors, onKeyPress, onKeyUp}) => {
+const PersonSearchAdditionalCriteriaGroup = ({
+  counties,
+  onBlur,
+  onChange,
+  personSearchFields,
+  onFocus,
+  clientIdError,
+  ssnErrors,
+  dobErrors,
+  onKeyPress,
+  onKeyUp,
+}) => {
   const actions = {onBlur, onChange, onFocus, onKeyPress}
 
   return (
@@ -51,12 +63,24 @@ const PersonSearchAgeGenderNumbersGroup = ({onBlur, onChange, personSearchFields
         value={personSearchFields.ssn}
         {...actions}
       />
+      <CountyNameSelect
+        id="search-county"
+        gridClassName="col-md-3 county-field"
+        onChange={onChange}
+        value={personSearchFields.county}
+        counties={counties}
+        onKeyPress={onKeyPress}
+      />
     </div>
   )
 }
 
-PersonSearchAgeGenderNumbersGroup.propTypes = {
+PersonSearchAdditionalCriteriaGroup.propTypes = {
   clientIdError: PropTypes.array,
+  counties: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string,
+    value: PropTypes.string,
+  })),
   dobErrors: PropTypes.array,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -67,6 +91,6 @@ PersonSearchAgeGenderNumbersGroup.propTypes = {
   ssnErrors: PropTypes.array,
 }
 
-PersonSearchAgeGenderNumbersGroup.defaultProps = PersonSearchFieldsDefaultProps
+PersonSearchAdditionalCriteriaGroup.defaultProps = PersonSearchFieldsDefaultProps
 
-export default PersonSearchAgeGenderNumbersGroup
+export default PersonSearchAdditionalCriteriaGroup

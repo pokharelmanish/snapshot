@@ -36,10 +36,10 @@ describe('PersonSearchFields', () => {
       expect(component.find('PersonSearchNameGroup').exists()).toBe(true)
     })
 
-    it('renders a PersonSearchAgeGenderNumbersGroup component with onKeyPress and onKeyUp props', () => {
-      expect(component.find('PersonSearchAgeGenderNumbersGroup').exists()).toBe(true)
-      expect(typeof component.find('PersonSearchAgeGenderNumbersGroup').props().onKeyPress).toEqual('function')
-      expect(typeof component.find('PersonSearchAgeGenderNumbersGroup').props().onKeyUp).toEqual('function')
+    it('renders a PersonSearchAdditionalCriteriaGroup component with onKeyPress and onKeyUp props', () => {
+      expect(component.find('PersonSearchAdditionalCriteriaGroup').exists()).toBe(true)
+      expect(typeof component.find('PersonSearchAdditionalCriteriaGroup').props().onKeyPress).toEqual('function')
+      expect(typeof component.find('PersonSearchAdditionalCriteriaGroup').props().onKeyUp).toEqual('function')
     })
 
     it('renders a PersonSearchButtonGroup component', () => {
@@ -57,8 +57,8 @@ describe('PersonSearchFields', () => {
       expect(component.find('PersonSearchNameGroup').exists()).toBe(false)
     })
 
-    it('does not render a PersonSearchAgeGenderNumbersGroup component', () => {
-      expect(component.find('PersonSearchAgeGenderNumbersGroup').exists()).toBe(false)
+    it('does not render a PersonSearchAdditionalCriteriaGroup component', () => {
+      expect(component.find('PersonSearchAdditionalCriteriaGroup').exists()).toBe(false)
     })
 
     it('does not render a PersonSearchButtonGroup component', () => {
