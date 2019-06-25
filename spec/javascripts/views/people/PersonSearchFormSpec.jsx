@@ -153,5 +153,6 @@ describe('PersonSearchForm', () => {
     expect(label.exists()).toBe(true)
     expect(label.text()).toContain('Search')
     expect(label.props().htmlFor).toBe('screening_participants')
+    expect(label.props().className).toContain('autocompleter-label')
   })
 })
