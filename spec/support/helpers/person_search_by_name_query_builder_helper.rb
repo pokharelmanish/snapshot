@@ -262,6 +262,39 @@ module PersonSearchByNameQueryBuilderHelper
     build_query(query).as_json
   end
 
+  def fs_last_first_name_with_suffix_county_query
+    query = {
+      "function_score": {
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "legacy_descriptor.legacy_table_name": {
+                    "query": 'CLIENT_T',
+                    "_name": 'q_cli'
+                  }
+                }
+              },
+              {
+                "match": {
+                  "sp_county": {
+                    "query": 'yolo'
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "functions": last_first_name_with_suffix_functions,
+        "score_mode": 'max',
+        "boost_mode": 'max'
+      }
+    }
+
+    build_query(query).as_json
+  end
+
   def fs_last_first_name_with_suffix_dob_query
     query = {
       "function_score": {

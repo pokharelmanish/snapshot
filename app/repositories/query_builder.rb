@@ -4,7 +4,7 @@
 class QueryBuilder < BaseQueryBuilder
   def self.build_base(builder)
     if builder.client_id_searched?
-      builder.extend(PersonSearchByClientId).build_query(builder)
+      builder.extend(PersonSearchByClientIdQueryBuilder).build_query(builder)
     elsif builder.ssn_searched?
       builder.extend(PersonSearchSsnQueryBuilder).build_query(builder)
     elsif builder.advanced_search_on?
@@ -18,6 +18,7 @@ class QueryBuilder < BaseQueryBuilder
     search_by_name(builder)
     search_by_age_query(builder)
     search_by_sex_at_birth(builder)
+    search_by_county(builder) if builder.county_searched?
   end
 
   def self.search_by_name(builder)
@@ -61,5 +62,9 @@ class QueryBuilder < BaseQueryBuilder
 
   def self.search_by_sex_at_birth(builder)
     builder.extend(PersonSearchBySexAtBirthQueryBuilder).build_query(builder)
+  end
+
+  def self.search_by_county(builder)
+    builder.extend(PersonSearchByCountyQueryBuilder).build_query(builder)
   end
 end
