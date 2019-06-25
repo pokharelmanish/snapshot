@@ -7,19 +7,18 @@ import SexAtBirthSelect from 'common/search/sexatbirth/SexAtBirthSelect'
 import MaskedSearchInput from 'common/search/MaskedSearchInput'
 import {PersonSearchFieldsPropType, PersonSearchFieldsDefaultProps} from 'data/personSearch'
 
-const PersonSearchAdditionalCriteriaGroup = (props) => {
-  const {
-    counties,
-    onBlur,
-    onChange,
-    personSearchFields,
-    onFocus,
-    clientIdError,
-    ssnErrors,
-    dobErrors,
-    onKeyPress,
-    onKeyUp,
-  } = props
+const PersonSearchAdditionalCriteriaGroup = ({
+  counties,
+  onBlur,
+  onChange,
+  personSearchFields,
+  onFocus,
+  clientIdError,
+  ssnErrors,
+  dobErrors,
+  onKeyPress,
+  onKeyUp,
+}) => {
   const actions = {onBlur, onChange, onFocus, onKeyPress}
 
   return (
