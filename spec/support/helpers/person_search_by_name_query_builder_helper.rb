@@ -275,11 +275,14 @@ module PersonSearchByNameQueryBuilderHelper
                     "_name": 'q_cli'
                   }
                 }
-              },
+              }
+            ],
+            "filter": [
               {
                 "match": {
                   "sp_county": {
-                    "query": 'yolo'
+                    "query": 'yolo',
+                    "_name": 'q_county'
                   }
                 }
               }

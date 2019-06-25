@@ -8,7 +8,7 @@ module PersonSearchByCountyQueryBuilder
   include QueryBuilderHelper
 
   def build_query(builder)
-    builder.payload[:query][:function_score][:query][:bool][:must].concat(must)
+    builder.payload[:query][:function_score][:query][:bool][:filter] = must
   end
 
   def query
@@ -16,6 +16,8 @@ module PersonSearchByCountyQueryBuilder
   end
 
   def must
-    [match_query(field: 'sp_county', query: formatted_query(county))].flatten.compact
+    [
+      match_query(field: 'sp_county', query: formatted_query(county), name: 'q_county')
+    ].flatten.compact
   end
 end
