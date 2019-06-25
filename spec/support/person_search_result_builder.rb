@@ -15,6 +15,7 @@ require 'support/helpers/person_search_by_last_middle_first_name_query_builder_p
 require 'support/helpers/person_search_by_date_of_birth_query_builder_helper'
 require 'support/helpers/person_search_by_approximate_age_query_builder_helper'
 require 'support/helpers/person_search_by_sex_at_birth_query_builder_helper'
+require 'support/helpers/person_search_by_county_query_builder_helper'
 
 class PersonSearchResultBuilder
   include QueryBuilderHelper
@@ -31,6 +32,7 @@ class PersonSearchResultBuilder
   include PersonSearchByDateOfBirthQueryBuilderHelper
   include PersonSearchByApproximateAgeQueryBuilderHelper
   include PersonSearchBySexAtBirthQueryBuilderHelper
+  include PersonSearchByCountyQueryBuilderHelper
 
   attr_reader :search_result
 
