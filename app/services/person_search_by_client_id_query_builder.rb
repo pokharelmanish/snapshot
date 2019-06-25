@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# PeopleSearchByAddress is a service class responsible for creation
+# PersonSearchByClientIdQueryBuilder is a service class responsible for creation
 # of an elastic search person search query
-module PersonSearchByClientId
+module PersonSearchByClientIdQueryBuilder
   attr_reader :client_id
   include QueryBuilderHelper
 

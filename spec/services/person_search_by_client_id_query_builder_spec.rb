@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe PersonSearchByClientId do
+describe PersonSearchByClientIdQueryBuilder do
   describe '.build_query' do
     let(:person_search_fields) do
       { client_id: '1111111111111111111' }
