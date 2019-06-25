@@ -2,7 +2,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import {PersonSearchForm} from 'views/people/PersonSearchForm'
 import * as IntakeConfig from 'common/config'
-import {ModalComponent} from 'react-wood-duck'
+import ModalComponent from 'common/ModalComponent'
 import SearchModalBody from 'common/search/SearchModalBody'
 
 describe('PersonSearchForm', () => {
@@ -153,5 +153,6 @@ describe('PersonSearchForm', () => {
     expect(label.exists()).toBe(true)
     expect(label.text()).toContain('Search')
     expect(label.props().htmlFor).toBe('screening_participants')
+    expect(label.props().className).toContain('autocompleter-label')
   })
 })

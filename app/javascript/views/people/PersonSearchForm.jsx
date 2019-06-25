@@ -4,7 +4,7 @@ import Autocompleter from 'common/search/Autocompleter'
 import {withRouter} from 'react-router'
 import {PersonSearchFieldsPropType} from 'data/personSearch'
 import {isAdvancedSearchOn} from 'common/config'
-import {ModalComponent} from 'react-wood-duck'
+import ModalComponent from 'common/ModalComponent'
 import SearchModalBody from 'common/search/SearchModalBody'
 
 class PersonSearchForm extends React.Component {
