@@ -521,11 +521,11 @@ describe('peopleSearchReducer', () => {
   })
 
   describe('on FETCH_USER_INFO_COMPLETE', () => {
-    it('defaults the search county to the county of the user', () => {
+    it('defaults the search county to empty string', () => {
       const action = fetchUserInfoSuccess({county: 'Los Angeles'})
       const initialState = fromJS({searchFields: {county: ''}})
       const newState = peopleSearchReducer(initialState, action)
-      expect(newState.get('searchFields').get('county')).toEqual('Los Angeles')
+      expect(newState.get('searchFields').get('county')).toEqual('')
       expect(newState.get('defaultCounty')).toEqual('Los Angeles')
     })
     it('does not override an explicit user selection', () => {
@@ -548,7 +548,7 @@ describe('peopleSearchReducer', () => {
   })
 
   describe('on RESET_PERSON_SEARCH', () => {
-    it('clears everything and sets county to default', () => {
+    it('clears everything and sets county to empty string', () => {
       const action = resetPersonSearch()
       const initialState = fromJS({
         searchFields: {
@@ -591,7 +591,7 @@ describe('peopleSearchReducer', () => {
             sexAtBirth: '',
             address: '',
             city: '',
-            county: 'Sacramento',
+            county: '',
             state: '',
             country: '',
             zipCode: '',
