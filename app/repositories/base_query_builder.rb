@@ -20,6 +20,7 @@ class BaseQueryBuilder
     initialize_search
     initialize_name_fields
     initialize_additional_search_fields
+    initialize_county_field
     @payload = build_query
   end
 
@@ -45,6 +46,9 @@ class BaseQueryBuilder
     @approximate_age          = params.dig(:person_search_fields, :approximate_age)
     @approximate_age_units    = params.dig(:person_search_fields, :approximate_age_units)
     @gender                   = params.dig(:person_search_fields, :gender)
+  end
+
+  def initialize_county_field
     @county                   = params.dig(:person_search_fields, :county)
   end
 
@@ -80,20 +84,10 @@ class BaseQueryBuilder
     @last_name.present? && @middle_name.blank? && @first_name.present?
   end
 
-  def calc_size
-    if @total_results_received == MAX_RESULTS
-      0.to_s
-    elsif @size + @total_results_received <= MAX_RESULTS
-      @size.to_s
-    elsif @size + @total_results_received > MAX_RESULTS
-      (MAX_RESULTS - @total_results_received).to_s
-    end
-  end
-
   def build_query
     {
-      size:  calc_size, track_scores: TRACK_SCORES, sort: sort, min_score: MIN_SCORE,
-      _source: fields, highlight: highlight
+      size:  calc_results_size(@size, @total_results_received), track_scores: TRACK_SCORES,
+      sort: sort, min_score: MIN_SCORE, _source: fields, highlight: highlight
     }.tap { |query| query[:search_after] = @search_after if @search_after }
   end
 
