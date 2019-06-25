@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import PersonSearchAgeGenderNumbersGroup from 'common/search/PersonSearchAgeGenderNumbersGroup'
+import PersonSearchAdditionalCriteriaGroup from 'common/search/PersonSearchAdditionalCriteriaGroup'
 
 const defaultPersonSearchFields = {
   approximateAgeUnits: '',
@@ -24,7 +24,7 @@ const render = (
   } = {},
 ) =>
   shallow(
-    <PersonSearchAgeGenderNumbersGroup
+    <PersonSearchAdditionalCriteriaGroup
       onBlur={onBlur}
       onChange={onChange}
       personSearchFields={personSearchFields}
@@ -38,7 +38,7 @@ const render = (
     />
   )
 
-describe('PersonSearchAgeGenderNumbersGroup', () => {
+describe('PersonSearchAdditionalCriteriaGroup', () => {
   describe('layout', () => {
     it('render the age search field container', () => {
       const container = render({}).find('div.age-search-field-container')

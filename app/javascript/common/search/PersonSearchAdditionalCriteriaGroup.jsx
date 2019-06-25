@@ -7,7 +7,7 @@ import SexAtBirthSelect from 'common/search/sexatbirth/SexAtBirthSelect'
 import MaskedSearchInput from 'common/search/MaskedSearchInput'
 import {PersonSearchFieldsPropType, PersonSearchFieldsDefaultProps} from 'data/personSearch'
 
-const PersonSearchAgeGenderNumbersGroup = (props) => {
+const PersonSearchAdditionalCriteriaGroup = (props) => {
   const {
     counties,
     onBlur,
@@ -76,7 +76,7 @@ const PersonSearchAgeGenderNumbersGroup = (props) => {
   )
 }
 
-PersonSearchAgeGenderNumbersGroup.propTypes = {
+PersonSearchAdditionalCriteriaGroup.propTypes = {
   clientIdError: PropTypes.array,
   counties: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string,
@@ -92,6 +92,6 @@ PersonSearchAgeGenderNumbersGroup.propTypes = {
   ssnErrors: PropTypes.array,
 }
 
-PersonSearchAgeGenderNumbersGroup.defaultProps = PersonSearchFieldsDefaultProps
+PersonSearchAdditionalCriteriaGroup.defaultProps = PersonSearchFieldsDefaultProps
 
-export default PersonSearchAgeGenderNumbersGroup
+export default PersonSearchAdditionalCriteriaGroup

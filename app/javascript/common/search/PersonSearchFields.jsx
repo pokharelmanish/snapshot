@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import PersonSearchNameGroup from 'common/search/PersonSearchNameGroup'
-import PersonSearchAgeGenderNumbersGroup from 'common/search/PersonSearchAgeGenderNumbersGroup'
+import PersonSearchAdditionalCriteriaGroup from 'common/search/PersonSearchAdditionalCriteriaGroup'
 import PersonSearchButtonGroup from 'common/search/PersonSearchButtonGroup'
 import {PersonSearchFieldsPropType} from 'data/personSearch'
 
@@ -27,7 +27,7 @@ const PersonSearchFields = ({
       personSearchFields={personSearchFields}
       onKeyPress={onKeyPress}
     />
-    <PersonSearchAgeGenderNumbersGroup
+    <PersonSearchAdditionalCriteriaGroup
       onBlur={onBlur}
       onChange={onChange}
       onFocus={onFocus}
