@@ -2,7 +2,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import {PersonSearchForm} from 'views/people/PersonSearchForm'
 import * as IntakeConfig from 'common/config'
-import {ModalComponent} from 'react-wood-duck'
+import ModalComponent from 'common/ModalComponent'
 import SearchModalBody from 'common/search/SearchModalBody'
 
 describe('PersonSearchForm', () => {
