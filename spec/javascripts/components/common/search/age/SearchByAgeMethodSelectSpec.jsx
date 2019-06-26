@@ -57,6 +57,39 @@ describe('SearchByAgeMethodSelect', () => {
 
   describe('event handlers', () => {
     describe('onChange', () => {
+      describe('when approximate age is selected', () => {
+        it('clears the dob value', () => {
+          const onChange = jasmine.createSpy('onChange')
+          const selectField = render({onChange}).find('SelectField')
+          const event = {target: {value: 'approximate'}}
+          selectField.props().onChange(event)
+          expect(onChange).toHaveBeenCalledWith('dateOfBirth', '')
+        })
+      })
+
+      describe('when dob is selected', () => {
+        it('clears the approximate age value', () => {
+          const onChange = jasmine.createSpy('onChange')
+          const selectField = render({onChange}).find('SelectField')
+          const event = {target: {value: 'dob'}}
+          selectField.props().onChange(event)
+          expect(onChange).toHaveBeenCalledWith('approximateAge', '')
+          expect(onChange).toHaveBeenCalledWith('approximateAgeUnits', '')
+        })
+      })
+
+      describe('when empty value is selected', () => {
+        it('clears the dateOfBirth, approximateAge, approximateAgeUnits values', () => {
+          const onChange = jasmine.createSpy('onChange')
+          const selectField = render({onChange}).find('SelectField')
+          const event = {target: {value: ''}}
+          selectField.props().onChange(event)
+          expect(onChange).toHaveBeenCalledWith('dateOfBirth', '')
+          expect(onChange).toHaveBeenCalledWith('approximateAge', '')
+          expect(onChange).toHaveBeenCalledWith('approximateAgeUnits', '')
+        })
+      })
+
       describe('when the select field value is selected', () => {
         describe('to a valid value', () => {
           it('calls back with with the searchByAgeMethod', () => {
