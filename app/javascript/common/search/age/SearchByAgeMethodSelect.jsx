@@ -8,6 +8,14 @@ class SearchByAgeMethodSelect extends React.Component {
     const {onChange} = this.props
     const isValidValue = value === 'dob' || value === 'approximate'
     onChange('searchByAgeMethod', isValidValue ? value : '')
+    if (value === 'approximate') { onChange('dateOfBirth', '') } else if (value === 'dob') {
+      onChange('approximateAge', '')
+      onChange('approximateAgeUnits', '')
+    } else if (value === '') {
+      onChange('dateOfBirth', '')
+      onChange('approximateAge', '')
+      onChange('approximateAgeUnits', '')
+    }
   }
 
   render() {
