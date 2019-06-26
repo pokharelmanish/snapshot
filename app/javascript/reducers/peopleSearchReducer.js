@@ -74,8 +74,7 @@ const setPersonSearchFieldErrorCheck = (state, {payload}) => {
 }
 
 const resetPersonSearchFields = state => {
-  const defaultCounty = state.get('defaultCounty') || ''
-  const searchFields = fromJS({...defaultSearchFieldsState, county: defaultCounty})
+  const searchFields = fromJS(defaultSearchFieldsState)
   return state.set('searchFields', searchFields)
 }
 
@@ -136,7 +135,7 @@ export default createReducer(initialState, {
     const searchFields = state.get('searchFields')
     const isCountyEmpty = searchFields.get('county') === ''
     const newState = state.set('defaultCounty', county)
-    const newSearchFields = searchFields.set('county', county)
+    const newSearchFields = searchFields.set('county', '')
     const newStateWithCounty = newState.set('searchFields', newSearchFields)
 
     return isCountyEmpty ? newStateWithCounty : newState

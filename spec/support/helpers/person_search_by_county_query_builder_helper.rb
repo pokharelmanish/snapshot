@@ -8,7 +8,8 @@ module PersonSearchByCountyQueryBuilderHelper
           {
             "match": {
               "sp_county": {
-                "query": 'yolo'
+                "query": 'yolo',
+                "_name": 'q_county'
               }
             }
           }
