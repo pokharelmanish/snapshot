@@ -259,7 +259,8 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": [],
@@ -285,7 +286,8 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": last_middle_first_name_with_suffix_functions_part_one,
@@ -311,7 +313,8 @@ module PersonSearchByLastMiddleFirstNameQueryBuilderPartOneHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": last_middle_first_name_functions_part_one,

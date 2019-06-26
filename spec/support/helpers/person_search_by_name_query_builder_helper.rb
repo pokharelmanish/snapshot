@@ -114,7 +114,8 @@ module PersonSearchByNameQueryBuilderHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": [],
@@ -148,12 +149,15 @@ module PersonSearchByNameQueryBuilderHelper
                     "format": 'yyyy-MM-dd'
                   }
                 }
-              },
+              }
+            ],
+            "filter": [
               {
-                "query_string": {
-                  "default_field": 'gender',
-                  "query": 'male',
-                  "boost": '1'
+                "match": {
+                  "gender": {
+                    "query": 'male',
+                    "_name": 'q_gender'
+                  }
                 }
               }
             ]
@@ -190,12 +194,15 @@ module PersonSearchByNameQueryBuilderHelper
                     "format": 'yyyy-MM-dd'
                   }
                 }
-              },
+              }
+            ],
+            "filter": [
               {
-                "query_string": {
-                  "default_field": 'gender',
-                  "query": 'male',
-                  "boost": '1'
+                "match": {
+                  "gender": {
+                    "query": 'male',
+                    "_name": 'q_gender'
+                  }
                 }
               }
             ]
@@ -224,7 +231,8 @@ module PersonSearchByNameQueryBuilderHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": last_first_name_with_suffix_functions,
@@ -250,7 +258,8 @@ module PersonSearchByNameQueryBuilderHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": last_first_name_functions,
@@ -319,7 +328,8 @@ module PersonSearchByNameQueryBuilderHelper
                   "boost": '14'
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": last_first_name_with_suffix_functions,
@@ -353,12 +363,15 @@ module PersonSearchByNameQueryBuilderHelper
                     "format": 'yyyy-MM-dd'
                   }
                 }
-              },
+              }
+            ],
+            "filter": [
               {
-                "query_string": {
-                  "default_field": 'gender',
-                  "query": 'female',
-                  "boost": '1'
+                "match": {
+                  "gender": {
+                    "query": 'female',
+                    "_name": 'q_gender'
+                  }
                 }
               }
             ]
@@ -395,12 +408,15 @@ module PersonSearchByNameQueryBuilderHelper
                     "format": 'yyyy-MM-dd'
                   }
                 }
-              },
+              }
+            ],
+            "filter": [
               {
-                "query_string": {
-                  "default_field": 'gender',
-                  "query": 'male',
-                  "boost": '1'
+                "match": {
+                  "gender": {
+                    "query": 'male',
+                    "_name": 'q_gender'
+                  }
                 }
               }
             ]
@@ -437,12 +453,15 @@ module PersonSearchByNameQueryBuilderHelper
                     "format": 'yyyy-MM-dd'
                   }
                 }
-              },
+              }
+            ],
+            "filter": [
               {
-                "query_string": {
-                  "default_field": 'gender',
-                  "query": 'female',
-                  "boost": '1'
+                "match": {
+                  "gender": {
+                    "query": 'female',
+                    "_name": 'q_gender'
+                  }
                 }
               }
             ]
@@ -479,12 +498,15 @@ module PersonSearchByNameQueryBuilderHelper
                     "format": 'yyyy-MM-dd'
                   }
                 }
-              },
+              }
+            ],
+            "filter": [
               {
-                "query_string": {
-                  "default_field": 'gender',
-                  "query": 'male',
-                  "boost": '1'
+                "match": {
+                  "gender": {
+                    "query": 'male',
+                    "_name": 'q_gender'
+                  }
                 }
               }
             ]
@@ -521,12 +543,15 @@ module PersonSearchByNameQueryBuilderHelper
                     "format": 'yyyy-MM-dd'
                   }
                 }
-              },
+              }
+            ],
+            "filter": [
               {
-                "query_string": {
-                  "default_field": 'gender',
-                  "query": 'female',
-                  "boost": '1'
+                "match": {
+                  "gender": {
+                    "query": 'female',
+                    "_name": 'q_gender'
+                  }
                 }
               }
             ]
