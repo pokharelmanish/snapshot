@@ -24,17 +24,17 @@ p {
 }
 
 a {
-  color: $medium-blue;
+  color: $medium-dark-blue;
   text-decoration: underline;
 }
 
 a:hover,
 a:active {
-  color: $dark-blue;
+  color: $medium-dark-blue;
 }
 
 a:visited {
-  color: $medium-blue;
+  color: $medium-dark-blue;
 }
 
 a:focus {

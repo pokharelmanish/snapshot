@@ -5,7 +5,7 @@ const ConditionsOfUse = () => (
   <div className='container'>
     <BreadCrumb />
     <h1>Conditions of Use</h1>
-    <h3>Use Policy</h3>
+    <h2>Use Policy</h2>
     <p>Thank you for visiting the State of California&apos;s web site and reviewing our Use Policy. You should also be aware that the State has a Privacy Policy, also available on this web site. The State wants you to know about the collection, use, security, and access to information that may be obtained through use of the State&apos;s web portal. By visiting this web site, you are accepting the policies and practices described in this Notice. This Notice covers the following topics:</p>
     <ul>
       <li><a href='#personal_information_and_choice'>Personal Information and Choice</a></li>
