@@ -282,7 +282,8 @@ module PersonSearchByNameQueryBuilderHelper
                 "match": {
                   "sp_county": {
                     "query": 'yolo',
-                    "_name": 'q_county'
+                    "_name": 'q_county',
+                    "minimum_should_match": '100%'
                   }
                 }
               }

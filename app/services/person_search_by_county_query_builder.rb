@@ -17,7 +17,8 @@ module PersonSearchByCountyQueryBuilder
 
   def must
     [
-      match_query(field: 'sp_county', query: formatted_query(county), name: 'q_county')
+      match_query(field: 'sp_county', query: formatted_query(county), name: 'q_county',
+                  min_s_m: '100%')
     ].flatten.compact
   end
 end
