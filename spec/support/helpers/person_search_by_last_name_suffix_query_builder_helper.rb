@@ -203,7 +203,8 @@ module PersonSearchByLastNameSuffixQueryBuilderHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": [],
@@ -229,7 +230,8 @@ module PersonSearchByLastNameSuffixQueryBuilderHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": last_name_suffix_functions,

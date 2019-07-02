@@ -8,7 +8,7 @@ module PersonSearchBySexAtBirthQueryBuilder
   include QueryBuilderHelper
 
   def build_query(builder)
-    builder.payload[:query][:function_score][:query][:bool][:must].concat(must)
+    builder.payload[:query][:function_score][:query][:bool][:filter].concat(must)
   end
 
   def query
@@ -16,6 +16,8 @@ module PersonSearchBySexAtBirthQueryBuilder
   end
 
   def must
-    [query_string('gender', formatted_query(gender), boost: NO_BOOST)].flatten.compact
+    [
+      match_query(field: 'gender', query: formatted_query(gender), name: 'q_gender')
+    ].flatten.compact
   end
 end

@@ -110,7 +110,8 @@ module PersonSearchByLastNameQueryBuilderHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": [],
@@ -136,7 +137,8 @@ module PersonSearchByLastNameQueryBuilderHelper
                   }
                 }
               }
-            ]
+            ],
+            "filter": []
           }
         },
         "functions": last_name_functions,

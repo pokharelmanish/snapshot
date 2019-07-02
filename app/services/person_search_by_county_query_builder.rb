@@ -8,7 +8,7 @@ module PersonSearchByCountyQueryBuilder
   include QueryBuilderHelper
 
   def build_query(builder)
-    builder.payload[:query][:function_score][:query][:bool][:filter] = must
+    builder.payload[:query][:function_score][:query][:bool][:filter].concat(must)
   end
 
   def query

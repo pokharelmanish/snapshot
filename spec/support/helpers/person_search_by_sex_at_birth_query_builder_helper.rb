@@ -6,10 +6,11 @@ module PersonSearchBySexAtBirthQueryBuilderHelper
       "bool": {
         "must": [
           {
-            "query_string": {
-              "default_field": 'gender',
-              "query": 'male',
-              "boost": '1'
+            "match": {
+              "gender": {
+                "query": 'male',
+                "_name": 'q_gender'
+              }
             }
           }
         ]
