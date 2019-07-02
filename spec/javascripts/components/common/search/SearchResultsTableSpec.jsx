@@ -35,7 +35,7 @@ const defaultMockedResults = [
       'type': 'Home',
     },
     'dateOfBirth': '2005-01-03',
-    'fullName': 'Sarah Timson',
+    'fullName': '<em>Sarah Timson',
   },
   {
     'gender': 'female',

@@ -28,3 +28,6 @@ export const toCapitalCase = (str, seperator) => str
   .split(seperator)
   .map(substr => capitalizedStr(substr))
   .join('')
+
+export const cleanText = (myString) =>
+  myString.replace(/<[^>]*>?/gm, '')
