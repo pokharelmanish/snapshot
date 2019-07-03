@@ -54,8 +54,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const onClear = (field) => dispatch(clear(field))
   const onChange = (field, value) => { dispatch(setPersonSearchField(field, value)) }
   const onCancel = () => { dispatch(onClear('results')); dispatch(resetPersonSearch()) }
-  const onSearch = (isAvancedSearchOn, personSearchFields, totalResultsReceived) =>
-    dispatch(search(ownProps.isClientOnly, isAvancedSearchOn, personSearchFields, totalResultsReceived))
+  const onSearch = (isAvancedSearchOn, personSearchFields, totalResultsReceived) => {
+    const resultsReceived = isAvancedSearchOn ? 0 : totalResultsReceived
+    return dispatch(search(ownProps.isClientOnly, isAvancedSearchOn, personSearchFields, resultsReceived))
+  }
   const onLoadMoreResults = (isAvancedSearchOn, personSearchFields, totalResultsReceived, totalResultsRequested) =>
     dispatch(loadMoreResults(ownProps.isClientOnly, isAvancedSearchOn, personSearchFields, totalResultsReceived, totalResultsRequested))
   return {onBlur, onSearch, onClear, onChange, onCancel, onFocus, onLoadMoreResults, dispatch}
