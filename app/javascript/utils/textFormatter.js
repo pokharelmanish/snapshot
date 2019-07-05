@@ -29,5 +29,5 @@ export const toCapitalCase = (str, seperator) => str
   .map(substr => capitalizedStr(substr))
   .join('')
 
-export const cleanText = (myString) =>
+export const removeHtmlTags = (myString) =>
   myString.replace(/<[^>]*>?/gm, '')

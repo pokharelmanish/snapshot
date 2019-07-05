@@ -1,4 +1,4 @@
-import {nWords, capitalizedStr, toCamelCase, toCapitalCase, cleanText} from 'utils/textFormatter'
+import {nWords, capitalizedStr, toCamelCase, toCapitalCase, removeHtmlTags} from 'utils/textFormatter'
 
 describe('nWords', () => {
   const threeWords = 'word word word'
@@ -72,14 +72,14 @@ describe('toCapitalCase', () => {
   })
 })
 
-describe('cleanText', () => {
+describe('removeHtmlTags', () => {
   it('strip html from text', () => {
     const str = '<em>my-clean-text'
-    expect(cleanText(str)).toEqual('my-clean-text')
+    expect(removeHtmlTags(str)).toEqual('my-clean-text')
   })
 
   it('renders plain text as it is', () => {
     const str = 'test name'
-    expect(cleanText(str)).toEqual('test name')
+    expect(removeHtmlTags(str)).toEqual('test name')
   })
 })

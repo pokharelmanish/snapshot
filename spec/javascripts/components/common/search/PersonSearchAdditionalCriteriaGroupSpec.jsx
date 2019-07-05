@@ -45,6 +45,11 @@ describe('PersonSearchAdditionalCriteriaGroup', () => {
       expect(container.exists()).toEqual(true)
     })
 
+    it('render the sex-at-birth-and-county-container', () => {
+      const container = render({}).find('div.sex-at-birth-and-county-container')
+      expect(container.exists()).toEqual(true)
+    })
+
     it('renders the SearchByAgeMethodSelect within a container and sets props', () => {
       const methodSelect = render({}).find('div.age-search-field-container').find('SearchByAgeMethodSelect')
       const props = methodSelect.props()
@@ -70,7 +75,7 @@ describe('PersonSearchAdditionalCriteriaGroup', () => {
 
     describe('Sex At Birth', () => {
       it('renders sex at birth select', () => {
-        const component = render({})
+        const component = render({}).find('div.sex-at-birth-and-county-container')
         const sexAtBirthSelect = component.find('SexAtBirthSelect')
         expect(sexAtBirthSelect.props().id).toEqual('search-sex-at-birth')
         expect(sexAtBirthSelect.props().value).toEqual('')
@@ -79,7 +84,7 @@ describe('PersonSearchAdditionalCriteriaGroup', () => {
 
       it('renders sex at birth select when a gender is selected', () => {
         const personSearchFields = {...defaultPersonSearchFields, sexAtBirth: 'Female'}
-        const component = render({personSearchFields})
+        const component = render({personSearchFields}).find('div.sex-at-birth-and-county-container')
         const sexAtBirthSelect = component.find('SexAtBirthSelect')
         expect(sexAtBirthSelect.props().value).toEqual('Female')
       })
@@ -87,7 +92,7 @@ describe('PersonSearchAdditionalCriteriaGroup', () => {
       describe('when the sex at birth value changes', () => {
         it('calls onChange when a new sex at birth is selected', () => {
           const onChange = jasmine.createSpy('onChange')
-          const component = render({onChange})
+          const component = render({onChange}).find('div.sex-at-birth-and-county-container')
           const sexAtBirthSelectProps = component.find('SexAtBirthSelect').props()
           sexAtBirthSelectProps.onChange('sexAtBirth', 'Female')
           expect(onChange).toHaveBeenCalledWith('sexAtBirth', 'Female')
@@ -148,7 +153,7 @@ describe('PersonSearchAdditionalCriteriaGroup', () => {
     describe('County', () => {
       it('renders county select', () => {
         const personSearchFields = {...defaultPersonSearchFields, county: ''}
-        const component = render({personSearchFields})
+        const component = render({personSearchFields}).find('div.sex-at-birth-and-county-container')
         const countySelect = component.find('CountyNameSelect')
         const countySelectProps = countySelect.props()
         expect(countySelectProps.id).toEqual('search-county')
@@ -159,7 +164,7 @@ describe('PersonSearchAdditionalCriteriaGroup', () => {
       it('renders county select when a county is selected', () => {
         const county = 'Yolo'
         const personSearchFields = {...defaultPersonSearchFields, county}
-        const component = render({personSearchFields})
+        const component = render({personSearchFields}).find('div.sex-at-birth-and-county-container')
         const countySelect = component.find('CountyNameSelect')
         const countySelectProps = countySelect.props()
         expect(countySelectProps.value).toEqual('Yolo')
@@ -168,7 +173,7 @@ describe('PersonSearchAdditionalCriteriaGroup', () => {
       describe('when the selected county changes', () => {
         it('calls onChange with the new selection', () => {
           const onChange = jasmine.createSpy('onChange')
-          const component = render({onChange})
+          const component = render({onChange}).find('div.sex-at-birth-and-county-container')
           const countySelect = component.find('CountyNameSelect')
           const countySelectProps = countySelect.props()
           countySelectProps.onChange('county', 'Sacramento')
@@ -179,7 +184,7 @@ describe('PersonSearchAdditionalCriteriaGroup', () => {
       describe('when the user presses a key', () => {
         it('calls onKeyPress', () => {
           const onKeyPress = jasmine.createSpy('onKeyPress')
-          const component = render({onKeyPress})
+          const component = render({onKeyPress}).find('div.sex-at-birth-and-county-container')
           const countySelect = component.find('CountyNameSelect')
           countySelect.simulate('keypress', {charCode: 13})
           expect(onKeyPress).toHaveBeenCalled()

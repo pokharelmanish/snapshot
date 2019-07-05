@@ -40,13 +40,22 @@ const PersonSearchAdditionalCriteriaGroup = ({
           personSearchFields={personSearchFields}
         />
       </div>
-      <SexAtBirthSelect
-        id="search-sex-at-birth"
-        gridClassName="col-md-3 sex-at-birth-field"
-        onChange={onChange}
-        value={personSearchFields.sexAtBirth}
-        onKeyPress={onKeyPress}
-      />
+      <div className='col-md-3 sex-at-birth-and-county-container'>
+        <SexAtBirthSelect
+          id="search-sex-at-birth"
+          onChange={onChange}
+          value={personSearchFields.sexAtBirth}
+          onKeyPress={onKeyPress}
+        />
+        <CountyNameSelect
+          id="search-county"
+          gridClassName="county-field"
+          onChange={onChange}
+          value={personSearchFields.county}
+          counties={counties}
+          onKeyPress={onKeyPress}
+        />
+      </div>
       <MaskedSearchInput
         errors={clientIdError}
         label="Client ID Number"
@@ -62,14 +71,6 @@ const PersonSearchAdditionalCriteriaGroup = ({
         mask='111-11-1111'
         value={personSearchFields.ssn}
         {...actions}
-      />
-      <CountyNameSelect
-        id="search-county"
-        gridClassName="col-md-3 county-field"
-        onChange={onChange}
-        value={personSearchFields.county}
-        counties={counties}
-        onKeyPress={onKeyPress}
       />
     </div>
   )
