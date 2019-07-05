@@ -15,7 +15,6 @@ import {selectParticipants} from 'selectors/participantSelectors'
 import BreadCrumb from 'containers/common/BreadCrumb'
 import {getHasGenericErrorValueSelector} from 'selectors/errorsSelectors'
 import {selectPeopleResults} from 'selectors/peopleSearchSelectors'
-import {urlHelper} from 'common/url_helper.js.erb'
 import {Link} from 'react-router'
 import LoadingModal from 'common/LoadingModal'
 
@@ -32,7 +31,7 @@ export class SnapshotDetailPage extends React.Component {
 
   renderBreadCrumbs() {
     const {id} = this.props.params
-    const snapShotCrumb = (<Link key={id} to={urlHelper('/snapshot')}>Search Results</Link>)
+    const snapShotCrumb = (<Link key={id} to='/snapshot'>Search Results</Link>)
     const detailCrumb = 'Detail'
     const crumbs = [snapShotCrumb, detailCrumb]
     return <BreadCrumb navigationElements={crumbs}/>

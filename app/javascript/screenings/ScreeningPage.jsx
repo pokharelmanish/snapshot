@@ -19,7 +19,6 @@ import ScreeningInformationCard from 'screenings/ScreeningInformationCard'
 import WorkerSafetyCard from 'screenings/WorkerSafetyCard'
 import PageHeader from 'common/PageHeader'
 import BreadCrumb from 'containers/common/BreadCrumb'
-import {urlHelper} from 'common/url_helper.js.erb'
 
 const isDuplicatePerson = (participants, personOnScreening) => (
   participants
@@ -155,7 +154,7 @@ export class ScreeningPage extends React.Component {
       <div>
         <div>
           <PageHeader pageTitle={this.props.screeningTitle} button={this.submitButton()} />
-          <BreadCrumb navigationElements={[<Link key={this.props.params.id} to={urlHelper('/')}>CaseLoad</Link>]}/>
+          <BreadCrumb navigationElements={[<Link key={this.props.params.id} to='/'>CaseLoad</Link>]}/>
         </div>
         <div className={`container hotline-container ${genericErrorClass}`}>
           {this.renderScreening()}
