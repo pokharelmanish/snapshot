@@ -10,7 +10,7 @@ import AlertMessageResultsLimit from 'common/search/AlertMessageResultsLimit'
 import DateOfBirthTableHeader from 'common/search/DateOfBirthTableHeader'
 import CountyTableHeader from 'common/search/CountyTableHeader'
 import InfoMessage from 'common/search/InfoMessage'
-import {cleanText} from 'utils/textFormatter'
+import {removeHtmlTags} from 'utils/textFormatter'
 
 const commonStyle = {headerClassName: 'search-results-header'}
 
@@ -44,7 +44,7 @@ class SearchResultsTable extends React.Component {
         const person = row.original
         const id = person.legacyDescriptor && person.legacyDescriptor.legacy_id
         const akaFullName = person.akaFullName
-        const personFullName = person.fullName && cleanText(person.fullName)
+        const personFullName = person.fullName && removeHtmlTags(person.fullName)
         return (
           <div>
             {person.isSensitive && <span data-tip="Sensitive" data-for="Sensitive">&nbsp;<i className="fa fa-shield search-information-flag" aria-hidden="true"/></span>}
