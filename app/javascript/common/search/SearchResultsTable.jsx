@@ -82,7 +82,10 @@ class SearchResultsTable extends React.Component {
     {
       Header: 'Service Provider Phone',
       accessor: 'spPhone',
-      Cell: (row) => phoneNumberFormatter(row.original.spPhone),
+      Cell: (row) =>
+        <div x-ms-format-detection="none">
+          {phoneNumberFormatter(row.original.spPhone)}
+        </div>,
       ...commonStyle,
     },
     {
