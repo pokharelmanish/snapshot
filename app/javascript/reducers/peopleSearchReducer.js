@@ -150,7 +150,8 @@ export default createReducer(initialState, {
     if (error) {
       return state
     } else {
-      return state.update('results', arr => arr.concat(fromJS(results)))
+      const twoFifty = 250
+      return state.update('results', arr => arr.concat(fromJS(results)).slice(0, twoFifty))
     }
   },
   [RESET_PERSON_SEARCH]: resetPersonSearchFields,

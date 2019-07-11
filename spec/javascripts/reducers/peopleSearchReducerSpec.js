@@ -509,6 +509,25 @@ describe('peopleSearchReducer', () => {
           })
         )
       })
+
+      it('limits search results to 250', () => {
+        const initialState = fromJS({
+          searchFields: {
+            searchTerm: 'newSearchTerm',
+          },
+          total: 4,
+          results: Array(300).fill('result'),
+        })
+        expect(peopleSearchReducer(initialState, action)).toEqualImmutable(
+          fromJS({
+            searchFields: {
+              searchTerm: 'newSearchTerm',
+            },
+            total: 4,
+            results: Array(250).fill('result'),
+          })
+        )
+      })
     })
     describe('on failure', () => {
       const action = loadMoreResultsFailure()
