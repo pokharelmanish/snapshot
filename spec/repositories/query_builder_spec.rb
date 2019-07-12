@@ -238,48 +238,6 @@ describe QueryBuilder do
         expect(query[:search_after]).to eq search_after
       end
     end
-
-    context 'when the total results received is 250' do
-      let(:size) { '25' }
-      let(:expected_size) { '0' }
-      let(:total_results_received) { '250' }
-
-      it 'builds a person search query that returns 0 results' do
-        query = described_class.new(
-          size: size,
-          total_results_received: total_results_received
-        ).build_query
-        expect(query[:size]).to eq expected_size
-      end
-    end
-
-    context 'when the sum of the size and total results received is 250 or less' do
-      let(:size) { '100' }
-      let(:expected_size) { '100' }
-      let(:total_results_received) { '100' }
-
-      it 'builds a person search query that returns 100 results' do
-        query = described_class.new(
-          size: size,
-          total_results_received: total_results_received
-        ).build_query
-        expect(query[:size]).to eq expected_size
-      end
-    end
-
-    context 'when the sum of the size and total results received is over 250' do
-      let(:size) { '100' }
-      let(:expected_size) { '50' }
-      let(:total_results_received) { '200' }
-
-      it 'builds a person search query that returns 50 results' do
-        query = described_class.new(
-          size: size,
-          total_results_received: total_results_received
-        ).build_query
-        expect(query[:size]).to eq expected_size
-      end
-    end
   end
 
   describe '#build' do
@@ -290,7 +248,7 @@ describe QueryBuilder do
           size: '25'
         ).payload.as_json
         expect(result['_source']).to eq client_id_only_query['_source']
-        expect(result['size']).to eq client_id_only_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq client_id_only_query['sort']
         expect(result['track_scores']).to eq client_id_only_query['track_scores']
         expect(result['query']).to eq client_id_only_query['query']
@@ -305,7 +263,7 @@ describe QueryBuilder do
           size: '25'
         ).payload.as_json
         expect(result['_source']).to eq no_name_query['_source']
-        expect(result['size']).to eq no_name_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq no_name_query['sort']
         expect(result['track_scores']).to eq no_name_query['track_scores']
         expect(result['query']).to eq no_name_query['query']
@@ -318,7 +276,7 @@ describe QueryBuilder do
           size: '25'
         ).payload.as_json
         expect(result['_source']).to eq last_name_approx_age_years_gender_query['_source']
-        expect(result['size']).to eq last_name_approx_age_years_gender_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq last_name_approx_age_years_gender_query['sort']
         expect(result['track_scores']).to eq last_name_approx_age_years_gender_query['track_scores']
         expect(result['query']).to eq last_name_approx_age_years_gender_query['query']
@@ -331,7 +289,7 @@ describe QueryBuilder do
           size: '25'
         ).payload.as_json
         expect(result['_source']).to eq last_name_suffix_approx_age_years_gender_query['_source']
-        expect(result['size']).to eq last_name_suffix_approx_age_years_gender_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq last_name_suffix_approx_age_years_gender_query['sort']
         expect(
           result['track_scores']
@@ -346,7 +304,7 @@ describe QueryBuilder do
           size: '25'
         ).payload.as_json
         expect(result['_source']).to eq last_and_first_name_with_suffix_query['_source']
-        expect(result['size']).to eq last_and_first_name_with_suffix_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq last_and_first_name_with_suffix_query['sort']
         expect(result['track_scores']).to eq last_and_first_name_with_suffix_query['track_scores']
         expect(result['query']).to eq last_and_first_name_with_suffix_query['query']
@@ -359,7 +317,7 @@ describe QueryBuilder do
           size: '25'
         ).payload.as_json
         expect(result['_source']).to eq last_and_first_name_query['_source']
-        expect(result['size']).to eq last_and_first_name_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq last_and_first_name_query['sort']
         expect(result['track_scores']).to eq last_and_first_name_query['track_scores']
         expect(result['query']).to eq last_and_first_name_query['query']
@@ -372,7 +330,7 @@ describe QueryBuilder do
           size: '25'
         ).payload.as_json
         expect(result['_source']).to eq last_first_name_with_suffix_county_query['_source']
-        expect(result['size']).to eq last_first_name_with_suffix_county_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq last_first_name_with_suffix_county_query['sort']
         expect(
           result['track_scores']
@@ -387,7 +345,7 @@ describe QueryBuilder do
           size: '25'
         ).payload.as_json
         expect(result['_source']).to eq last_first_name_with_suffix_dob_query['_source']
-        expect(result['size']).to eq last_first_name_with_suffix_dob_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq last_first_name_with_suffix_dob_query['sort']
         expect(result['track_scores']).to eq last_first_name_with_suffix_dob_query['track_scores']
         expect(result['query']).to eq last_first_name_with_suffix_dob_query['query']
@@ -405,7 +363,7 @@ describe QueryBuilder do
         ).to eq last_first_name_with_suffix_approx_age_months_gender_query['_source']
         expect(
           result['size']
-        ).to eq last_first_name_with_suffix_approx_age_months_gender_query['size']
+        ).to eq 250
         expect(
           result['sort']
         ).to eq last_first_name_with_suffix_approx_age_months_gender_query['sort']
@@ -429,7 +387,7 @@ describe QueryBuilder do
         ).to eq last_first_name_with_suffix_approx_age_years_gender_query['_source']
         expect(
           result['size']
-        ).to eq last_first_name_with_suffix_approx_age_years_gender_query['size']
+        ).to eq 250
         expect(
           result['sort']
         ).to eq last_first_name_with_suffix_approx_age_years_gender_query['sort']
@@ -451,7 +409,7 @@ describe QueryBuilder do
         expect(
           result['_source']
         ).to eq last_first_name_approx_age_months_gender_query['_source']
-        expect(result['size']).to eq last_first_name_approx_age_months_gender_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq last_first_name_approx_age_months_gender_query['sort']
         expect(
           result['track_scores']
@@ -473,7 +431,7 @@ describe QueryBuilder do
         ).to eq last_middle_first_name_with_suffix_approx_age_years_gender_query['_source']
         expect(
           result['size']
-        ).to eq last_middle_first_name_with_suffix_approx_age_years_gender_query['size']
+        ).to eq 250
         expect(
           result['sort']
         ).to eq last_middle_first_name_with_suffix_approx_age_years_gender_query['sort']
@@ -495,7 +453,7 @@ describe QueryBuilder do
         expect(
           result['_source']
         ).to eq last_middle_first_name_approx_age_months_gender_query['_source']
-        expect(result['size']).to eq last_middle_first_name_approx_age_months_gender_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq last_middle_first_name_approx_age_months_gender_query['sort']
         expect(
           result['track_scores']
@@ -511,7 +469,7 @@ describe QueryBuilder do
           size: '25'
         ).payload.as_json
         expect(result['_source']).to eq ssn_only_query['_source']
-        expect(result['size']).to eq ssn_only_query['size']
+        expect(result['size']).to eq 250
         expect(result['sort']).to eq ssn_only_query['sort']
         expect(result['track_scores']).to eq ssn_only_query['track_scores']
         expect(result['query']).to eq ssn_only_query['query']

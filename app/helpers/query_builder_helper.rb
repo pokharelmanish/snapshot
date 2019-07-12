@@ -13,16 +13,6 @@ module QueryBuilderHelper
   MIN_SCORE = '2.5'
   MAX_RESULTS = 250
 
-  def calc_results_size(size, total_results_received)
-    if total_results_received == MAX_RESULTS
-      0.to_s
-    elsif size + total_results_received <= MAX_RESULTS
-      size.to_s
-    elsif size + total_results_received > MAX_RESULTS
-      (MAX_RESULTS - total_results_received).to_s
-    end
-  end
-
   def formatted_query(string)
     string.to_s.downcase.gsub(%r{[-/]*(\d+)[-/]*}, '\1').gsub(/[_%]/, '_' => '?', '%' => '*').strip
   end
