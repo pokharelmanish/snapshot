@@ -113,24 +113,14 @@ const defaultMockedResults = [
 const render = (
   {
     results = [],
-    resultsSubset = [],
-    setCurrentPageNumber = () => {},
-    setCurrentRowNumber = () => {},
-    onLoadMoreResults = () => {},
     personSearchFields = {},
-    currentRow = 25,
     total = 1,
     onAuthorize = () => {},
   } = {}) => {
   return mount(
     <SearchResultsTable
       results={results}
-      resultsSubset={resultsSubset}
-      setCurrentPageNumber={setCurrentPageNumber}
-      setCurrentRowNumber={setCurrentRowNumber}
-      onLoadMoreResults={onLoadMoreResults}
       personSearchFields={personSearchFields}
-      currentRow={currentRow}
       total={total}
       onAuthorize={onAuthorize}
     />, {disableLifecycleMethods: true})
@@ -139,7 +129,7 @@ const render = (
 describe('SearchResultsTable', () => {
   let component
   beforeEach(() => {
-    component = render({resultsSubset: defaultMockedResults})
+    component = render({results: defaultMockedResults})
   })
 
   describe('layout', () => {
@@ -163,86 +153,11 @@ describe('SearchResultsTable', () => {
       it('renders a table', () => {
         const table = component.find('ReactTable')
         expect(table.exists()).toBe(true)
-        expect(table.props().sortable).toBe(false)
       })
 
       it('doesnot render a table when total is 0', () => {
         const table = render({total: 0}).find('ReactTable')
         expect(table.exists()).toBe(false)
-      })
-
-      describe('page count', () => {
-        describe('when the total number of results is 250 or less', () => {
-          describe('when the total is 198', () => {
-            describe('and the number of rows per page is 5', () => {
-              it('sets the page count to 40', () => {
-                const totalResults = 198
-                const numOfResultsPerPage = 5
-                const expectedPageCount = 40
-                const component = render({total: totalResults, currentRow: numOfResultsPerPage})
-                const table = component.find('ReactTable')
-                const pages = table.props().pages
-                expect(pages).toBe(expectedPageCount)
-              })
-            })
-          })
-
-          describe('when the total is 140', () => {
-            describe('and the number of rows per page is 100', () => {
-              it('sets the page count to 2', () => {
-                const totalResults = 140
-                const numOfResultsPerPage = 100
-                const expectedPageCount = 2
-                const component = render({total: totalResults, currentRow: numOfResultsPerPage})
-                const table = component.find('ReactTable')
-                const pages = table.props().pages
-                expect(pages).toBe(expectedPageCount)
-              })
-            })
-          })
-        })
-
-        describe('when the total number of results is 251 or more', () => {
-          describe('when the total is 801', () => {
-            describe('and the number of rows per page is 20', () => {
-              it('sets the page count to 13', () => {
-                const totalResults = 801
-                const numOfResultsPerPage = 20
-                const expectedPageCount = 13
-                const component = render({total: totalResults, currentRow: numOfResultsPerPage})
-                const table = component.find('ReactTable')
-                const pages = table.props().pages
-                expect(pages).toBe(expectedPageCount)
-              })
-            })
-          })
-
-          describe('when the total is 684', () => {
-            describe('and the number of rows per page is 50', () => {
-              it('sets the page count to 5', () => {
-                const totalResults = 684
-                const numOfResultsPerPage = 50
-                const expectedPageCount = 5
-                const component = render({total: totalResults, currentRow: numOfResultsPerPage})
-                const table = component.find('ReactTable')
-                const pages = table.props().pages
-                expect(pages).toBe(expectedPageCount)
-              })
-            })
-          })
-        })
-      })
-
-      describe('no data text', () => {
-        describe('when the total results is greater than zero', () => {
-          it('sets the noDataText prop to "Loading"', () => {
-            const total = 1
-            const component = render({total})
-            const searchResultsTable = component.find('ReactTable')
-            const noDataText = searchResultsTable.props().noDataText
-            expect(noDataText).toBe('Loading')
-          })
-        })
       })
 
       it('renders the table headers', () => {
@@ -285,172 +200,6 @@ describe('SearchResultsTable', () => {
     })
   })
 
-  describe('onPageChange', () => {
-    describe('setCurrentPageNumber', () => {
-      describe('when the page is changed', () => {
-        it('setCurrentPageNumber is called with the current page number', () => {
-          const setCurrentPageNumber = jasmine.createSpy('setCurrentPageNumber')
-          const component = render({setCurrentPageNumber})
-          const searchResultsTable = component.find('ReactTable')
-          const zeroIndexedNextPageNumber = 1
-          const nextPageNumber = 2
-          searchResultsTable.props().onPageChange(zeroIndexedNextPageNumber)
-          expect(setCurrentPageNumber).toHaveBeenCalledWith(nextPageNumber)
-        })
-      })
-    })
-
-    describe('onLoadMoreResults', () => {
-      describe('when the next page is requested', () => {
-        describe('and we have not requested the results for the next page', () => {
-          it('onLoadMoreResults is called with personSearchFields and totalResultsReceived', () => {
-            const nextPageNumber = 2
-            const pageSize = 25
-            const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-            const personSearchFields = {lastName: 'laure'}
-            const results = generateMockResults(25)
-            const totalResultsReceived = results.length
-            const totalResultsRequested = nextPageNumber * pageSize
-            const component = render({
-              currentRow: pageSize,
-              results,
-              onLoadMoreResults,
-              personSearchFields,
-            })
-            const searchResultsTable = component.find('ReactTable')
-            const zeroIndexedNextPageNumber = 1
-            searchResultsTable.props().onPageChange(zeroIndexedNextPageNumber)
-            expect(onLoadMoreResults).toHaveBeenCalledWith(personSearchFields, totalResultsReceived, totalResultsRequested)
-          })
-        })
-
-        describe('and we have requested the results for the next page', () => {
-          it('onLoadMoreResults is not called', () => {
-            const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-            const results = generateMockResults(50)
-            const component = render({
-              results,
-              onLoadMoreResults,
-            })
-            const searchResultsTable = component.find('ReactTable')
-            searchResultsTable.props().onPageChange(1)
-            expect(onLoadMoreResults).not.toHaveBeenCalled()
-          })
-        })
-      })
-
-      describe('when the previous page is requested', () => {
-        it('onLoadMoreResults is not called', () => {
-          const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-          const component = render({onLoadMoreResults})
-          const searchResultsTable = component.find('ReactTable')
-          searchResultsTable.props().onPageChange(-1)
-          expect(onLoadMoreResults).not.toHaveBeenCalled()
-        })
-      })
-    })
-
-    it('sets the previous page state to the new page number', () => {
-      const component = render({})
-      const previousPageNumberBeforePageChange = component.state().previousPageNumber
-      const currentPageNumber = 1
-      expect(previousPageNumberBeforePageChange).toBe(currentPageNumber)
-      const searchResultsTable = component.find('ReactTable')
-      const zeroIndexedNextPageNumber = 1
-      const nextPageNumber = 2
-      searchResultsTable.props().onPageChange(zeroIndexedNextPageNumber)
-      const previousPageNumberAfterPageChange = component.state().previousPageNumber
-      expect(previousPageNumberAfterPageChange).toBe(nextPageNumber)
-    })
-  })
-
-  describe('onPageSizeChange', () => {
-    it('calls setCurrentRowNumber with current page size', () => {
-      const setCurrentRowNumber = jasmine.createSpy('setCurrentRowNumber')
-      const component = render({resultsSubset: defaultMockedResults, setCurrentRowNumber})
-      const searchResultsTable = component.find('ReactTable')
-      const pageSize = 5
-      const zeroIndexedNextPageNumber = 1
-      searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
-      expect(setCurrentRowNumber).toHaveBeenCalledWith(5)
-    })
-
-    it('calls setCurrentPageNumber with current page', () => {
-      const setCurrentPageNumber = jasmine.createSpy('setCurrentPageNumber')
-      const component = render({resultsSubset: defaultMockedResults, setCurrentPageNumber})
-      const searchResultsTable = component.find('ReactTable')
-      searchResultsTable.props().onPageSizeChange(5, 1)
-      expect(setCurrentPageNumber).toHaveBeenCalledWith(2)
-    })
-
-    describe('onLoadMoreResults', () => {
-      describe('when the page size is increased', () => {
-        describe('and we have do not have all the results to display', () => {
-          it('onLoadMoreResults is called', () => {
-            const currentPageNumber = 1
-            const pageSize = 50
-            const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-            const personSearchFields = {lastName: 'Bravo'}
-            const results = generateMockResults(25)
-            const totalResultsReceived = results.length
-            const totalResultsRequested = currentPageNumber * pageSize
-            const component = render({
-              results,
-              onLoadMoreResults,
-              personSearchFields,
-            })
-            const searchResultsTable = component.find('ReactTable')
-            const zeroIndexedNextPageNumber = 0
-            searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
-            expect(onLoadMoreResults).toHaveBeenCalledWith(personSearchFields, totalResultsReceived, totalResultsRequested)
-          })
-        })
-
-        describe('and we do have all the results to display', () => {
-          it('onLoadMoreResults is not called', () => {
-            const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-            const results = generateMockResults(50)
-            const component = render({
-              results,
-              onLoadMoreResults,
-            })
-            const searchResultsTable = component.find('ReactTable')
-            const pageSize = 50
-            const zeroIndexedNextPageNumber = 0
-            searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
-            expect(onLoadMoreResults).not.toHaveBeenCalled()
-          })
-        })
-      })
-
-      describe('when the page size is decreased', () => {
-        it('onLoadMoreResults is not called', () => {
-          const onLoadMoreResults = jasmine.createSpy('onLoadMoreResults')
-          const component = render({onLoadMoreResults})
-          const searchResultsTable = component.find('ReactTable')
-          const pageSize = 5
-          const zeroIndexedNextPageNumber = 1
-          searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
-          expect(onLoadMoreResults).not.toHaveBeenCalled()
-        })
-      })
-    })
-
-    it('sets the previous page state to the new page number', () => {
-      const component = render({})
-      const previousPageNumberBeforePageChange = component.state().previousPageNumber
-      const currentPageNumber = 1
-      expect(previousPageNumberBeforePageChange).toBe(currentPageNumber)
-      const searchResultsTable = component.find('ReactTable')
-      const pageSize = 50
-      const zeroIndexedNextPageNumber = 1
-      const nextPageNumber = 2
-      searchResultsTable.props().onPageSizeChange(pageSize, zeroIndexedNextPageNumber)
-      const previousPageNumberAfterPageChange = component.state().previousPageNumber
-      expect(previousPageNumberAfterPageChange).toBe(nextPageNumber)
-    })
-  })
-
   describe('Sealed', () => {
     it('renders Link', () => {
       const row = component.find('div.rt-tr-group').at(0)
@@ -466,6 +215,14 @@ describe('SearchResultsTable', () => {
         .toBe('fa fa-eye-slash search-information-flag')
       expect(cell.find('span i').exists()).toBe(true)
     })
+
+    it('rebuilds the tooltip when navigating', () => {
+      const rebuild = spyOn(ReactTooltip, 'rebuild')
+      const component = render({results: defaultMockedResults})
+      const table = component.find('ReactTable')
+      table.props().onPageChange()
+      expect(rebuild).toHaveBeenCalled()
+    })
   })
 
   describe('Sensitive', () => {
@@ -479,19 +236,10 @@ describe('SearchResultsTable', () => {
     })
   })
 
-  describe('ComponentDidUpdate', () => {
-    it('rebuild reacttooltip', () => {
-      const rebuild = spyOn(ReactTooltip, 'rebuild')
-      const currentRow = 10
-      component.setProps({currentRow: currentRow})
-      expect(rebuild).toHaveBeenCalled()
-    })
-  })
-
   describe('onClick', () => {
     it('calls onAuthorize with id', () => {
       const onAuthorize = jasmine.createSpy('onClick')
-      const wrapper = render({resultsSubset: defaultMockedResults, onAuthorize})
+      const wrapper = render({results: defaultMockedResults, onAuthorize})
       const row = wrapper.find('div.rt-tr-group').at(0)
       const cell = row.find('div.rt-td').at(1)
       cell.find('button').props().onClick()
