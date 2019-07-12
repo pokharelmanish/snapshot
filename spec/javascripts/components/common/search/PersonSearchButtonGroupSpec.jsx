@@ -6,12 +6,14 @@ const render = ({
   onCancel = () => {},
   onSubmit = () => {},
   canSearch = false,
+  total = 1,
 } = {}) =>
   shallow(
     <PersonSearchButtonGroup
       onCancel={onCancel}
       onSubmit={onSubmit}
       canSearch={canSearch}
+      total={total}
     />
   )
 
@@ -26,6 +28,12 @@ describe('PersonSearchButtonGroup', () => {
     const component = render()
     const searchButton = component.find('button.person-search-button.search')
     expect(searchButton.text()).toEqual('Search')
+  })
+
+  it('renders search button with a loading indicator when total is null', () => {
+    const component = render({total: null})
+    const loadingIndicator = component.find('button.person-search-button.search i')
+    expect(loadingIndicator.exists()).toBe(true)
   })
 
   it('renders clear button', () => {
