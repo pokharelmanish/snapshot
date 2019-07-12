@@ -118,7 +118,6 @@ def releasePipeline() {
   ])
 
   try {
-    deployWithSmoke('preint')
     deployWithSmoke('integration')
   } catch(Exception exception) {
     currentBuild.result = "FAILURE"
@@ -340,13 +339,6 @@ def buildDocker() {
 
 def smokeTest(environment) {
   stage("Smoke Test on $environment") {
-    if (environment == 'preint') {
-      withEnv(["APP_URL=https://web.${environment}.cwds.io",
-             "FEATURE_SET=${FEATURE_SET}",
-             "CAPYBARA_DRIVER=${CAPYBARA_DRIVER}"]) {
-        sh 'docker-compose run acceptance_test'
-      }
-    } else {
       withCredentials([
         string(credentialsId: 'c24b6659-fd2c-4d31-8433-835528fce0d7', variable: 'ACCEPTANCE_TEST_USER'),
         string(credentialsId: '48619eb9-4a74-4c84-bc25-81557ed9dd7d', variable: 'ACCEPTANCE_TEST_PASSWORD'),
@@ -361,7 +353,6 @@ def smokeTest(environment) {
           sh 'docker-compose run acceptance_test'
         }
       }
-    }
   }
 }
 
