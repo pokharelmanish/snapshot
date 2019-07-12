@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {PersonSearchFieldsDefaultProps} from 'data/personSearch'
 
-const LoadingIndicator = <i aria-label='spinner' className='fa fa-spinner fa-spin-faster' />
-
 const PersonSearchButtonGroup = ({
   onSubmit,
   onCancel,
@@ -17,7 +15,7 @@ const PersonSearchButtonGroup = ({
         onClick={onSubmit}
         disabled={!canSearch}
       >
-        {total === null ? LoadingIndicator : 'Search'}
+        Search
       </button>
       <button
         className="btn person-search-button clear"
