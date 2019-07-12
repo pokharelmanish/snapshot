@@ -8,12 +8,7 @@ const PersonSearchResults = (
   {
     total,
     personSearchFields,
-    onLoadMoreResults,
-    setCurrentPageNumber,
-    setCurrentRowNumber,
     results,
-    resultsSubset,
-    currentRow,
     onAuthorize,
     isSearchResults,
   }) => {
@@ -29,13 +24,8 @@ const PersonSearchResults = (
       show={
         <SearchResultsTable
           results={results}
-          resultsSubset={resultsSubset}
           total={total}
           personSearchFields={personSearchFields}
-          onLoadMoreResults={onLoadMoreResults}
-          setCurrentPageNumber={setCurrentPageNumber}
-          setCurrentRowNumber={setCurrentRowNumber}
-          currentRow={currentRow}
           onAuthorize={onAuthorize}
         />
       }
@@ -44,14 +34,9 @@ const PersonSearchResults = (
 }
 
 PersonSearchResults.propTypes = {
-  currentRow: PropTypes.number,
   onAuthorize: PropTypes.func,
-  onLoadMoreResults: PropTypes.func,
   personSearchFields: PropTypes.object,
   results: PropTypes.array,
-  resultsSubset: PropTypes.array,
-  setCurrentPageNumber: PropTypes.func,
-  setCurrentRowNumber: PropTypes.func,
   total: PropTypes.number,
 }
 

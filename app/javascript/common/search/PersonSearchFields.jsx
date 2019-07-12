@@ -20,6 +20,7 @@ const PersonSearchFields = ({
   onKeyUp,
   onFocus,
   counties,
+  total,
 }) => isAdvancedSearchOn ? (
   <div>
     <PersonSearchNameGroup
@@ -43,6 +44,7 @@ const PersonSearchFields = ({
       onSubmit={onSubmit}
       onCancel={onCancel}
       canSearch={canSearch}
+      total={total}
     />
   </div>
 ) : null
@@ -65,6 +67,7 @@ PersonSearchFields.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   personSearchFields: PersonSearchFieldsPropType,
   ssnErrors: PropTypes.array,
+  total: PropTypes.number,
 }
 
 export default PersonSearchFields

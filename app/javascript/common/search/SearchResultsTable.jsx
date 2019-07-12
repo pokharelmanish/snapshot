@@ -15,16 +15,6 @@ import {removeHtmlTags} from 'utils/textFormatter'
 const commonStyle = {headerClassName: 'search-results-header'}
 
 class SearchResultsTable extends React.Component {
-  constructor() {
-    super()
-    this.state = {previousPageNumber: 1}
-    this.fetchData = this.fetchData.bind(this)
-  }
-
-  componentDidUpdate() {
-    ReactTooltip.rebuild()
-  }
-
   columns = (onAuthorize) => [
     {
       Header: '',
@@ -33,7 +23,7 @@ class SearchResultsTable extends React.Component {
       filterable: false,
       className: 'search-results',
       Cell: (row) => {
-        return `${(row.page * row.pageSize) + row.index + 1}.`
+        return `${row.index + 1}.`
       },
     },
     {
@@ -106,73 +96,20 @@ class SearchResultsTable extends React.Component {
     },
   ]
 
-  fetchData(currentPageNumber, currentPageSize) {
-    const {onLoadMoreResults, personSearchFields, results} = this.props
-    const totalResultsReceived = results.length
-    const totalResultsRequested = currentPageNumber * currentPageSize
-    onLoadMoreResults(personSearchFields, totalResultsReceived, totalResultsRequested)
-  }
-
-  calculateNumberOfPages(total, currentRow) {
-    const maxResults = 250
-    const totalForPageCount = total > maxResults ? maxResults : total
-    const pageCount = totalForPageCount / currentRow
-    return Math.ceil(pageCount)
-  }
-
-  haveResults(currentPageNumber, currentPageSize) {
-    const {results} = this.props
-    const totalResultsReceived = results.length
-    const totalResultsRequested = currentPageNumber * currentPageSize
-    const haveResults = totalResultsReceived >= totalResultsRequested
-    return haveResults
-  }
-
-  handlePageChange(pageIndex) {
-    const {currentRow, setCurrentPageNumber} = this.props
-    const {previousPageNumber} = this.state
-    const currentPageNumber = pageIndex + 1
-    const nextPageRequested = currentPageNumber > previousPageNumber
-    const requestResults = !this.haveResults(currentPageNumber, currentRow) && nextPageRequested
-    setCurrentPageNumber(currentPageNumber)
-    if (requestResults) {
-      this.fetchData(currentPageNumber, currentRow)
-    }
-    this.setState({previousPageNumber: currentPageNumber})
-  }
-
-  handlePageSizeChange(pageSize, pageIndex) {
-    const {currentRow, setCurrentRowNumber, setCurrentPageNumber} = this.props
-    const currentPageNumber = pageIndex + 1
-    const pageSizeIncreased = pageSize > currentRow
-    const requestResults = !this.haveResults(currentPageNumber, pageSize) && pageSizeIncreased
-    setCurrentPageNumber(currentPageNumber)
-    setCurrentRowNumber(pageSize)
-    if (requestResults) {
-      this.fetchData(currentPageNumber, pageSize)
-    }
-    this.setState({previousPageNumber: currentPageNumber})
-  }
-
   render() {
-    const {resultsSubset, total, currentRow, onAuthorize} = this.props
-    const noDataText = total > 0 ? 'Loading' : 'No Results Found'
+    const {results, total, onAuthorize} = this.props
+    const onPageChange = () => ReactTooltip.rebuild()
     return (
       <Fragment>
         <AlertMessageResultsLimit total={total} />
-        <InfoMessage total={total} />
-        {total > 0 &&
+        <InfoMessage total={results.length} />
+        {results.length > 0 &&
         <ReactTable
           columns={this.columns(onAuthorize)}
-          sortable={false}
-          manual
-          data={resultsSubset}
+          data={results}
           minRows={0}
-          pages={this.calculateNumberOfPages(total, currentRow)}
-          defaultPageSize={currentRow}
-          onPageChange={(pageIndex) => this.handlePageChange(pageIndex)}
-          onPageSizeChange={(pageSize, pageIndex) => this.handlePageSizeChange(pageSize, pageIndex)}
-          noDataText={noDataText}
+          defaultPageSize={25}
+          onPageChange={onPageChange}
         />}
       </Fragment>
     )
@@ -180,14 +117,9 @@ class SearchResultsTable extends React.Component {
 }
 
 SearchResultsTable.propTypes = {
-  currentRow: PropTypes.number,
   onAuthorize: PropTypes.func,
-  onLoadMoreResults: PropTypes.func,
   personSearchFields: PropTypes.object,
   results: PropTypes.array,
-  resultsSubset: PropTypes.array,
-  setCurrentPageNumber: PropTypes.func,
-  setCurrentRowNumber: PropTypes.func,
   total: PropTypes.number,
 }
 

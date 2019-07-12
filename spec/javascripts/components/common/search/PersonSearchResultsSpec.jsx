@@ -7,12 +7,7 @@ import SearchResultsTable from 'common/search/SearchResultsTable'
 const render = ({
   total = 0,
   results = [],
-  resultsSubset = [],
-  setCurrentPageNumber = () => {},
-  setCurrentRowNumber = () => {},
-  onLoadMoreResults = () => {},
   personSearchFields = {},
-  currentRow = 25,
   onAuthorize = () => {},
   isSearchResults = true,
 } = {}) => (
@@ -20,12 +15,7 @@ const render = ({
     <PersonSearchResults
       total={total}
       results={results}
-      resultsSubset={resultsSubset}
-      setCurrentPageNumber={setCurrentPageNumber}
-      setCurrentRowNumber={setCurrentRowNumber}
-      onLoadMoreResults={onLoadMoreResults}
       personSearchFields={personSearchFields}
-      currentRow={currentRow}
       onAuthorize={onAuthorize}
       isSearchResults={isSearchResults}
     />, {disableLifecycleMethods: true})
@@ -40,15 +30,9 @@ describe('PersonSearchResults', () => {
     })
 
     it('sets props on the CardView', () => {
-      const setCurrentPageNumber = () => {}
-      const setCurrentRowNumber = () => {}
-      const onLoadMoreResults = () => {}
       const onAuthorize = () => {}
       const componentProps = {
         total: 200,
-        setCurrentPageNumber,
-        setCurrentRowNumber,
-        onLoadMoreResults,
         onAuthorize,
       }
       const component = render(componentProps)
@@ -56,13 +40,8 @@ describe('PersonSearchResults', () => {
       const props = cardView.props()
       const tableProps = {
         results: [],
-        resultsSubset: [],
         total: 200,
         personSearchFields: {},
-        onLoadMoreResults,
-        setCurrentPageNumber,
-        setCurrentRowNumber,
-        currentRow: 25,
         onAuthorize,
       }
       const table = (<SearchResultsTable {...tableProps} />)

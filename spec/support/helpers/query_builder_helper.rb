@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module QueryBuilderHelper
-  SIZE = '25'
+  SIZE = '250'
   TRACK_SCORES = 'true'
   MIN_SCORE = '2.5'
 

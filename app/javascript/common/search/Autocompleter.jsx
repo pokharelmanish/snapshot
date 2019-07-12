@@ -24,10 +24,7 @@ const itemClassName = (isHighlighted) => `search-item${isHighlighted ? ' highlig
 export default class Autocompleter extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      menuVisible: false,
-      currentPageNumber: 1,
-    }
+    this.state = {menuVisible: false, currentPageNumber: 1}
     this.hideMenu = this.hideMenu.bind(this)
     this.onItemSelect = this.onItemSelect.bind(this)
     this.renderMenu = this.renderMenu.bind(this)
@@ -209,7 +206,7 @@ export default class Autocompleter extends Component {
   }
 
   renderPersonSearchFields() {
-    const {onChange, onCancel, onBlur, onFocus, personSearchFields, isAdvancedSearchOn, clientIdError, ssnErrors, dobErrors, canSearch, counties} = this.props
+    const {total, onChange, onCancel, onBlur, onFocus, personSearchFields, isAdvancedSearchOn, clientIdError, ssnErrors, dobErrors, canSearch, counties} = this.props
     const searchWithEnter = (e) => {
       const enterKeyCode = 13
       if ((canSearch && e.charCode === enterKeyCode)) { this.handleSubmit() }
@@ -231,6 +228,7 @@ export default class Autocompleter extends Component {
         onKeyUp={validateAndSetDateOfBirth}
         onFocus={onFocus}
         counties={counties}
+        total={total}
       />)
   }
 
