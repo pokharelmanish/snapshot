@@ -2,10 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {PersonSearchFieldsDefaultProps} from 'data/personSearch'
 
+const LoadingIndicator = <i className='fa fa-spinner fa-spin-faster' />
+
 const PersonSearchButtonGroup = ({
   onSubmit,
   onCancel,
   canSearch,
+  total,
 }) => (
   <div className="row person-search-button-group">
     <div className="col-md-12">
@@ -14,7 +17,7 @@ const PersonSearchButtonGroup = ({
         onClick={onSubmit}
         disabled={!canSearch}
       >
-        Search
+        {total === null ? LoadingIndicator : 'Search'}
       </button>
       <button
         className="btn person-search-button clear"
@@ -30,6 +33,7 @@ PersonSearchButtonGroup.propTypes = {
   canSearch: PropTypes.bool,
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  total: PropTypes.number,
 }
 
 PersonSearchButtonGroup.defaultProps = PersonSearchFieldsDefaultProps

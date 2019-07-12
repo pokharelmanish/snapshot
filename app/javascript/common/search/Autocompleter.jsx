@@ -209,7 +209,7 @@ export default class Autocompleter extends Component {
   }
 
   renderPersonSearchFields() {
-    const {onChange, onCancel, onBlur, onFocus, personSearchFields, isAdvancedSearchOn, clientIdError, ssnErrors, dobErrors, canSearch, counties} = this.props
+    const {total, onChange, onCancel, onBlur, onFocus, personSearchFields, isAdvancedSearchOn, clientIdError, ssnErrors, dobErrors, canSearch, counties} = this.props
     const searchWithEnter = (e) => {
       const enterKeyCode = 13
       if ((canSearch && e.charCode === enterKeyCode)) { this.handleSubmit() }
@@ -231,6 +231,7 @@ export default class Autocompleter extends Component {
         onKeyUp={validateAndSetDateOfBirth}
         onFocus={onFocus}
         counties={counties}
+        total={total}
       />)
   }
 
