@@ -3,15 +3,6 @@ import SearchResultsTable from 'common/search/SearchResultsTable'
 import {mount} from 'enzyme'
 import ReactTooltip from 'react-tooltip'
 
-const generateMockResults = (numberOfResults) => {
-  const results = []
-  for (let x = 0; x < numberOfResults; x++) {
-    const result = {'legacyDescriptor': {legacy_id: `${x}`}}
-    results.push(result)
-  }
-  return results
-}
-
 const defaultMockedResults = [
   {
     'gender': 'female',

@@ -15,7 +15,6 @@ import {removeHtmlTags} from 'utils/textFormatter'
 const commonStyle = {headerClassName: 'search-results-header'}
 
 class SearchResultsTable extends React.Component {
-
   columns = (onAuthorize) => [
     {
       Header: '',

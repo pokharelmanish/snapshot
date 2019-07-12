@@ -24,10 +24,7 @@ const itemClassName = (isHighlighted) => `search-item${isHighlighted ? ' highlig
 export default class Autocompleter extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      menuVisible: false,
-      currentPageNumber: 1,
-    }
+    this.state = {menuVisible: false, currentPageNumber: 1}
     this.hideMenu = this.hideMenu.bind(this)
     this.onItemSelect = this.onItemSelect.bind(this)
     this.renderMenu = this.renderMenu.bind(this)

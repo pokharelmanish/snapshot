@@ -4,15 +4,8 @@ import {
   selectPeopleResults,
   selectResultsTotalValue,
   selectPersonSearchFields,
-  selectSearchResultsSubset,
-  selectSearchResultsCurrentRow,
   selectCheckSearchResults,
 } from 'selectors/peopleSearchSelectors'
-import {
-  loadMoreResults,
-  setSearchCurrentPage,
-  setSearchCurrentRow,
-} from 'actions/peopleSearchActions'
 import {authorizeSnapshotPerson} from 'actions/personCardActions'
 
 const mapStateToProps = state => {
@@ -25,9 +18,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const onLoadMoreResults = (personSearchFields, totalResultsReceived, totalResultsRequested) => {
-    dispatch(loadMoreResults(true, true, personSearchFields, totalResultsReceived, totalResultsRequested))
-  }
   const onAuthorize = (id) => dispatch(authorizeSnapshotPerson(id))
   return {onAuthorize, dispatch}
 }
