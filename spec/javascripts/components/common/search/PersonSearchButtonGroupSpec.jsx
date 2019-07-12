@@ -30,12 +30,6 @@ describe('PersonSearchButtonGroup', () => {
     expect(searchButton.text()).toEqual('Search')
   })
 
-  it('renders search button with a loading indicator when total is null', () => {
-    const component = render({total: null})
-    const loadingIndicator = component.find('button.person-search-button.search i')
-    expect(loadingIndicator.exists()).toBe(true)
-  })
-
   it('renders clear button', () => {
     const component = render()
     const clearButton = component.find('button.person-search-button.clear')
