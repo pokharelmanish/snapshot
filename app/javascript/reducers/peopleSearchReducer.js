@@ -48,6 +48,7 @@ const initialState = fromJS({
     dateOfBirth: false,
   },
   checkSearchResults: false,
+  isFetching: false,
 })
 
 const setPersonSearchField = (state, {payload}) => {
@@ -80,7 +81,7 @@ const resetPersonSearchFields = state => {
 
 export default createReducer(initialState, {
   [PEOPLE_SEARCH_FETCH](state) {
-    return state.set('total', null).set('checkSearchResults', true)
+    return state.set('total', null).set('checkSearchResults', true).set('isFetching', true)
   },
   [PEOPLE_SEARCH_FETCH_COMPLETE](
     state,
@@ -107,6 +108,7 @@ export default createReducer(initialState, {
         .set('startTime', null)
         .set('total', null)
         .set('checkSearchResults', false)
+        .set('isFetching', false)
     } else if (field === 'age') {
       const searchFields = state.get('searchFields')
       const ageFields = fromJS({

@@ -58,6 +58,7 @@ describe('Store', () => {
           dateOfBirth: false,
         },
         checkSearchResults: false,
+        isFetching: false,
       },
       relationshipForm: {isSaving: false},
       relationships: [],
