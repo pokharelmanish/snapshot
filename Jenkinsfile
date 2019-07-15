@@ -345,8 +345,6 @@ def smokeTest(environment) {
         string(credentialsId: 'f75da5fa-b2c8-4ca5-896a-b8a85fa30572', variable: 'VERIFICATION_CODE')
       ]) {
         withEnv(["APP_URL=https://web.${environment}.cwds.io",
-             "FEATURE_SET=${FEATURE_SET}",
-             "CAPYBARA_DRIVER=${CAPYBARA_DRIVER}",
              "ACCEPTANCE_TEST_USER=${ACCEPTANCE_TEST_USER}",
              "ACCEPTANCE_TEST_PASSWORD=${ACCEPTANCE_TEST_PASSWORD}",
              "VERIFICATION_CODE=${VERIFICATION_CODE}"]) {
