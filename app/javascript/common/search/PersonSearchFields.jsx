@@ -21,6 +21,7 @@ const PersonSearchFields = ({
   onFocus,
   counties,
   total,
+  isFetching,
 }) => isAdvancedSearchOn ? (
   <div>
     <PersonSearchNameGroup
@@ -45,6 +46,7 @@ const PersonSearchFields = ({
       onCancel={onCancel}
       canSearch={canSearch}
       total={total}
+      isFetching={isFetching}
     />
   </div>
 ) : null
@@ -58,6 +60,7 @@ PersonSearchFields.propTypes = {
   })),
   dobErrors: PropTypes.array,
   isAdvancedSearchOn: PropTypes.bool,
+  isFetching: PropTypes.bool,
   onBlur: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,

@@ -7,6 +7,7 @@ const render = ({
   onSubmit = () => {},
   canSearch = false,
   total = 1,
+  isFetching = false,
 } = {}) =>
   shallow(
     <PersonSearchButtonGroup
@@ -14,6 +15,7 @@ const render = ({
       onSubmit={onSubmit}
       canSearch={canSearch}
       total={total}
+      isFetching={isFetching}
     />
   )
 
@@ -28,6 +30,18 @@ describe('PersonSearchButtonGroup', () => {
     const component = render()
     const searchButton = component.find('button.person-search-button.search')
     expect(searchButton.text()).toEqual('Search')
+  })
+
+  it('renders search button with a loading indicator when total is null and isFetching is true', () => {
+    const component = render({total: null, isFetching: true})
+    const loadingIndicator = component.find('button.person-search-button.search i')
+    expect(loadingIndicator.exists()).toBe(true)
+  })
+
+  it('do not render search button with a loading indicator when total is null and isFetching is false', () => {
+    const component = render({total: null, isFetching: false})
+    const loadingIndicator = component.find('button.person-search-button.search i')
+    expect(loadingIndicator.exists()).toBe(false)
   })
 
   it('renders clear button', () => {

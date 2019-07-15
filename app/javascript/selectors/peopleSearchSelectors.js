@@ -33,6 +33,8 @@ export const selectResultsTotalValue = state =>
   selectPeopleSearch(state).get('total')
 export const selectCheckSearchResults = state =>
   selectPeopleSearch(state).get('checkSearchResults')
+export const selectLoadingStatus = state =>
+  selectPeopleSearch(state).get('isFetching')
 export const selectLastResultsSortValue = state => {
   const lastResult = selectPeopleSearch(state)
     .get('results')

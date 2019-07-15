@@ -27,6 +27,7 @@ describe('peopleSearchReducer', () => {
         fromJS({
           total: null,
           checkSearchResults: true,
+          isFetching: true,
         })
       )
     })
@@ -88,6 +89,7 @@ describe('peopleSearchReducer', () => {
             results: [],
             startTime: null,
             checkSearchResults: false,
+            isFetching: false,
           })
         )
       })

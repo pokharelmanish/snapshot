@@ -10,6 +10,7 @@ import {
   selectSsnErrors,
   selectDobErrors,
   selectCanSearch,
+  selectLoadingStatus,
 } from 'selectors/peopleSearchSelectors'
 import {
   search,
@@ -45,6 +46,7 @@ const mapStateToProps = state => {
     participants: selectParticipants(state).toJS(),
     isSelectable,
     canSearch: selectCanSearch(state),
+    isFetching: selectLoadingStatus(state),
   }
 }
 
