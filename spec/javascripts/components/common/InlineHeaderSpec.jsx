@@ -9,6 +9,6 @@ describe('InlineHeader', () => {
 
   it('displays the header with heading text', () => {
     const component = renderInlineHeader({heading: 'Important heading'})
-    expect(component.find('div div legend').text()).toEqual('Important heading')
+    expect(component.find('div legend').text()).toEqual('Important heading')
   })
 })
