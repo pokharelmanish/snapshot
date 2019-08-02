@@ -6,9 +6,7 @@ import SuggestionHeader from 'common/SuggestionHeader'
 import ShowMoreResults from 'common/ShowMoreResults'
 import {logEvent} from 'utils/analytics'
 import moment from 'moment'
-import PersonSearchFields from 'common/search/PersonSearchFields'
 import {PersonSearchFieldsPropType} from 'data/personSearch'
-import {isValidDate} from 'utils/dateFormatter'
 
 const MIN_SEARCHABLE_CHARS = 2
 const addPosAndSetAttr = (results) => {
@@ -29,32 +27,6 @@ export default class Autocompleter extends Component {
     this.renderMenu = this.renderMenu.bind(this)
     this.onChangeInput = this.onChangeInput.bind(this)
     this.renderItem = this.renderItem.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  searchAndFocus() {
-    const {onChange, onSearch, isAdvancedSearchOn, personSearchFields, results} = this.props
-    const {lastName, firstName, middleName, clientId, suffix, ssn,
-      dateOfBirth, approximateAge, approximateAgeUnits, searchByAgeMethod} = personSearchFields
-    const suffixWithComma = suffix ? `, ${suffix}` : ''
-    const lastNameWithSuffix = `${lastName}${suffixWithComma}`
-    const totalResultsReceived = results.length
-    let searchTermList = [firstName, middleName, lastNameWithSuffix, clientId, ssn]
-    if (searchByAgeMethod === 'dob') {
-      searchTermList.push(dateOfBirth)
-    } else if (searchByAgeMethod === 'approximate') {
-      searchTermList = searchTermList.concat([approximateAge, approximateAgeUnits])
-    }
-    const searchTerm = searchTermList.filter(Boolean).join(' ').trim()
-    onSearch(isAdvancedSearchOn, personSearchFields, totalResultsReceived)
-    onChange('searchTerm', searchTerm)
-    this.setState({menuVisible: true})
-    if (this.inputRef) { this.inputRef.focus() }
-  }
-
-  handleSubmit() {
-    this.props.onClear('results')
-    this.searchAndFocus()
   }
 
   isSearchable(value) {
@@ -204,36 +176,8 @@ export default class Autocompleter extends Component {
     )
   }
 
-  renderPersonSearchFields() {
-    const {total, onChange, onCancel, onBlur, onFocus, personSearchFields, isAdvancedSearchOn, clientIdError, ssnErrors, dobErrors, canSearch, counties, isFetching} = this.props
-    const searchWithEnter = (e) => {
-      const enterKeyCode = 13
-      if ((canSearch && e.charCode === enterKeyCode)) { this.handleSubmit() }
-    }
-    const validateAndSetDateOfBirth = (e) => { if (isValidDate(e.target.value)) { onChange('dateOfBirth', moment(e.target.value).format('YYYY-MM-DD')) } }
-    return (
-      <PersonSearchFields
-        onBlur={onBlur}
-        onChange={onChange}
-        onCancel={onCancel}
-        onSubmit={this.handleSubmit}
-        personSearchFields={personSearchFields}
-        isAdvancedSearchOn={isAdvancedSearchOn}
-        clientIdError={clientIdError}
-        ssnErrors={ssnErrors}
-        dobErrors={dobErrors}
-        canSearch={canSearch}
-        onKeyPress={searchWithEnter}
-        onKeyUp={validateAndSetDateOfBirth}
-        onFocus={onFocus}
-        counties={counties}
-        total={total}
-        isFetching={isFetching}
-      />)
-  }
-
   render() {
-    return (<div>{this.renderAutocomplete()}{this.renderPersonSearchFields()}</div>)
+    return (<div>{this.renderAutocomplete()}</div>)
   }
 }
 
