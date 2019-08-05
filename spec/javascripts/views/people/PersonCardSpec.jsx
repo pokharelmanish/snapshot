@@ -17,6 +17,7 @@ describe('PersonCard', () => {
     personId = '123',
     personName = 'Bob Smith',
     informationPill = null,
+    participants = [],
   }) {
     const props = {
       deletable,
@@ -30,6 +31,7 @@ describe('PersonCard', () => {
       personId,
       personName,
       informationPill,
+      participants,
     }
     return shallow(<PersonCard {...props}/>)
   }
