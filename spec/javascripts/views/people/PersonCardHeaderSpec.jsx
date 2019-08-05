@@ -11,14 +11,25 @@ describe('PersonCardHeader', () => {
     onEdit = jasmine.createSpy('onEdit')
   })
 
-  function renderComponent({title = 'J Doe', showEdit = true, showDelete = true, informationFlag = null, informationPill = null}) {
-    const props = {informationFlag, title, showDelete, showEdit, informationPill, onEdit, onDelete}
+  function renderComponent({title = 'J Doe', showEdit = true, showDelete = true, informationFlag = null, informationPill = null, participants = []}) {
+    const props = {informationFlag, title, showDelete, showEdit, informationPill, onEdit, onDelete, participants}
     return shallow(<PersonCardHeader {...props} />, {disableLifecycleMethods: true})
   }
 
   it('renders a header element', () => {
     const component = renderComponent({title: 'Alex'})
     expect(component.find('h2').length).toEqual(1)
+  })
+
+  it('renders a Remove button when participants is more than one', () => {
+    const component = renderComponent({participants: [{id: '1'}, {id: '2'}]})
+    expect(component.find('button[aria-label="Remove person"]').length).toBe(1)
+    expect(component.find('button').text()).toEqual('Remove')
+  })
+
+  it('doesnot render Remove button when participants is less than one', () => {
+    const component = renderComponent({participants: [{id: '1'}]})
+    expect(component.find('button[aria-label="Remove person"]').length).toBe(0)
   })
 
   it('displays the name passed in the props', () => {
@@ -77,13 +88,13 @@ describe('PersonCardHeader', () => {
 
   describe('delete button', () => {
     it('displays if showDelete is true', () => {
-      const component = renderComponent({showDelete: true})
+      const component = renderComponent({showDelete: true, participants: [{id: '1'}, {id: '2'}]})
       const deleteButton = component.find('button[aria-label="Remove person"]')
       expect(deleteButton.exists()).toEqual(true)
     })
 
     it('calls the onDelete function from the props when clicked', () => {
-      const component = renderComponent({showEdit: true})
+      const component = renderComponent({showEdit: true, participants: [{id: '1'}, {id: '2'}]})
       const deleteButton = component.find('button[aria-label="Remove person"]')
       deleteButton.simulate('click')
       expect(onDelete).toHaveBeenCalled()

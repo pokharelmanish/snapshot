@@ -22,6 +22,7 @@ class PersonCard extends React.PureComponent {
       onDelete,
       onEdit,
       personName,
+      participants,
     } = this.props
     return (
       <PersonCardHeader
@@ -32,6 +33,7 @@ class PersonCard extends React.PureComponent {
         showEdit={editable && mode === SHOW_MODE}
         title={personName}
         informationPill={informationPill}
+        participants={participants}
       />
     )
   }
@@ -82,6 +84,7 @@ PersonCard.propTypes = {
   onDelete: PropTypes.func,
   onEdit: PropTypes.func,
   onSave: PropTypes.func,
+  participants: PropTypes.array,
   personId: PropTypes.string.isRequired,
   personName: PropTypes.string.isRequired,
   show: PropTypes.object,
