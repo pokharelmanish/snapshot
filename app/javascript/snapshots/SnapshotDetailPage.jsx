@@ -17,6 +17,7 @@ import {getHasGenericErrorValueSelector} from 'selectors/errorsSelectors'
 import {selectPeopleResults} from 'selectors/peopleSearchSelectors'
 import {Link} from 'react-router'
 import LoadingModal from 'common/LoadingModal'
+import SnapshotSideBar from 'snapshots/SnapshotSideBar'
 
 export class SnapshotDetailPage extends React.Component {
   componentDidMount() {
@@ -101,7 +102,12 @@ export class SnapshotDetailPage extends React.Component {
         </div>
         <div className={`container snapshot-container ${genericErrorClass}`}>
           <div className="row">
-            {this.renderBody(participants)}
+            <div className="col-xs-2 col-md-2">
+              <SnapshotSideBar participants={participants} />
+            </div>
+            <div className="col-xs-10 col-md-10">
+              {this.renderBody(participants)}
+            </div>
           </div>
         </div>
       </Fragment>
