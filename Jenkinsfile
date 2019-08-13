@@ -372,5 +372,5 @@ def ansibleCommand(environment, version){
 }
 
 def githubConfig() {
-  githubConfigProperties('https://github.com/ca-cwds/intake')
+  githubConfigProperties('https://github.com/ca-cwds/snapshot')
 }
