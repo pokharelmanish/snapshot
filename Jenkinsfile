@@ -147,7 +147,7 @@ def lintTest() {
 def verifySemVerLabel() {
   stage('Verify SemVer Label') {
     curStage = 'Verify SemVer Label'
-    checkForLabel("intake")
+    checkForLabel("snapshot")
   }
 }
 
