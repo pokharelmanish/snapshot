@@ -4,17 +4,6 @@ import SideBarPeople from 'views/SideBarPeople'
 
 describe('SideBarPeople', () => {
   let component
-  describe('when empty', () => {
-    const participants = []
-
-    it('renders a link to the People Search card', () => {
-      component = shallow(<SideBarPeople participants={participants}/>, {disableLifecycleMethods: true})
-
-      expect(component.find('NavLink[text="People & Roles"]').props().href
-      ).toBe('#participants-card-undefined-anchor')
-    })
-  })
-
   describe('with participants', () => {
     const participants = [
       {id: '1', first_name: 'Scooby', last_name: 'Doo', name_suffix: 'esq'},
