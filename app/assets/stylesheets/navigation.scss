@@ -136,6 +136,8 @@
 }
 
 .side-bar {
+  clear: left;
+  float: left;
   height: calc(100vh - #{$banner-height + $page-header-height + $bread-crumb-height});
   overflow-x: hidden;
   overflow-y: auto;
