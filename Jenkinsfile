@@ -147,7 +147,7 @@ def lintTest() {
 def verifySemVerLabel() {
   stage('Verify SemVer Label') {
     curStage = 'Verify SemVer Label'
-    checkForLabel("intake")
+    checkForLabel("snapshot")
   }
 }
 
@@ -372,5 +372,5 @@ def ansibleCommand(environment, version){
 }
 
 def githubConfig() {
-  githubConfigProperties('https://github.com/ca-cwds/intake')
+  githubConfigProperties('https://github.com/ca-cwds/snapshot')
 }
