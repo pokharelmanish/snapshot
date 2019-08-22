@@ -20,6 +20,42 @@ export const Relationships = ({
   relationshipsButtonStatus,
 }) => (
   <div className="card-body no-pad-top">
+    {isScreening &&
+      people.map((person, index) => (
+        <div key={index}>
+          <div className="row" key={`new-${index}`}>
+            <div className="col-md-12">
+              {person.relationships.length > 0 && (
+                <span>
+                  <RelationCard
+                    editFormRelationship={editFormRelationship}
+                    errors={errors}
+                    isInvalidForm={isInvalidForm}
+                    isSaving={isSaving}
+                    isScreening={isScreening}
+                    onChange={onChange}
+                    onClick={onClick}
+                    onEdit={onEdit}
+                    onSave={onSave}
+                    person={person}
+                    screeningId={screeningId}
+                    pendingPeople={pendingPeople}
+                  />
+                </span>
+              )}
+              {person.relationships.length === 0 && (
+                <div className="no-relationships well">
+                  <strong>{person.name}</strong> has no known relationships
+                </div>
+              )}
+            </div>
+          </div>
+          <ScreeningCreateRelationshipContainer
+            personId={person.id}
+            relationshipsButtonStatus={relationshipsButtonStatus}
+          />
+        </div>
+      ))}
     {!isScreening &&
       people.map((person, index) => (
         <div className="row" key={index}>
