@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import AttachLink from 'common/relationship/AttachLink'
-import RelationCard from 'common/relationship/RelationCard'
-import ScreeningCreateRelationshipContainer from 'containers/screenings/ScreeningCreateRelationshipContainer'
 import {CandidatesPropType} from 'data/candidates'
 
 export const Relationships = ({
@@ -20,88 +18,50 @@ export const Relationships = ({
   relationshipsButtonStatus,
 }) => (
   <div className="card-body no-pad-top">
-    {isScreening &&
-      people.map((person, index) => (
-        <div key={index}>
-          <div className="row" key={`new-${index}`}>
-            <div className="col-md-12">
-              {person.relationships.length > 0 && (
-                <span>
-                  <RelationCard
-                    editFormRelationship={editFormRelationship}
-                    errors={errors}
-                    isInvalidForm={isInvalidForm}
-                    isSaving={isSaving}
-                    isScreening={isScreening}
-                    onChange={onChange}
-                    onClick={onClick}
-                    onEdit={onEdit}
-                    onSave={onSave}
-                    person={person}
-                    screeningId={screeningId}
-                    pendingPeople={pendingPeople}
-                  />
-                </span>
-              )}
-              {person.relationships.length === 0 && (
-                <div className="no-relationships well">
-                  <strong>{person.name}</strong> has no known relationships
-                </div>
-              )}
-            </div>
-          </div>
-          <ScreeningCreateRelationshipContainer
-            personId={person.id}
-            relationshipsButtonStatus={relationshipsButtonStatus}
-          />
-        </div>
-      ))}
-    {!isScreening &&
-      people.map((person, index) => (
-        <div className="row" key={index}>
-          <div className="col-md-8 gap-top">
-            <span className="person">{person.name}</span>
-            {person.relationships.length > 0 && (
-              <span>
-                <strong> is the...</strong>
-                <ul className="relationships">
-                  {person.relationships.map((relationship, index) => (
-                    <li key={index} className="gap-top">
-                      <strong>{relationship.type}</strong> &nbsp; of{' '}
-                      {relationship.name}
-                      {relationship.isSealed && (
-                        <span className="information-flag search-result">
+    {people.map((person, index) => (
+      <div className="row" key={index}>
+        <div className="col-md-8 gap-top">
+          <span className="person">{person.name}</span>
+          {person.relationships.length > 0 && (
+            <span>
+              <strong> is the...</strong>
+              <ul className="relationships">
+                {person.relationships.map((relationship, index) => (
+                  <li key={index} className="gap-top">
+                    <strong>{relationship.type}</strong> &nbsp; of{' '}
+                    {relationship.name}
+                    {relationship.isSealed && (
+                      <span className="information-flag search-result">
                           Sealed
-                        </span>
-                      )}
-                      {relationship.isSensitive && (
-                        <span className="information-flag search-result">
+                      </span>
+                    )}
+                    {relationship.isSensitive && (
+                      <span className="information-flag search-result">
                           Sensitive
-                        </span>
-                      )}
-                      <AttachLink
-                        isScreening={isScreening}
-                        onClick={onClick}
-                        participants={participants}
-                        pendingPeople={pendingPeople}
-                        relationship={relationship}
-                        screeningId={screeningId}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </span>
-            )}
-            {person.relationships.length === 0 && (
-              <strong className="relationships">
-                {' '}
+                      </span>
+                    )}
+                    <AttachLink
+                      isScreening={false}
+                      onClick={onClick}
+                      participants={participants}
+                      pendingPeople={pendingPeople}
+                      relationship={relationship}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </span>
+          )}
+          {person.relationships.length === 0 && (
+            <strong className="relationships">
+              {' '}
                 has no known relationships
-              </strong>
-            )}
-            <div id="relationships-list" />
-          </div>
+            </strong>
+          )}
+          <div id="relationships-list" />
         </div>
-      ))}
+      </div>
+    ))}
   </div>
 )
 

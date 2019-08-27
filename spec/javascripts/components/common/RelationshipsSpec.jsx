@@ -128,14 +128,6 @@ describe('Relationships for Screening', () => {
     component = renderRelationships({people, candidates})
   })
 
-  describe('ScreeningCreateRelationshipContainer', () => {
-    it('render ScreeningCreateRelationshipContainer for each person', () => {
-      expect(
-        component.find('Connect(ScreeningCreateRelationship)').length
-      ).toEqual(7)
-    })
-  })
-
   describe('Relationship for Relation Card Component', () => {
     it('renders a RelationCard component for each person with relationships', () => {
       expect(component.find('RelationCard').length).toEqual(4)
