@@ -86,7 +86,7 @@ class SearchResultsTable extends React.Component {
       ...commonStyle,
     },
     {
-      Header: "Staff Person's phone number",
+      Header: "Staff Person's Phone",
       accessor: 'spPhone',
       Cell: (row) =>
         <div x-ms-format-detection="none">

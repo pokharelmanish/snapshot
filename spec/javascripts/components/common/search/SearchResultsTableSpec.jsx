@@ -160,7 +160,7 @@ describe('SearchResultsTable', () => {
         expect(header.at(4).text()).toEqual('Address')
         expect(header.at(5).text()).toEqual('Case Status')
         expect(header.at(6).find('span').at(0).text()).toEqual('County')
-        expect(header.at(7).text()).toEqual("Staff Person's phone number")
+        expect(header.at(7).text()).toEqual("Staff Person's Phone")
       })
 
       it('renders the correct number of rows', () => {
