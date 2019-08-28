@@ -10,10 +10,10 @@ services:
       - "4857:4857"
     environment:
       RAILS_ENV: ${RAILS_ENV:-development}
-      FERB_API_URL: "https://ferbapi.preint.cwds.io"
-      DORA_API_URL: "https://doraapi.preint.cwds.io"
+      FERB_API_URL: "https://ferbapi.integration.cwds.io"
+      DORA_API_URL: "https://doraapi.integration.cwds.io"
       NODE_ENV: development
-      AUTHENTICATION_URL: ${AUTHENTICATION_URL:-https://web.preint.cwds.io/perry}
+      AUTHENTICATION_URL: ${AUTHENTICATION_URL:-https://web.integration.cwds.io/perry}
       AUTHENTICATION: ${AUTHENTICATION:-true}
       REDIS_HOST: 'redis'
       REDIS_PORT: 6379
