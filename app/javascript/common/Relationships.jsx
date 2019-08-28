@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import AttachLink from 'common/relationship/AttachLink'
 import {CandidatesPropType} from 'data/candidates'
 
 export const Relationships = ({
@@ -26,19 +27,26 @@ export const Relationships = ({
               <strong> is the...</strong>
               <ul className="relationships">
                 {person.relationships.map((relationship, index) => (
-                  <li key={index} className="gap-top person-relationship">
-                    <strong className="relationship-type">{relationship.type}</strong> &nbsp; of{' '}
-                    <span className="relationship-name">{relationship.name}</span>
+                  <li key={index} className="gap-top">
+                    <strong>{relationship.type}</strong> &nbsp; of{' '}
+                    {relationship.name}
                     {relationship.isSealed && (
                       <span className="information-flag search-result">
-        Sealed
+                          Sealed
                       </span>
                     )}
                     {relationship.isSensitive && (
                       <span className="information-flag search-result">
-        Sensitive
+                          Sensitive
                       </span>
                     )}
+                    <AttachLink
+                      isScreening={false}
+                      onClick={onClick}
+                      participants={participants}
+                      pendingPeople={pendingPeople}
+                      relationship={relationship}
+                    />
                   </li>
                 ))}
               </ul>
@@ -47,7 +55,7 @@ export const Relationships = ({
           {person.relationships.length === 0 && (
             <strong className="relationships">
               {' '}
-    has no known relationships
+                has no known relationships
             </strong>
           )}
           <div id="relationships-list" />
