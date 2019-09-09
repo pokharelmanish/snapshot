@@ -102,10 +102,10 @@ export class SnapshotDetailPage extends React.Component {
         </div>
         <div className={`container snapshot-container ${genericErrorClass}`}>
           <div className="row">
-            <div className="col-xs-2 col-md-2">
+            <div className="col-xs-3 col-sm-3 col-md-3 left-nav">
               <SnapshotSideBar participants={participants} />
             </div>
-            <div className="col-xs-10 col-md-10">
+            <div className="col-xs-9 col-md-9">
               {this.renderBody(participants)}
             </div>
           </div>
