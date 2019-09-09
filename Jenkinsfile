@@ -76,7 +76,7 @@ def buildPullRequest() {
 
 def buildMaster() {
   node('intake-slave') {
-    triggerProperties = pullRequestMergedTriggerProperties('intake-master')
+    triggerProperties = pullRequestMergedTriggerProperties('snapshot-master')
     properties([
       pipelineTriggers([triggerProperties]),
       buildDiscarderDefaults('master'),
@@ -90,7 +90,6 @@ def buildMaster() {
       buildingTestBench()
       lintTest()
       karmaTests()
-      rspecTests()
       rspecTestsSnapshot()
       build()
       incrementTag()
@@ -155,17 +154,6 @@ def karmaTests() {
   stage('Karma tests') {
     curStage = 'Karma tests'
     sh './scripts/ci/karma_test.rb'
-  }
-}
-
-def rspecTests() {
-  stage('Rspec tests') {
-    curStage = 'Rspec tests'
-    try {
-      sh './scripts/ci/rspec_test.rb'
-    } catch(Exception e) {
-      // ignore test results, because there will be also a run for Snapshot tests which we take into account
-    }
   }
 }
 
