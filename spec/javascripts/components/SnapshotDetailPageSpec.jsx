@@ -33,6 +33,12 @@ describe('SnapshotDetailPage', () => {
       expect(crumbs[1]).toBe('Detail')
     })
 
+    it('renders SnapshotSideBar', () => {
+      const page = render({})
+      const snapshotSideBar = page.find('SnapshotSideBar')
+      expect(snapshotSideBar.exists()).toBe(true)
+    })
+
     describe('details', () => {
       describe('when there are participant details', () => {
         let page
