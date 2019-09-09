@@ -50,7 +50,6 @@ describe('HyphenatedMaskedInput', () => {
       expect(props.label).toEqual('label')
       expect(props.mask).toEqual(mask)
       expect(props.maxLength).toEqual(9)
-      expect(typeof props.moveCursor).toEqual('function')
       expect(typeof props.onBlur).toEqual('function')
       expect(typeof props.onChange).toEqual('function')
       expect(typeof props.onFocus).toEqual('function')

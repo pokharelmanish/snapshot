@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import MaskedInputField from 'common/MaskedInputField'
-import {moveCursor} from 'utils/moveCursor'
 
 const HyphenatedMaskedInput = ({mask, ...props}) => {
   const placeholder = mask.replace(/[0-9]/g, '_')
@@ -12,7 +11,6 @@ const HyphenatedMaskedInput = ({mask, ...props}) => {
       mask={mask}
       placeholder={placeholder}
       maxLength={maxLength}
-      moveCursor={moveCursor}
       {...props}
     />
   )
