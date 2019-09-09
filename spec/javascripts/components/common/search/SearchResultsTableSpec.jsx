@@ -157,10 +157,10 @@ describe('SearchResultsTable', () => {
         expect(header.at(1).text()).toEqual('Name')
         expect(header.at(2).find('span').at(0).text()).toEqual('Date of Birth')
         expect(header.at(3).text()).toEqual('Sex at Birth')
-        expect(header.at(4).find('span').at(0).text()).toEqual('County')
-        expect(header.at(5).text()).toEqual('Service Provider Phone')
-        expect(header.at(6).text()).toEqual('Address')
-        expect(header.at(7).text()).toEqual('Case Status')
+        expect(header.at(4).text()).toEqual('Address')
+        expect(header.at(5).text()).toEqual('Case Status')
+        expect(header.at(6).find('span').at(0).text()).toEqual('County')
+        expect(header.at(7).text()).toEqual("Staff Person's Phone")
       })
 
       it('renders the correct number of rows', () => {
@@ -176,11 +176,11 @@ describe('SearchResultsTable', () => {
         expect(cell.at(1).find('span').at(1).text()).toEqual(' (AKA: Laure)')
         expect(cell.at(2).text()).toEqual('01/03/2005')
         expect(cell.at(3).text()).toEqual('Female')
-        expect(cell.at(4).text()).toEqual('pokhara')
-        expect(cell.at(5).text()).toEqual('(111) 111-1111')
-        expect(cell.at(5).find('div').at(1).props()['x-ms-format-detection']).toEqual('none')
-        expect(cell.at(6).text()).toEqual('4451 Anniversary Parkway, Lake Elsinore, CA 92530')
-        expect(cell.at(7).text()).toEqual('Closed')
+        expect(cell.at(4).text()).toEqual('4451 Anniversary Parkway, Lake Elsinore, CA 92530')
+        expect(cell.at(5).text()).toEqual('Closed')
+        expect(cell.at(6).text()).toEqual('pokhara')
+        expect(cell.at(7).text()).toEqual('(111) 111-1111')
+        expect(cell.at(7).find('div').at(1).props()['x-ms-format-detection']).toEqual('none')
       })
 
       it('renders Approximate Dob', () => {

@@ -15,7 +15,7 @@ describe('RelationshipsCard', () => {
   })
 
   it('renders a relationships container when there are relationships based on screening/snapshot page', () => {
-    const component = renderRelationshipsCard({areRelationshipsEmpty: false, isScreening: false})
+    const component = renderRelationshipsCard({areRelationshipsEmpty: false})
     expect(component.find('CardView').props().show).toEqual(<RelationshipsSnapshotContainer />)
   })
 })

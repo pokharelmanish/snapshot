@@ -33,6 +33,14 @@ describe('SnapshotDetailPage', () => {
       expect(crumbs[1]).toBe('Detail')
     })
 
+    it('renders SnapshotSideBar', () => {
+      const page = render({})
+      const snapshotSideBar = page.find('SnapshotSideBar')
+      expect(snapshotSideBar.exists()).toBe(true)
+      expect(page.find('div.left-nav').props().className)
+        .toEqual('col-xs-3 col-sm-3 col-md-3 left-nav')
+    })
+
     describe('details', () => {
       describe('when there are participant details', () => {
         let page

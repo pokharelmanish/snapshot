@@ -124,6 +124,7 @@
 .nested-block {
   .navlink {
     display: flex;
+    margin-right: 1rem;
     padding: 1rem;
 
     .pre-icon {
@@ -135,9 +136,12 @@
 }
 
 .side-bar {
+  clear: left;
+  float: left;
   height: calc(100vh - #{$banner-height + $page-header-height + $bread-crumb-height});
   overflow-x: hidden;
   overflow-y: auto;
+  width: max-content;
 
   div {
     height: 100%;

@@ -65,20 +65,6 @@ class SearchResultsTable extends React.Component {
       ...commonStyle,
     },
     {
-      Header: <CountyTableHeader />,
-      accessor: 'spCounty',
-      ...commonStyle,
-    },
-    {
-      Header: 'Service Provider Phone',
-      accessor: 'spPhone',
-      Cell: (row) =>
-        <div x-ms-format-detection="none">
-          {phoneNumberFormatter(row.original.spPhone)}
-        </div>,
-      ...commonStyle,
-    },
-    {
       id: 'address',
       Header: 'Address',
       accessor: (result) => {
@@ -92,6 +78,20 @@ class SearchResultsTable extends React.Component {
     {
       Header: 'Case Status',
       accessor: 'caseStatus',
+      ...commonStyle,
+    },
+    {
+      Header: <CountyTableHeader />,
+      accessor: 'spCounty',
+      ...commonStyle,
+    },
+    {
+      Header: "Staff Person's Phone",
+      accessor: 'spPhone',
+      Cell: (row) =>
+        <div x-ms-format-detection="none">
+          {phoneNumberFormatter(row.original.spPhone)}
+        </div>,
       ...commonStyle,
     },
   ]
