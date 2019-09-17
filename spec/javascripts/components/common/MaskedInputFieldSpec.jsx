@@ -10,12 +10,11 @@ describe('MaskedInputField', () => {
     onChange = () => {},
     onFocus = () => {},
     onBlur = () => {},
-    moveCursor = () => {},
     onKeyPress = () => {},
     onKeyDown = () => {},
     ...args
   }) => {
-    const props = {id, label, onBlur, onChange, moveCursor, onFocus, onKeyPress, onKeyDown, value, ...args}
+    const props = {id, label, onBlur, onChange, onFocus, onKeyPress, onKeyDown, value, ...args}
     return shallow(<MaskedInputField {...props} />, {disableLifecycleMethods: true})
   }
 
@@ -97,14 +96,12 @@ describe('MaskedInputField', () => {
   })
 
   describe('onFocus', () => {
-    it('when the field has focus calls onFocus and moveCursor', () => {
+    it('when the field has focus calls onFocus', () => {
       const onFocus = jasmine.createSpy('onFocus')
-      const moveCursor = jasmine.createSpy('moveCursor')
       const event = {target: {placeholder: ''}}
-      const maskedInput = render({onFocus, moveCursor}).find('MaskedInput')
+      const maskedInput = render({onFocus}).find('MaskedInput')
       maskedInput.props().onFocus(event)
       expect(onFocus).toHaveBeenCalledWith()
-      expect(moveCursor).toHaveBeenCalledWith(0, event)
     })
   })
 
@@ -137,42 +134,6 @@ describe('MaskedInputField', () => {
     })
   })
 
-  describe('onClick', () => {
-    let moveCursor
-    let event
-
-    beforeEach(() => {
-      moveCursor = jasmine.createSpy('moveCursor')
-      event = {target: null}
-    })
-
-    describe('when value is empty string', () => {
-      it('calls moveCursor with 0 and the event', () => {
-        const maskedInput = render({moveCursor}).find('MaskedInput')
-        maskedInput.props().onClick(event)
-        expect(moveCursor).toHaveBeenCalledWith(0, event)
-      })
-    })
-
-    describe('when value has 3 numbers and the 4th is a dash char', () => {
-      it('calls moveCursor with 4 and the event', () => {
-        const value = '123-__-____'
-        const maskedInput = render({value, moveCursor}).find('MaskedInput')
-        maskedInput.props().onClick(event)
-        expect(moveCursor).toHaveBeenCalledWith(4, event)
-      })
-    })
-
-    describe('when value has 5 numbers and the 7th char is a dash', () => {
-      it('calls moveCursor with 7 and the event', () => {
-        const value = '123-45-____'
-        const maskedInput = render({value, moveCursor}).find('MaskedInput')
-        maskedInput.props().onClick(event)
-        expect(moveCursor).toHaveBeenCalledWith(7, event)
-      })
-    })
-  })
-
   describe('onKeyDown', () => {
     it('calls onKeyPress when Enter is pressed', () => {
       const event = {keyCode: 13}
@@ -181,60 +142,6 @@ describe('MaskedInputField', () => {
       const wrapper = component.find('div.masked-input-wrapper')
       wrapper.props().onKeyDown(event)
       expect(onKeyPress).toHaveBeenCalledWith({charCode: 13})
-    })
-    describe('when an arrow key is pressed', () => {
-      describe('and the value is empty string', () => {
-        it('calls moveCursor with 0 and the event', () => {
-          const event = {keyCode: 37}
-          const moveCursor = jasmine.createSpy('moveCursor')
-          const wrapper = render({moveCursor}).find('div.masked-input-wrapper')
-          wrapper.props().onKeyDown(event)
-          expect(moveCursor).toHaveBeenCalledWith(0, event)
-        })
-      })
-
-      describe('and the value has 2 numbers', () => {
-        it('calls moveCursor with 2 and the event', () => {
-          const value = '12_-__-____'
-          const event = {keyCode: 38}
-          const moveCursor = jasmine.createSpy('moveCursor')
-          const wrapper = render({value, moveCursor}).find('div.masked-input-wrapper')
-          wrapper.props().onKeyDown(event)
-          expect(moveCursor).toHaveBeenCalledWith(2, event)
-        })
-      })
-
-      describe('and the value has 3 numbers', () => {
-        it('calls moveCursor with 4 and the event', () => {
-          const value = '123-__-____'
-          const event = {keyCode: 39}
-          const moveCursor = jasmine.createSpy('moveCursor')
-          const wrapper = render({value, moveCursor}).find('div.masked-input-wrapper')
-          wrapper.props().onKeyDown(event)
-          expect(moveCursor).toHaveBeenCalledWith(4, event)
-        })
-      })
-
-      describe('and the value has 7 numbers', () => {
-        it('calls moveCursor with 9 and the event', () => {
-          const value = '123-45-67__'
-          const event = {keyCode: 40}
-          const moveCursor = jasmine.createSpy('moveCursor')
-          const wrapper = render({value, moveCursor}).find('div.masked-input-wrapper')
-          wrapper.props().onKeyDown(event)
-          expect(moveCursor).toHaveBeenCalledWith(9, event)
-        })
-      })
-    })
-
-    describe('when a key other than an arrow key is pressed', () => {
-      it('does not call move cursor', () => {
-        const value = '123-45-____'
-        const moveCursor = jasmine.createSpy('moveCursor')
-        const wrapper = render({value, moveCursor}).find('div.masked-input-wrapper')
-        wrapper.props().onKeyDown({keyCode: 13})
-        expect(moveCursor).not.toHaveBeenCalled()
-      })
     })
   })
 
